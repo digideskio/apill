@@ -28,7 +28,7 @@ Gem::Specification.new do |gem|
   gem.test_files        = Dir['{test,spec,features}/**/*']
   gem.require_paths     = ['lib']
 
-  gem.add_dependency              'human_error',    '~> 1.0'
+  gem.add_dependency              'human_error',    '~> 1.2'
 
   gem.add_development_dependency  'rspec',          '~> 3.0beta'
   gem.add_development_dependency  'rspectacular',   '~> 0.23'
