@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    apill (1.0.0)
-      human_error (~> 1.0)
+    apill (1.1.0)
+      human_error (~> 1.2)
 
 GEM
   remote: https://rubygems.org/
