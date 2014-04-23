@@ -9,7 +9,7 @@ class   InvalidApiRequestResponse
     [
       error.http_status,  # HTTP Status Code
       {},                 # Response Headers
-      error.to_json,      # Message
+      [ error.to_json ],  # Message
     ]
   end
 end
