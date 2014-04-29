@@ -14,6 +14,16 @@ describe  AcceptHeaderMatcher do
     expect(matcher.matches?(request)).to be_truthy
   end
 
+  it 'matches if the subdomain is API and the accept header is passed in as a parameter' do
+    request = OpenStruct.new(headers:     {},
+                             params:      { 'accept' => 'application/vnd.matrix+zion;version=1.0.0'  },
+                             subdomains:  [ 'api' ])
+
+    matcher = AcceptHeaderMatcher.new(application: 'matrix')
+
+    expect(matcher.matches?(request)).to be_truthy
+  end
+
   it 'does not match if the subdomain is not API but the accept header is valid' do
     request = OpenStruct.new(headers:     { 'Accept' => 'application/vnd.matrix+zion' },
                              subdomains:  [ 'not-api' ])

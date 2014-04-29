@@ -13,8 +13,10 @@ module  GenericMatcher
   end
 
   def matches?(request)
+    raw_accept_header = request.headers['Accept'] || request.params['accept']
+
     self.accept_header = Apill::AcceptHeader.new(application:  application,
-                                                 header:       request.headers['Accept'])
+                                                 header:       raw_accept_header)
   end
 end
 end
