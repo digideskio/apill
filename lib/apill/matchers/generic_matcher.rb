@@ -13,10 +13,26 @@ module  GenericMatcher
   end
 
   def matches?(request)
-    raw_accept_header = request.headers['Accept'] || request.params['accept']
+    self.accept_header = get_accept_header(raw_header_from_headers: request.headers['Accept'],
+                                           raw_header_from_params:  request.params['accept'])
+  end
 
-    self.accept_header = Apill::AcceptHeader.new(application:  application,
-                                                 header:       raw_accept_header)
+  private
+
+  def get_accept_header(raw_header_from_headers:, raw_header_from_params:)
+    return accept_header_from_header if accept_header_from_header(raw_header_from_headers).valid? || raw_header_from_params.nil?
+
+    accept_header_from_params(raw_header_from_params)
+  end
+
+  def accept_header_from_header(raw_header_from_headers='')
+    @accept_header_from_header ||= Apill::AcceptHeader.new(application:  application,
+                                                           header:       raw_header_from_headers)
+  end
+
+  def accept_header_from_params(raw_header_from_params='')
+    @accept_header_from_params ||= Apill::AcceptHeader.new(application:  application,
+                                                           header:       raw_header_from_params)
   end
 end
 end
