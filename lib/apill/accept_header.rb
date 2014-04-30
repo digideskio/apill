@@ -5,7 +5,7 @@ class   AcceptHeader
 
   def initialize(application:, header:)
     self.application       = application
-    self.raw_accept_header = header
+    self.raw_accept_header = header || ''
   end
 
   def version

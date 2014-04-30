@@ -17,6 +17,18 @@ describe  AcceptHeader do
     expect(header).not_to be_valid
   end
 
+  it 'does not validate an accept header if it is not passed in' do
+    header = AcceptHeader.new(application:  '',
+                              header:       '')
+
+    expect(header).not_to be_valid
+
+    header = AcceptHeader.new(application:  '',
+                              header:       nil)
+
+    expect(header).not_to be_valid
+  end
+
   it 'does not validate an accept header without an application in the header' do
     header = AcceptHeader.new(application:  'matrix',
                               header:       'application/vnd.+zion;version=1.0.0')
