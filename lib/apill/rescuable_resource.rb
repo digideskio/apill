@@ -22,10 +22,13 @@ module  RescuableResource
 
       if from.include? 'not_found'
         rescue_from HumanError::Errors::ResourceNotFoundError do |e|
+
+          resource_id = e.resource_id.is_a?(Array) ? e.resource_id : [e.resource_id]
+
           error = lookup_library.fetch(
                   'ResourceNotFoundError',
                   resource_name: e.resource_name,
-                  resource_id:   e.resource_id,
+                  resource_id:   resource_id,
                   action:        action_name)
 
           render json:   error,
