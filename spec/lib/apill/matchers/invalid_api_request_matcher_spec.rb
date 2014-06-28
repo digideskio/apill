@@ -7,7 +7,8 @@ module    Matchers
 describe  InvalidApiRequestMatcher do
   it 'is the inverse of whether the accept header matches' do
     request = OpenStruct.new(headers:     { 'Accept' => 'application/vnd.matrix+zion;version=1.0.0' },
-                             subdomains:  [ 'api' ])
+                             subdomains:  [ 'api' ],
+                             params:      {})
 
     matcher = InvalidApiRequestMatcher.new(application: 'matrix')
 

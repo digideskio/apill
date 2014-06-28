@@ -20,19 +20,21 @@ module  GenericMatcher
   private
 
   def get_accept_header(raw_header_from_headers:, raw_header_from_params:)
-    return accept_header_from_header if accept_header_from_header(raw_header_from_headers).valid? || raw_header_from_params.nil?
+    header_from_header = accept_header_from_header(raw_header_from_headers)
 
-    accept_header_from_params(raw_header_from_params)
+    return header_from_header if header_from_header.valid? || raw_header_from_params.nil?
+
+    accept_header_from_header(raw_header_from_params)
   end
 
   def accept_header_from_header(raw_header_from_headers='')
-    @accept_header_from_header ||= Apill::AcceptHeader.new(application:  application,
-                                                           header:       raw_header_from_headers)
+    Apill::AcceptHeader.new(application:  application,
+                            header:       raw_header_from_headers)
   end
 
   def accept_header_from_params(raw_header_from_params='')
-    @accept_header_from_params ||= Apill::AcceptHeader.new(application:  application,
-                                                           header:       raw_header_from_params)
+    Apill::AcceptHeader.new(application:  application,
+                            header:       raw_header_from_params)
   end
 end
 end
