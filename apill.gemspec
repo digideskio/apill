@@ -28,9 +28,9 @@ Gem::Specification.new do |gem|
   gem.test_files        = Dir['{test,spec,features}/**/*']
   gem.require_paths     = ['lib']
 
-  gem.add_dependency              'human_error',    '~> 1.11'
+  gem.add_dependency              'human_error',                '~> 1.11'
 
-  gem.add_development_dependency  'rspec',          '~> 3.0'
-  gem.add_development_dependency  'rspectacular',   '~> 0.38'
+  gem.add_development_dependency  'rspec',                      '~> 3.0'
+  gem.add_development_dependency  'rspectacular',               '~> 0.38'
   gem.add_development_dependency  'codeclimate-test-reporter',  '~> 0.3.0'
 end
