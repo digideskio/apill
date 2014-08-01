@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+- 2.1.2
+script: bundle exec rspec
+notifications:
+  slack:
+    secure: Jr3s82LUmL9CBSWVPGrP1e1pIU9+qfSX/XcfEsEUMzJHmNslW4N1mxF9r/BX5rzMwTHEjBFOOss75Ypjg2KdtNBrdWNtX3Hb70Y9fEtmnJqNqT4KdKCWE10oU0G2an9CPKeQmJpVohUn0JuBrVyT3Q7vegnmsIU69Hya7CeM67o=
+env:
+  global:
+    secure: K7yjiqprxQNMRNeF34bIH1TUn1kYgAuCs9RnL5+5brrwsIoAzigC6G805zIRn0n0zv62xYcyeoVpqCqqi+YttSGOncuw0FvR3CnBipr2wumRevD54H7TDscYir0xb8Wv0/uefONetOKA8tk38l+CZSFu4DnHfhJX9oaiXsZzNCA=
