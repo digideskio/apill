@@ -1,36 +1,26 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'apill/version'
 
-Gem::Specification.new do |gem|
-  gem.rubygems_version  = '1.3.5'
+Gem::Specification.new do |spec|
+  spec.name          = 'apill'
+  spec.version       = Apill::VERSION
+  spec.authors       = ['jfelchner']
+  spec.email         = 'accounts+git@thekompanee.com'
+  spec.summary       = %q{Common API functionality}
+  spec.description   = %q{}
+  spec.homepage      = 'https://github.com/jfelchner/apill'
+  spec.license       = 'MIT'
 
-  gem.name              = 'apill'
-  gem.rubyforge_project = 'apill'
+  spec.executables   = Dir['{bin}/**/*'].map    {|dir| dir.gsub!(/\Abin\//, '')}.
+                                         reject {|bin| %w{rails rspec rake setup deploy}}
+  spec.files         = Dir['{app,config,db,lib}/**/*'] + %w{Rakefile README.md LICENSE}
+  spec.test_files    = Dir['{test,spec,features}/**/*']
 
-  gem.version           = Apill::VERSION
-  gem.platform          = Gem::Platform::RUBY
+  spec.add_dependency             'human_error', ["~> 1.11"]
 
-  gem.authors           = %w{jfelchner}
-  gem.email             = 'accounts+git@thekompanee.com'
-  gem.date              = Time.now
-  gem.homepage          = 'https://github.com/jfelchner/apill'
-
-  gem.summary           = %q{Common API functionality}
-  gem.description       = %q{}
-
-  gem.rdoc_options      = ['--charset = UTF-8']
-  gem.extra_rdoc_files  = %w{README.md LICENSE}
-
-  gem.executables       = Dir['{bin}/**/*'].map {|dir| dir.gsub!(/\Abin\//, '')}
-  gem.files             = Dir['{app,config,db,lib}/**/*'] + %w{Rakefile README.md}
-  gem.test_files        = Dir['{test,spec,features}/**/*']
-  gem.require_paths     = ['lib']
-
-  gem.add_dependency              'human_error',                '~> 1.11'
-
-  gem.add_development_dependency  'rspec',                      '~> 3.0'
-  gem.add_development_dependency  'rspectacular',               '~> 0.50'
-  gem.add_development_dependency  'codeclimate-test-reporter',  '~> 0.3.0'
+  spec.add_development_dependency 'rspec', ["~> 3.0"]
+  spec.add_development_dependency 'rspectacular', ["~> 0.50"]
+  spec.add_development_dependency 'codeclimate-test-reporter', ["~> 0.3.0"]
 end
