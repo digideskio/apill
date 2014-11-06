@@ -7,8 +7,8 @@ module    Matchers
 describe  InvalidApiRequestMatcher do
   it 'is the inverse of whether the accept header matches' do
     request = {
-      'HTTP_HOST'       => 'api.example.com',
-      'HTTP_ACCEPT'     => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_HOST'            => 'api.example.com',
+      'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=1.0.0',
       'API_APPLICATION_NAME' => 'matrix',
     }
 

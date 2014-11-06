@@ -6,7 +6,7 @@ module    Matchers
 describe  AcceptHeaderMatcher do
   it 'matches if the subdomain is API and the accept header is valid' do
     request = {
-      'HTTP_ACCEPT'     => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=1.0.0',
       'API_APPLICATION_NAME' => 'matrix',
     }
 
@@ -19,7 +19,7 @@ describe  AcceptHeaderMatcher do
      'a parameter' do
 
     request = {
-      'QUERY_STRING'    => 'accept=application/vnd.matrix+zion;version=1.0.0',
+      'QUERY_STRING'         => 'accept=application/vnd.matrix+zion;version=1.0.0',
       'API_APPLICATION_NAME' => 'matrix',
     }
 
@@ -32,7 +32,7 @@ describe  AcceptHeaderMatcher do
      'secondary parameter' do
 
     request = {
-      'QUERY_STRING'    => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+      'QUERY_STRING'         => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
       'API_APPLICATION_NAME' => 'matrix',
     }
 
@@ -45,8 +45,8 @@ describe  AcceptHeaderMatcher do
      'is passed both as a valid header and as a parameter' do
 
     request = {
-      'HTTP_ACCEPT'     => 'application/vnd.matrix+zion;version=1.0.0',
-      'QUERY_STRING'    => 'accept=application/vnd.matrix+zion;version=2.0.0',
+      'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=1.0.0',
+      'QUERY_STRING'         => 'accept=application/vnd.matrix+zion;version=2.0.0',
       'API_APPLICATION_NAME' => 'matrix',
     }
 
@@ -60,8 +60,8 @@ describe  AcceptHeaderMatcher do
      'header is passed both as an invalid header as well as as a parameter' do
 
     request = {
-      'HTTP_ACCEPT'     => 'application/vndmatrix+zion;version=1.0.0',
-      'QUERY_STRING'    => 'accept=application/vnd.matrix+zion;version=2.0.0',
+      'HTTP_ACCEPT'          => 'application/vndmatrix+zion;version=1.0.0',
+      'QUERY_STRING'         => 'accept=application/vnd.matrix+zion;version=2.0.0',
       'API_APPLICATION_NAME' => 'matrix',
     }
 
@@ -75,8 +75,8 @@ describe  AcceptHeaderMatcher do
      'header is passed both as an invalid header as well as as a parameter' do
 
     request = {
-      'HTTP_ACCEPT'     => 'application/vndmatrix+zion;version=1.0.0',
-      'QUERY_STRING'    => '',
+      'HTTP_ACCEPT'          => 'application/vndmatrix+zion;version=1.0.0',
+      'QUERY_STRING'         => '',
       'API_APPLICATION_NAME' => 'matrix',
     }
 
@@ -89,8 +89,8 @@ describe  AcceptHeaderMatcher do
 
   it 'does not match if the subdomain is API but the accept header is invalid' do
     request = {
-      'HTTP_ACCEPT'     => 'application/vndmatrix+zion;version=1.0.0',
-      'QUERY_STRING'    => '',
+      'HTTP_ACCEPT'          => 'application/vndmatrix+zion;version=1.0.0',
+      'QUERY_STRING'         => '',
       'API_APPLICATION_NAME' => 'matrix',
     }
 
