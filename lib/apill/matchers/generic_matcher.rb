@@ -13,8 +13,9 @@ module  GenericMatcher
   end
 
   def matches?(request)
-    self.accept_header = get_accept_header(raw_header_from_headers: request.headers['Accept'],
-                                           raw_header_from_params:  request.params['accept'])
+    self.application   = request['API_APPLICATION']
+    self.accept_header = get_accept_header(raw_header_from_headers: request['HTTP_ACCEPT'],
+                                           raw_header_from_params:  request['QUERY_STRING'])
   end
 
   private
@@ -22,9 +23,10 @@ module  GenericMatcher
   def get_accept_header(raw_header_from_headers:, raw_header_from_params:)
     header_from_header = accept_header_from_string(raw_header_from_headers)
 
-    return header_from_header if header_from_header.valid? || raw_header_from_params.nil?
+    return header_from_header if header_from_header.valid? ||
+                                 raw_header_from_params.to_s.empty?
 
-    accept_header_from_string(raw_header_from_params)
+    accept_header_from_params(raw_header_from_params)
   end
 
   def accept_header_from_string(raw_header_from_headers='')
@@ -33,8 +35,9 @@ module  GenericMatcher
   end
 
   def accept_header_from_params(raw_header_from_params='')
-    Apill::AcceptHeader.new(application:  application,
-                            header:       raw_header_from_params)
+    header_from_params = raw_header_from_params[%r{(?:\A|&)accept=(.+?)(?=\z|&)}, 1]
+
+    accept_header_from_string(header_from_params)
   end
 end
 end

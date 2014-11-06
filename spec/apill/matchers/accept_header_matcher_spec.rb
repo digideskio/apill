@@ -1,4 +1,3 @@
-require 'ostruct'
 require 'rspectacular'
 require 'apill/matchers/accept_header_matcher'
 
@@ -6,86 +5,98 @@ module    Apill
 module    Matchers
 describe  AcceptHeaderMatcher do
   it 'matches if the subdomain is API and the accept header is valid' do
-    request = OpenStruct.new(headers:     { 'Accept' => 'application/vnd.matrix+zion;version=1.0.0' },
-                             params:      {},
-                             subdomains:  [ 'api' ])
+    request = {
+      'HTTP_ACCEPT'     => 'application/vnd.matrix+zion;version=1.0.0',
+      'API_APPLICATION' => 'matrix',
+    }
 
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
+    matcher = AcceptHeaderMatcher.new
 
-    expect(matcher.matches?(request)).to be_truthy
+    expect(matcher.matches?(request)).to be_a TrueClass
   end
 
-  it 'matches if the subdomain is API and the accept header is passed in as a parameter' do
-    request = OpenStruct.new(headers:     {},
-                             params:      { 'accept' => 'application/vnd.matrix+zion;version=1.0.0'  },
-                             subdomains:  [ 'api' ])
+  it 'matches if the subdomain is API and the accept header is passed in as ' \
+     'a parameter' do
 
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
+    request = {
+      'QUERY_STRING'    => 'accept=application/vnd.matrix+zion;version=1.0.0',
+      'API_APPLICATION' => 'matrix',
+    }
 
-    expect(matcher.matches?(request)).to be_truthy
+    matcher = AcceptHeaderMatcher.new
+
+    expect(matcher.matches?(request)).to be_a TrueClass
   end
 
-  it 'matches the header accept header if the subdomain is API and the accept header is passed both as a valid header and as a parameter' do
-    request = OpenStruct.new(headers:     { 'Accept' => 'application/vnd.matrix+zion;version=1.0.0' },
-                             params:      { 'accept' => 'application/vnd.matrix+zion;version=2.0.0'  },
-                             subdomains:  [ 'api' ])
+  it 'matches if the subdomain is API and the accept header is passed in as a ' \
+     'secondary parameter' do
 
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
+    request = {
+      'QUERY_STRING'    => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+      'API_APPLICATION' => 'matrix',
+    }
+
+    matcher = AcceptHeaderMatcher.new
+
+    expect(matcher.matches?(request)).to be_a TrueClass
+  end
+
+  it 'matches the header accept header if the subdomain is API and the accept header ' \
+     'is passed both as a valid header and as a parameter' do
+
+    request = {
+      'HTTP_ACCEPT'     => 'application/vnd.matrix+zion;version=1.0.0',
+      'QUERY_STRING'    => 'accept=application/vnd.matrix+zion;version=2.0.0',
+      'API_APPLICATION' => 'matrix',
+    }
+
+    matcher = AcceptHeaderMatcher.new
     matcher.matches?(request)
 
     expect(matcher.accept_header.version).to eql '1.0.0'
   end
 
-  it "matches the parameter's accept header if the subdomain is API and the accept header is passed both as an invalid header as well as as a parameter" do
-    request = OpenStruct.new(headers:     { 'Accept' => 'application/vndmatrix+zion;version=1.0.0' },
-                             params:      { 'accept' => 'application/vnd.matrix+zion;version=2.0.0'  },
-                             subdomains:  [ 'api' ])
+  it 'matches the accept header parameter if the subdomain is API and the accept ' \
+     'header is passed both as an invalid header as well as as a parameter' do
 
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
+    request = {
+      'HTTP_ACCEPT'     => 'application/vndmatrix+zion;version=1.0.0',
+      'QUERY_STRING'    => 'accept=application/vnd.matrix+zion;version=2.0.0',
+      'API_APPLICATION' => 'matrix',
+    }
+
+    matcher = AcceptHeaderMatcher.new
     matcher.matches?(request)
 
     expect(matcher.accept_header.version).to eql '2.0.0'
   end
 
-  it "matches the parameter's accept header if the subdomain is API and the accept header is passed both as an invalid header as well as as a parameter" do
-    request = OpenStruct.new(headers:     { 'Accept' => 'application/vndmatrix+zion;version=1.0.0' },
-                             params:      {},
-                             subdomains:  [ 'api' ])
+  it 'matches the accept header parameter if the subdomain is API and the accept ' \
+     'header is passed both as an invalid header as well as as a parameter' do
 
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
+    request = {
+      'HTTP_ACCEPT'     => 'application/vndmatrix+zion;version=1.0.0',
+      'QUERY_STRING'    => '',
+      'API_APPLICATION' => 'matrix',
+    }
+
+    matcher = AcceptHeaderMatcher.new
     matcher.matches?(request)
 
-    expect(matcher.accept_header.raw_accept_header).to eql 'application/vndmatrix+zion;version=1.0.0'
-  end
-
-  it 'does not match if the subdomain is not API but the accept header is valid' do
-    request = OpenStruct.new(headers:     { 'Accept' => 'application/vnd.matrix+zion' },
-                             params:      {},
-                             subdomains:  [ 'not-api' ])
-
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
-
-    expect(matcher.matches?(request)).to be_falsey
+    expect(matcher.accept_header.raw_accept_header).to eql \
+      'application/vndmatrix+zion;version=1.0.0'
   end
 
   it 'does not match if the subdomain is API but the accept header is invalid' do
-    request = OpenStruct.new(headers:     { 'Accept' => 'application/vnd.' },
-                             params:      {},
-                             subdomains:  [ 'api' ])
+    request = {
+      'HTTP_ACCEPT'     => 'application/vndmatrix+zion;version=1.0.0',
+      'QUERY_STRING'    => '',
+      'API_APPLICATION' => 'matrix',
+    }
 
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
+    matcher = AcceptHeaderMatcher.new
 
-    expect(matcher.matches?(request)).to be_falsey
-  end
-
-  it 'does not match if neither the subdomain is API nor the accept header is valid' do
-    request = OpenStruct.new(headers:     { 'Accept' => 'application/vnd.' },
-                             params:      {},
-                             subdomains:  [ 'not-api' ])
-
-    matcher = AcceptHeaderMatcher.new(application: 'matrix')
-
-    expect(matcher.matches?(request)).to be_falsey
+    expect(matcher.matches?(request)).to be_a FalseClass
   end
 end
 end

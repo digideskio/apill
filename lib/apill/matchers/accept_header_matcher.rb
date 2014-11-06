@@ -8,7 +8,6 @@ class   AcceptHeaderMatcher
   def matches?(request)
     super
 
-    request.subdomains.first == 'api' &&
     accept_header.valid?
   end
 end
