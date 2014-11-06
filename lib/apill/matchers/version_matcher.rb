@@ -1,5 +1,4 @@
 require 'apill/matchers/generic_matcher'
-require 'apill/errors/invalid_api_request_error'
 
 module  Apill
 module  Matchers
@@ -12,10 +11,7 @@ class   VersionMatcher
   def matches?(request)
     super
 
-    raise Apill::Errors::InvalidApiRequestError unless accept_header.valid?
-
-    request.subdomains.first == 'api' &&
-    requested_version        == version_constraint
+    requested_version == version_constraint
   end
 
   private
