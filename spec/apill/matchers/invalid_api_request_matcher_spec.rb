@@ -9,7 +9,7 @@ describe  InvalidApiRequestMatcher do
     request = {
       'HTTP_HOST'       => 'api.example.com',
       'HTTP_ACCEPT'     => 'application/vnd.matrix+zion;version=1.0.0',
-      'API_APPLICATION' => 'matrix',
+      'API_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = InvalidApiRequestMatcher.new
