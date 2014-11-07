@@ -7,7 +7,7 @@ describe  AcceptHeaderMatcher do
   it 'matches if the subdomain is API and the accept header is valid' do
     request = {
       'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=1.0.0',
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = AcceptHeaderMatcher.new
@@ -20,7 +20,7 @@ describe  AcceptHeaderMatcher do
 
     request = {
       'QUERY_STRING'         => 'accept=application/vnd.matrix+zion;version=1.0.0',
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = AcceptHeaderMatcher.new
@@ -33,7 +33,7 @@ describe  AcceptHeaderMatcher do
 
     request = {
       'QUERY_STRING'         => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = AcceptHeaderMatcher.new
@@ -47,7 +47,7 @@ describe  AcceptHeaderMatcher do
     request = {
       'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=1.0.0',
       'QUERY_STRING'         => 'accept=application/vnd.matrix+zion;version=2.0.0',
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = AcceptHeaderMatcher.new
@@ -62,7 +62,7 @@ describe  AcceptHeaderMatcher do
     request = {
       'HTTP_ACCEPT'          => 'application/vndmatrix+zion;version=1.0.0',
       'QUERY_STRING'         => 'accept=application/vnd.matrix+zion;version=2.0.0',
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = AcceptHeaderMatcher.new
@@ -77,7 +77,7 @@ describe  AcceptHeaderMatcher do
     request = {
       'HTTP_ACCEPT'          => 'application/vndmatrix+zion;version=1.0.0',
       'QUERY_STRING'         => '',
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = AcceptHeaderMatcher.new
@@ -91,7 +91,7 @@ describe  AcceptHeaderMatcher do
     request = {
       'HTTP_ACCEPT'          => 'application/vndmatrix+zion;version=1.0.0',
       'QUERY_STRING'         => '',
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
     matcher = AcceptHeaderMatcher.new

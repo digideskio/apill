@@ -9,7 +9,7 @@ describe  VersionMatcher do
        'equal the version constraint' do
 
       request = {
-        'API_APPLICATION_NAME' => 'matrix',
+        'HTTP_X_APPLICATION_NAME' => 'matrix',
         'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=10.0',
       }
 
@@ -22,7 +22,7 @@ describe  VersionMatcher do
        'version constraint' do
 
       request = {
-        'API_APPLICATION_NAME' => 'matrix',
+        'HTTP_X_APPLICATION_NAME' => 'matrix',
         'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=10.0',
       }
 
@@ -37,7 +37,7 @@ describe  VersionMatcher do
        'equal the version constraint' do
 
       request = {
-        'API_APPLICATION_NAME' => 'matrix',
+        'HTTP_X_APPLICATION_NAME' => 'matrix',
         'HTTP_ACCEPT'          => 'application/vnd.matrix+zion',
       }
 
@@ -51,7 +51,7 @@ describe  VersionMatcher do
        'version constraint' do
 
       request = {
-        'API_APPLICATION_NAME' => 'matrix',
+        'HTTP_X_APPLICATION_NAME' => 'matrix',
         'HTTP_ACCEPT'          => 'application/vnd.matrix+zion',
       }
 
@@ -66,7 +66,7 @@ describe  VersionMatcher do
     Apill.configuration.default_api_version = '100.0'
 
     request = {
-      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
       'HTTP_ACCEPT'          => 'application/vnd.matrix+zion',
     }
 

@@ -13,7 +13,7 @@ module  GenericMatcher
   end
 
   def matches?(request)
-    self.application   = request['API_APPLICATION_NAME']
+    self.application   = request['HTTP_X_APPLICATION_NAME']
     self.accept_header = get_accept_header(raw_header_from_headers: request['HTTP_ACCEPT'],
                                            raw_header_from_params:  request['QUERY_STRING'])
   end
