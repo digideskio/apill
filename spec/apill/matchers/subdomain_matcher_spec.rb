@@ -4,6 +4,10 @@ require 'apill/matchers/subdomain_matcher'
 module    Apill
 module    Matchers
 describe  SubdomainMatcher do
+  before(:each) do
+    Apill.configuration.allowed_subdomains = %w{api}
+  end
+
   it 'matches if the subdomain is API' do
     matcher = SubdomainMatcher.new
     request = { 'HTTP_HOST' => 'api.example.com' }

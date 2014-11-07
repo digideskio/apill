@@ -1,21 +1,23 @@
 require 'rspectacular'
 require 'apill/middleware/api_request'
 
-HumanError.configure do |config|
-  config.api_error_documentation_url = 'http://error.com'
-  config.knowledgebase_url           = 'http://knowledge.com'
-  config.api_version                 = '1'
-end
-
-Apill.configure do |config|
-  config.allowed_subdomains = %w{api}
-  config.application_name   = 'matrix'
-end
-
 module    Apill
 module    Middleware
 describe  ApiRequest do
   let(:app) { lambda { |env| [200, {}, 'response'] } }
+
+  before(:each) do
+    HumanError.configure do |config|
+      config.api_error_documentation_url = 'http://error.com'
+      config.knowledgebase_url           = 'http://knowledge.com'
+      config.api_version                 = '1'
+    end
+
+    Apill.configure do |config|
+      config.allowed_subdomains = %w{api}
+      config.application_name   = 'matrix'
+    end
+  end
 
   it 'does not allow requests if they are not for an allowed subdomain' do
     api_request_middleware = ApiRequest.new(app)
