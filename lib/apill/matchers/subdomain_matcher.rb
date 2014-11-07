@@ -1,7 +1,7 @@
 module  Apill
 module  Matchers
 class   SubdomainMatcher
-  def initialize(allowed_subdomains: ['api'])
+  def initialize(allowed_subdomains: Apill.configuration.allowed_subdomains)
     self.allowed_subdomains = Array(allowed_subdomains)
   end
 
