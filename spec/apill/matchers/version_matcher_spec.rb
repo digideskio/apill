@@ -10,7 +10,7 @@ describe  VersionMatcher do
 
       request = {
         'HTTP_X_APPLICATION_NAME' => 'matrix',
-        'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=10.0',
+        'HTTP_ACCEPT'             => 'application/vnd.matrix+zion;version=10.0',
       }
 
       matcher = VersionMatcher.new(version_constraint: '10.1')
@@ -23,7 +23,7 @@ describe  VersionMatcher do
 
       request = {
         'HTTP_X_APPLICATION_NAME' => 'matrix',
-        'HTTP_ACCEPT'          => 'application/vnd.matrix+zion;version=10.0',
+        'HTTP_ACCEPT'             => 'application/vnd.matrix+zion;version=10.0',
       }
 
       matcher = VersionMatcher.new(version_constraint: '10.0')
@@ -38,7 +38,7 @@ describe  VersionMatcher do
 
       request = {
         'HTTP_X_APPLICATION_NAME' => 'matrix',
-        'HTTP_ACCEPT'          => 'application/vnd.matrix+zion',
+        'HTTP_ACCEPT'             => 'application/vnd.matrix+zion',
       }
 
       matcher = VersionMatcher.new(version_constraint: '10.1',
@@ -52,7 +52,7 @@ describe  VersionMatcher do
 
       request = {
         'HTTP_X_APPLICATION_NAME' => 'matrix',
-        'HTTP_ACCEPT'          => 'application/vnd.matrix+zion',
+        'HTTP_ACCEPT'             => 'application/vnd.matrix+zion',
       }
 
       matcher = VersionMatcher.new(version_constraint: '10.0',
@@ -67,7 +67,7 @@ describe  VersionMatcher do
 
     request = {
       'HTTP_X_APPLICATION_NAME' => 'matrix',
-      'HTTP_ACCEPT'          => 'application/vnd.matrix+zion',
+      'HTTP_ACCEPT'             => 'application/vnd.matrix+zion',
     }
 
     matcher = VersionMatcher.new(version_constraint: '100.0')
