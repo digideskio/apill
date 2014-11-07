@@ -24,6 +24,10 @@ class   AcceptHeader
     accept_header_data.nil?
   end
 
+  def to_s
+    raw_accept_header
+  end
+
   private
 
   def accept_header_data
