@@ -2,7 +2,11 @@ module  Apill
 module  Requests
 class   Base
   def self.resolve(original_request)
-    rack_request_class.new(original_request)
+    if original_request.respond_to? :headers
+      rails_request_class.new(original_request)
+    else
+      rack_request_class.new(original_request)
+    end
   end
 
   def accept_header
@@ -16,6 +20,12 @@ class   Base
   end
 
   private
+
+  def self.rails_request_class
+    require 'apill/requests/rails_request'
+
+    Object.const_get('Apill::Requests::RailsRequest')
+  end
 
   def self.rack_request_class
     require 'apill/requests/rack_request'
