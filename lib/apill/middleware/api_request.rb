@@ -15,9 +15,7 @@ class   ApiRequest
   def call(env)
     env['HTTP_X_APPLICATION_NAME'] = Apill.configuration.application_name
 
-    if Matchers::SubdomainMatcher.new(allowed_subdomains: Apill.configuration.allowed_subdomains).
-                                  matches?(env)
-
+    if Matchers::SubdomainMatcher.new.matches?(env)
       if Matchers::AcceptHeaderMatcher.new.matches?(env)
         @app.call(env)
       else
