@@ -61,6 +61,19 @@ describe  VersionMatcher do
       expect(matcher.matches?(request)).to be_a TrueClass
     end
   end
+
+  it 'matches the default version in the configuration if none is passed in' do
+    Apill.configuration.default_api_version = '100.0'
+
+    request = {
+      'API_APPLICATION_NAME' => 'matrix',
+      'HTTP_ACCEPT'          => 'application/vnd.matrix+zion',
+    }
+
+    matcher = VersionMatcher.new(version_constraint: '100.0')
+
+    expect(matcher.matches?(request)).to be_a TrueClass
+  end
 end
 end
 end

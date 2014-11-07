@@ -1,3 +1,4 @@
+require 'apill/configuration'
 require 'apill/matchers/generic_matcher'
 
 module  Apill
@@ -18,6 +19,10 @@ class   VersionMatcher
 
   def requested_version
     accept_header.version || default_version
+  end
+
+  def default_version
+    @default_version || Apill.configuration.default_api_version
   end
 end
 end
