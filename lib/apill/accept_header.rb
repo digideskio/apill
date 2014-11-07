@@ -17,7 +17,11 @@ class   AcceptHeader
   end
 
   def valid?
-    !accept_header_data.nil?
+    !invalid?
+  end
+
+  def invalid?
+    accept_header_data.nil?
   end
 
   private
