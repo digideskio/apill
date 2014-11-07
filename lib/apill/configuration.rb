@@ -14,6 +14,10 @@ module  Apill
     end
   end
 
+  def allowed_subdomains
+    @allowed_subdomains || ['api']
+  end
+
   def self.configure
     yield configuration
   end
