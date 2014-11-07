@@ -4,7 +4,7 @@ require 'apill/matchers/generic_matcher'
 module  Apill
 module  Matchers
 class   VersionMatcher
-  include Apill::Matchers::GenericMatcher
+  include GenericMatcher
 
   attr_accessor :version_constraint,
                 :default_version
