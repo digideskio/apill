@@ -5,7 +5,7 @@ require 'apill/accept_header'
 module  Apill
 module  Requests
 class   RackRequest < Base
-  ACCEPT_PARAM_PATTERN = %r{(?:\A|&)accept=(.+?)(?=\z|&)}
+  ACCEPT_PARAM_PATTERN = /(?:\A|&)accept=(.+?)(?=\z|&)/
 
   attr_accessor :request
 
