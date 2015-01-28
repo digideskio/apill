@@ -36,8 +36,10 @@ module Queryable
   end
 
   def sanitized_query_params
+    query_attrs = respond_to?(:queryable_attributes) ? queryable_attributes : {}
+
     query_params.
-    slice(*queryable_attributes)
+    slice(*query_attrs)
   end
 
   def query_method_name_for(query_item, resource)
