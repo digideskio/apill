@@ -3,6 +3,7 @@ PATH
   specs:
     apill (2.2.0)
       human_error (~> 1.13)
+      kaminari (~> 0.16.2)
 
 GEM
   remote: https://rubygems.org/
@@ -15,6 +16,9 @@ GEM
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
     human_error (1.13.0)
+    kaminari (0.16.2)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     multi_json (1.10.1)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
