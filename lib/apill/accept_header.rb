@@ -43,7 +43,7 @@ class   AcceptHeader
   end
 
   def version_format
-    "\\d+(?:\\.\\d+){0,2}(?:beta(?:\\d*))?"
+    '\\d+(?:\\.\\d+){0,2}(?:beta(?:\\d*))?'
   end
 end
 end
