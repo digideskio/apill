@@ -19,8 +19,6 @@ class   Base
     end
   end
 
-  private
-
   def self.rails_request_class
     require 'apill/requests/rails_request'
 
