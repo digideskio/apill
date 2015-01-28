@@ -50,8 +50,8 @@ describe  ApiRequest do
             '"friendly_message_key":"errors.invalid.subdomain.error.friendly",' \
             '"friendly_message":"Sorry! The resource you tried to access does not exist."' \
           '}' \
-        '}'
-      ]
+        '}',
+      ],
     )
   end
 
@@ -88,8 +88,8 @@ describe  ApiRequest do
             '"friendly_message_key":"errors.invalid.api.request.error.friendly",' \
             '"friendly_message":"Sorry! We couldn\'t understand what you were trying to ask us to do."' \
           '}' \
-        '}'
-      ]
+        '}',
+      ],
     )
   end
 

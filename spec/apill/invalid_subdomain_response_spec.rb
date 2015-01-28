@@ -35,9 +35,9 @@ describe  InvalidSubdomainResponse do
               '"friendly_message_key":"errors.invalid.subdomain.error.friendly",' \
               '"friendly_message":"Sorry! The resource you tried to access does not exist."' \
             '}' \
-          '}'
-        ]
-      ]
+          '}',
+        ],
+      ],
     )
   end
 end
