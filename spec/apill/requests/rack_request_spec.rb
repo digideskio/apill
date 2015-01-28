@@ -45,8 +45,8 @@ describe  RackRequest do
     Apill.configuration.application_name = 'zion'
 
     raw_request = {
-      'HTTP_ACCEPT'             => '',
-      'QUERY_STRING'            => 'accept=application/vnd.zion+zion;version=10.0',
+      'HTTP_ACCEPT'  => '',
+      'QUERY_STRING' => 'accept=application/vnd.zion+zion;version=10.0',
     }
     request     = RackRequest.new(raw_request)
 

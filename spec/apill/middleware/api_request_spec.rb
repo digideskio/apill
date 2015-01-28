@@ -23,9 +23,9 @@ describe  ApiRequest do
     api_request_middleware = ApiRequest.new(app)
 
     request = {
-      'HTTP_HOST'               => 'notvalid.example.com',
-      'HTTP_ACCEPT'             => '',
-      'QUERY_STRING'            => 'first=my_param&accept=application/vnd.silent+zion;version=1.0.0',
+      'HTTP_HOST'    => 'notvalid.example.com',
+      'HTTP_ACCEPT'  => '',
+      'QUERY_STRING' => 'first=my_param&accept=application/vnd.silent+zion;version=1.0.0',
     }
 
     status, headers, response = api_request_middleware.call(request)
@@ -61,9 +61,9 @@ describe  ApiRequest do
     api_request_middleware = ApiRequest.new(app)
 
     request = {
-      'HTTP_HOST'               => 'api.example.com',
-      'HTTP_ACCEPT'             => '',
-      'QUERY_STRING'            => 'first=my_param&accept=application/vnd.silent+zion;version=1.0.0',
+      'HTTP_HOST'    => 'api.example.com',
+      'HTTP_ACCEPT'  => '',
+      'QUERY_STRING' => 'first=my_param&accept=application/vnd.silent+zion;version=1.0.0',
     }
 
     status, headers, response = api_request_middleware.call(request)
@@ -97,9 +97,9 @@ describe  ApiRequest do
     api_request_middleware = ApiRequest.new(app)
 
     request = {
-      'HTTP_HOST'               => 'api.example.com',
-      'HTTP_ACCEPT'             => 'application/vnd.matrix+zion;version=1.0.0',
-      'QUERY_STRING'            => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_HOST'    => 'api.example.com',
+      'HTTP_ACCEPT'  => 'application/vnd.matrix+zion;version=1.0.0',
+      'QUERY_STRING' => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
     }
 
     status, headers, response = api_request_middleware.call(request)
