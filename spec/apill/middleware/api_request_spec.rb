@@ -4,7 +4,7 @@ require 'apill/middleware/api_request'
 module    Apill
 module    Middleware
 describe  ApiRequest do
-  let(:app) { lambda { |env| [200, {}, 'response'] } }
+  let(:app) { lambda { |_env| [200, {}, 'response'] } }
 
   before(:each) do
     HumanError.configure do |config|
