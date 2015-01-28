@@ -10,7 +10,8 @@ class   InvalidApiRequestError < HumanError::Errors::RequestError
   end
 
   def developer_message
-    'The accept header that you passed in the request cannot be parsed, please refer to the documentation to verify.'
+    'The accept header that you passed in the request cannot be parsed, ' \
+    'please refer to the documentation to verify.'
   end
 
   def developer_details

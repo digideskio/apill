@@ -32,7 +32,8 @@ describe  AcceptHeaderMatcher do
      'secondary parameter' do
 
     request = {
-      'QUERY_STRING'            => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+      'QUERY_STRING'            => 'first=my_param&accept=application/vnd.matrix+zion;' \
+                                   'version=1.0.0',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 

@@ -19,7 +19,9 @@ describe  InvalidApiRequestError do
   end
 
   it 'can output the developer message' do
-    expect(error.developer_message).to eql 'The accept header that you passed in the request cannot be parsed, please refer to the documentation to verify.'
+    expect(error.developer_message).to eql 'The accept header that you passed in the ' \
+                                           'request cannot be parsed, please refer to ' \
+                                           'the documentation to verify.'
   end
 
   it 'can output the developer details' do
@@ -29,7 +31,8 @@ describe  InvalidApiRequestError do
   end
 
   it 'can output the friendly message' do
-    expect(error.friendly_message).to eql "Sorry! We couldn't understand what you were trying to ask us to do."
+    expect(error.friendly_message).to eql "Sorry! We couldn't understand what you were " \
+                                          'trying to ask us to do.'
   end
 end
 end

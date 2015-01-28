@@ -90,15 +90,17 @@ describe  AcceptHeader do
   end
 
   it 'can extract version information from an accept header' do
-    header = AcceptHeader.new(application: 'matrix',
-                              header:      'application/vnd.matrix+zion;version=10.0.0beta1')
+    header = AcceptHeader.new(
+              application: 'matrix',
+              header:      'application/vnd.matrix+zion;version=10.0.0beta1')
 
     expect(header.version).to eql '10.0.0beta1'
   end
 
   it 'can extract the content type from an accept header' do
-    header = AcceptHeader.new(application: 'matrix',
-                              header:      'application/vnd.matrix+zion;version=10.0.0beta1')
+    header = AcceptHeader.new(
+              application: 'matrix',
+              header:      'application/vnd.matrix+zion;version=10.0.0beta1')
 
     expect(header.content_type).to eql 'zion'
   end
