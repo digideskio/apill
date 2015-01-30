@@ -20,7 +20,11 @@ module Queryable
   end
 
   def sanitized_query_params
-    query_attrs = respond_to?(:queryable_attributes) ? queryable_attributes : {}
+    query_attrs = if defined?(:queryable_attributes)
+                    queryable_attributes
+                  else
+                    []
+                  end
 
     query_params.
     slice(*query_attrs)
