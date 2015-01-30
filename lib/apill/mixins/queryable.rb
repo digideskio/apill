@@ -15,22 +15,6 @@ module Queryable
 
   private
 
-  def filtered_resource
-    @filtered_resource ||= begin
-      resource = if defined? super
-                   super
-                 else
-                   send(queryed_model_name)
-                 end
-
-      sanitized_query_params.reduce(resource) do |query_resource, query_param|
-        key, value = query_param
-
-        query_resource.public_send(query_method_name_for(key, query_resource), value)
-      end
-    end
-  end
-
   def query_params
     @query_params ||= params.fetch(:query_params, {})
   end
@@ -47,6 +31,22 @@ module Queryable
       "for_#{query_item}"
     elsif resource.respond_to? query_item
       query_item
+    end
+  end
+
+  def filtered_resource
+    @filtered_resource ||= begin
+      resource = if defined? super
+                   super
+                 else
+                   send(queryed_model_name)
+                 end
+
+      sanitized_query_params.reduce(resource) do |query_resource, query_param|
+        key, value = query_param
+
+        query_resource.public_send(query_method_name_for(key, query_resource), value)
+      end
     end
   end
 end

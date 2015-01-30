@@ -15,6 +15,10 @@ module  Sortable
 
   private
 
+  def sorting_arguments
+    sorting_data.values.join(' ')
+  end
+
   def filtered_resource
     @filtered_resource ||= begin
       resource = if defined? super
@@ -26,10 +30,6 @@ module  Sortable
       resource.
         order(sorting_arguments)
     end
-  end
-
-  def sorting_arguments
-    sorting_data.values.join(' ')
   end
 
   def filter_data
