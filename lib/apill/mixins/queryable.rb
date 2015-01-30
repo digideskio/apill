@@ -49,6 +49,16 @@ module Queryable
       end
     end
   end
+
+  def filter_data
+    filter_data = defined?(super) ? super : {}
+
+    filter_data.merge(querying_data)
+  end
+
+  def querying_data
+    {}
+  end
 end
 end
 end
