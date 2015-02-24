@@ -5,7 +5,7 @@ class   SubdomainMatcher
                  allowed_api_subdomains: Apill.configuration.allowed_api_subdomains,
                  request:)
 
-    self.allowed_subdomains = Array(allowed_subdomains)
+    self.allowed_subdomains     = Array(allowed_subdomains)
     self.allowed_api_subdomains = Array(allowed_api_subdomains)
     self.request                = request
   end
