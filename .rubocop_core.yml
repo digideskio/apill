@@ -20,6 +20,8 @@ AllCops:
     - '**/vendor/**/*'
     - 'bin/rails'
 
+  DisplayCopNames:               true
+
 ################################################################################
 #                                  STYLE
 ################################################################################
@@ -102,6 +104,9 @@ Style/ElseAlignment:
 Style/EmptyElse:
   Enabled:                       true
 
+Style/EmptyLiteral:
+  Enabled:                       true
+
 Style/EmptyLinesAroundBlockBody:
   Enabled:                       true
   EnforcedStyle:                 'no_empty_lines'
@@ -127,6 +132,9 @@ Style/FileName:
     - '**/Vagrantfile'
     - '**/Podfile'
     - '**/Thorfile'
+
+Style/FirstParameterIndentation:
+  Enabled:                       false
 
 Style/For:
   Enabled:                       true
@@ -267,6 +275,10 @@ Style/SingleLineMethods:
 Style/SingleSpaceBeforeFirstArg:
   Enabled:                       false
 
+Style/SpaceAroundBlockParameters:
+  Enabled:                       true
+  EnforcedStyleInsidePipes:      'no_space'
+
 Style/SpaceAroundEqualsInParameterDefault:
   Enabled:                       true
   EnforcedStyle:                 'space'
@@ -295,6 +307,9 @@ Style/StringLiterals:
   Exclude:
     - '**/config/application.rb'
     - '**/config/environments/**/*'
+
+Style/StructInheritance:
+  Enabled:                       true
 
 Style/SymbolArray:
   Enabled:                       true
@@ -390,6 +405,9 @@ Lint/BlockAlignment:
 Lint/DefEndAlignment:
   Enabled:                       true
   AlignWith:                     'start_of_line'
+
+Lint/DuplicateMethods:
+  Enabled:                       true
 
 Lint/EndAlignment:
   Enabled:                       true
