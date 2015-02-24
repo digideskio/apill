@@ -1,3 +1,21 @@
+Version v2.3.3 - February 24, 2015
+================================================================================
+
+Fixed
+--------------------------------------------------------------------------------
+  * Configuration so that allowed_subdomains is properly defaulted
+  * Middleware not to check for accept header on non-API subdomains
+
+Changed
+--------------------------------------------------------------------------------
+  * SubdomainMatcher to pull logic to get subdomain into a method
+  * SubdomainMatcher so that it needs to be instantiated to be used
+
+Added
+--------------------------------------------------------------------------------
+  * SubdomainMatcher#allowed_api_subdomains?
+  * configuration option for allowed API subdomains
+
 Version v2.3.2 - February 6, 2015
 ================================================================================
 
