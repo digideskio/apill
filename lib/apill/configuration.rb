@@ -15,13 +15,13 @@ module  Apill
       }
     end
 
+    def allowed_subdomains
+      @allowed_subdomains || ['api']
+    end
+
     def allowed_api_subdomains
       @allowed_api_subdomains || ['api']
     end
-  end
-
-  def allowed_subdomains
-    @allowed_subdomains || ['api']
   end
 
   def self.configure
