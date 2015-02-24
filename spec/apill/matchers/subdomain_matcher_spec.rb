@@ -7,6 +7,7 @@ module    Matchers
 describe  SubdomainMatcher do
   before(:each) do
     Apill.configuration.allowed_subdomains     = %w{api}
+    Apill.configuration.allowed_api_subdomains = %w{api}
   end
 
   it 'matches if the subdomain is API' do
@@ -50,6 +51,21 @@ describe  SubdomainMatcher do
                                    request:            request)
 
     expect(matcher.matches?).to be_a TrueClass
+  end
+
+  it 'can match only the api subdomain' do
+    request = { 'HTTP_HOST' => 'matrix.example.com' }
+    matcher = SubdomainMatcher.new(allowed_api_subdomains: %w{matrix},
+                                   request:                request)
+
+    expect(matcher.matches_api_subdomain?).to be_a TrueClass
+  end
+
+  it 'matches "api" as an api subdomain by default' do
+    request = { 'HTTP_HOST' => 'api.example.com' }
+    matcher = SubdomainMatcher.new(request: request)
+
+    expect(matcher.matches_api_subdomain?).to be_a TrueClass
   end
 end
 end
