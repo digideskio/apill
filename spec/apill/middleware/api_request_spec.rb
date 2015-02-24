@@ -14,9 +14,26 @@ describe  ApiRequest do
     end
 
     Apill.configure do |config|
-      config.allowed_subdomains = %w{api}
+      config.allowed_subdomains     = %w{api matrix}
       config.application_name   = 'matrix'
+      config.allowed_api_subdomains = %w{api}
     end
+  end
+
+  it 'allows requests for allowed subdomains without accept headers' do
+    api_request_middleware = ApiRequest.new(app)
+
+    request = {
+      'HTTP_HOST'    => 'matrix.example.com',
+      'HTTP_ACCEPT'  => '',
+      'QUERY_STRING' => '',
+    }
+
+    status, headers, response = api_request_middleware.call(request)
+
+    expect(status).to   eql 200
+    expect(headers).to  eql Hash.new
+    expect(response).to eql 'response'
   end
 
   it 'does not allow requests if they are not for an allowed subdomain' do

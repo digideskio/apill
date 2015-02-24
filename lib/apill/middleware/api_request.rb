@@ -14,8 +14,12 @@ class   ApiRequest
   def call(env)
     env['HTTP_X_APPLICATION_NAME'] = Apill.configuration.application_name
 
-    if Matchers::SubdomainMatcher.new(request: env).matches?
-      if Matchers::AcceptHeaderMatcher.new.matches?(env)
+    subdomain_matcher = Matchers::SubdomainMatcher.new(request: env)
+
+    if subdomain_matcher.matches?
+      if !subdomain_matcher.matches_api_subdomain? ||
+          Matchers::AcceptHeaderMatcher.new.matches?(env)
+
         @app.call(env)
       else
         Responses::InvalidApiRequestResponse.call(env)
