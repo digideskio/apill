@@ -11,8 +11,6 @@ class   SubdomainMatcher
   end
 
   def matches?
-    request_subdomain = request['HTTP_HOST'][/\A([a-z\-]+)/i, 1]
-
     allowed_subdomains.include? request_subdomain
   end
 
@@ -25,6 +23,12 @@ class   SubdomainMatcher
   attr_accessor :allowed_subdomains,
                 :allowed_api_subdomains,
                 :request
+
+  private
+
+  def request_subdomain
+    @request_subdomain ||= request['HTTP_HOST'][/\A([a-z\-]+)/i, 1]
+  end
 end
 end
 end
