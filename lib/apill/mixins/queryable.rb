@@ -40,16 +40,26 @@ module Queryable
 
   def filtered_resource
     @filtered_resource ||= begin
-      resource = if defined? super
-                   super
-                 else
-                   send(queryed_model_name)
-                 end
+      resource       = if defined? super
+                         super
+                       else
+                         send(queryed_model_name)
+                       end
+      resource_class = if resource.respond_to? :klass
+                         resource.klass
+                       else
+                         resource
+                       end
 
       sanitized_query_params.reduce(resource) do |query_resource, query_param|
-        key, value = query_param
+        key, value        = query_param
+        query_method_name = query_method_name_for(key, resource_class).to_sym
 
-        query_resource.public_send(query_method_name_for(key, query_resource), value)
+        if resource_class.method(query_method_name).arity == 0
+          query_resource.public_send(query_method_name)
+        else
+          query_resource.public_send(query_method_name, value)
+        end
       end
     end
   end
