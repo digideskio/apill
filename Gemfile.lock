@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    apill (2.4.0)
+    apill (2.5.0)
       human_error (~> 1.13)
       kaminari (~> 0.16.2)
 
