@@ -16,7 +16,7 @@ module Queryable
   private
 
   def query_params
-    @query_params ||= params.fetch(:query_params, {})
+    @query_params ||= params[:query_params] || params || {}
   end
 
   def sanitized_query_params
