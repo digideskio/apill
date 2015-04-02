@@ -45,6 +45,11 @@ module Queryable
                        else
                          send(queryed_model_name)
                        end
+      resource       = if resource.respond_to? :records
+                         resource.records
+                       else
+                         resource
+                       end
       resource_class = if resource.respond_to? :klass
                          resource.klass
                        else
