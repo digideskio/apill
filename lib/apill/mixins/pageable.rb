@@ -26,9 +26,9 @@ module  Pageable
                    send(paginated_model_name)
                  end
 
-      resource.
-        page(page_number).
-        per(items_per_page)
+      @paginated_resource = resource.
+                              page(page_number).
+                              per(items_per_page)
     end
   end
 
@@ -40,10 +40,10 @@ module  Pageable
 
   def pagination_data
     {
-      total_pages:   filtered_resource.total_pages,
-      current_page:  filtered_resource.current_page,
-      previous_page: filtered_resource.prev_page,
-      next_page:     filtered_resource.next_page,
+      total_pages:   @paginated_resource.total_pages,
+      current_page:  @paginated_resource.current_page,
+      previous_page: @paginated_resource.prev_page,
+      next_page:     @paginated_resource.next_page,
     }
   end
 end
