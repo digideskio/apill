@@ -1,3 +1,16 @@
+Version v2.6.0 - April 10, 2015
+================================================================================
+
+Changed
+--------------------------------------------------------------------------------
+  * filtered_resource to constantize
+  * filtered_resource to @paginated_resource
+  * Queryable to handle if we get an ElasticSearch result
+
+Added
+--------------------------------------------------------------------------------
+  * Indexable for running indexing queries
+
 Version v2.5.1 - March 26, 2015
 ================================================================================
 
