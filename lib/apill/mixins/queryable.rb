@@ -38,6 +38,7 @@ module Queryable
     end
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def filtered_resource
     @filtered_resource ||= begin
       resource       = if defined? super
@@ -68,6 +69,7 @@ module Queryable
       end
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def filter_data
     filter_data = defined?(super) ? super : {}
