@@ -1,3 +1,3 @@
 module Apill
-  VERSION = '2.6.0beta1'
+  VERSION = '2.6.0'
 end
