@@ -51,7 +51,7 @@ module Queryable
                          resource
                        end
       resource_class = if resource.respond_to? :klass
-                         resource.klass
+                         resource.klass.name.constantize
                        else
                          resource
                        end
