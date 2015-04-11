@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.files         = Dir['{app,config,db,lib}/**/*'] + %w{Rakefile README.md LICENSE}
   spec.test_files    = Dir['{test,spec,features}/**/*']
 
-  spec.add_dependency             'human_error',                ["~> 2.0beta"]
+  spec.add_dependency             'human_error',                ["~> 2.0"]
   spec.add_dependency             'kaminari',                   ["~> 0.16.2"]
 
   spec.add_development_dependency 'rspec',                      ["~> 3.0"]

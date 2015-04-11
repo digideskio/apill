@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     apill (2.6.0beta1)
-      human_error (~> 2.0beta)
+      human_error (~> 2.0)
       kaminari (~> 0.16.2)
 
 GEM
@@ -37,7 +37,7 @@ GEM
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
     hashie (3.4.0)
-    human_error (2.0.0beta3)
+    human_error (2.0.0)
     i18n (0.7.0)
     json (1.8.2)
     kaminari (0.16.3)
