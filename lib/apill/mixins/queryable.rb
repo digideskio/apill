@@ -38,6 +38,7 @@ module Queryable
     end
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def filtered_resource
     @filtered_resource ||= begin
       resource       = if defined? super
@@ -45,8 +46,13 @@ module Queryable
                        else
                          send(queryed_model_name)
                        end
+      resource       = if resource.respond_to? :records
+                         resource.records
+                       else
+                         resource
+                       end
       resource_class = if resource.respond_to? :klass
-                         resource.klass
+                         resource.klass.name.constantize
                        else
                          resource
                        end
@@ -63,6 +69,7 @@ module Queryable
       end
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def filter_data
     filter_data = defined?(super) ? super : {}

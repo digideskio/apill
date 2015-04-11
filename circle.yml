@@ -16,3 +16,7 @@ deployment:
     branch: master
     commands:
       - ./bin/deploy
+  betas:
+    branch: /^(feature|refactor|fix(ed)?|chore)\/.*/
+    commands:
+      - ./bin/deploy
