@@ -27,7 +27,7 @@ class   SubdomainMatcher
   private
 
   def request_subdomain
-    @request_subdomain ||= request['HTTP_HOST'][/\A([a-z\-]+)/i, 1]
+    @request_subdomain ||= request.fetch('HTTP_HOST', '')[/\A([a-z\-]+)/i, 1]
   end
 end
 end
