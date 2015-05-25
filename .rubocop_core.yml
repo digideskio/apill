@@ -302,6 +302,7 @@ Style/SpaceAroundOperators:
   MultiSpaceAllowedForOperators:
     - '='
     - '=>'
+    - '||='
 
 Style/SpaceBeforeBlockBraces:
   Enabled:                       true
@@ -378,6 +379,13 @@ Metrics/BlockNesting:
   Max:                           3
 
 Metrics/ClassLength:
+  Enabled:                       true
+  CountComments:                 false
+  Max:                           200
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Metrics/ModuleLength:
   Enabled:                       true
   CountComments:                 false
   Max:                           200
