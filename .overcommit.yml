@@ -1,0 +1,171 @@
+# Where to store hook plugins specific to a repository. These are loaded in
+# addition to the default hooks Overcommit comes with. The location is relative
+# to the root of the repository.
+plugin_directory: '.git-hooks'
+
+# Whether to check if a hook plugin has changed since Overcommit last ran it.
+# This is a defense mechanism when working with repositories which can contain
+# untrusted code (e.g. when you fetch a pull request from a third party).
+# See https://github.com/causes/overcommit#security for more information.
+verify_plugin_signatures: true
+
+# Hooks that run after HEAD changes or a file is explicitly checked out. Useful
+# for updating source tags (e.g. via ctags) or warning about new migrations,
+# etc.
+PostCheckout:
+  ALL:
+    required:          false
+    quiet:             false
+
+  BundleCheck:
+    enabled:           true
+    description:       'Checking Gemfile dependencies'
+    include:
+      - 'Gemfile'
+      - 'Gemfile.lock'
+      - '*.gemspec'
+
+  IndexTags:
+    enabled:           true
+    description:       'Indexing source code tags'
+
+# Hooks that are run after `git commit` is executed, before the commit message
+# editor is displayed. These hooks are ideal for syntax checkers, linters, and
+# other checks that you want to run before you allow a commit object to be
+# created.
+PreCommit:
+  ALL:
+    requires_files:           true
+    required:                 false
+    quiet:                    false
+    exclude:
+      - 'bower_components/**/*'
+      - 'node_modules/**/*'
+      - 'vendor/**/*'
+
+  AuthorEmail:
+    enabled:                  true
+    description:              'Checking author email'
+    requires_files:           false
+    required:                 true
+    quiet:                    true
+    pattern:                  '^[^@]+@.*$'
+
+  AuthorName:
+    enabled:                  true
+    description:              'Checking for author name'
+    requires_files:           false
+    required:                 true
+    quiet:                    true
+
+  Brakeman:
+    enabled:                  false
+    description:              'Checking for security vulnerabilities'
+    include:
+      - '**/*.rb'
+
+  BundleCheck:
+    enabled:                  true
+    description:              'Checking Gemfile dependencies'
+    include:
+      - 'Gemfile'
+      - 'Gemfile.lock'
+      - '*.gemspec'
+
+  ChamberSecurity:
+    enabled:                  true
+    description:              'Checking that settings have been secured with Chamber'
+    include:                  'config/settings.yml'
+
+  CoffeeLint:
+    enabled:                  true
+    description:              'Analyzing with coffeelint'
+    include:                  '**/*.coffee'
+
+  CssLint:
+    enabled:                  true
+    description:              'Analyzing with csslint'
+    include:                  '**/*.css'
+
+  HardTabs:
+    enabled:                  true
+    description:              'Checking for hard tabs'
+    exclude:
+      - '**/*.go'
+
+  Jscs:
+    enabled:                  true
+    description:              'Analyzing with JSCS'
+    include:                  '**/*.js'
+
+  JsHint:
+    enabled:                  true
+    description:              'Analyzing with JSHint'
+    include:                  '**/*.js'
+
+  JsonSyntax:
+    enabled:                  true
+    description:              'Validating JSON syntax'
+    include:                  '**/*.json'
+
+  JsxHint:
+    enabled:                  true
+    description:              'Analyzing with JSXHint'
+    include:                  '**/*.jsx'
+
+  LocalPathsInGemfile:
+    enabled:                  true
+    description:              'Checking for references to local paths in your Gemfile'
+    include:                  '**/Gemfile'
+
+  MergeConflicts:
+    enabled:                  true
+    description:              'Checking for merge conflicts'
+
+  PryBinding:
+    enabled:                  true
+    description:              'Checking for instances of binding.pry'
+    include:
+      - '**/*.rb'
+      - '**/*.rake'
+
+  RailsSchemaUpToDate:
+    enabled:                  true
+    description:              'Checking if database schema is up to date'
+    include:
+      - '**/db/migrate/*.rb'
+      - '**/db/schema.rb'
+      - '**/db/structure.sql'
+
+  Reek:
+    enabled:                  false
+
+  Rubocop:
+    enabled:                  true
+    description:              'Analyzing with Rubocop'
+    include:
+      - '**/*.gemspec'
+      - '**/*.rake'
+      - '**/*.rb'
+      - '**/Gemfile'
+      - '**/Rakefile'
+
+  ScssLint:
+    enabled:                  true
+    description:              'Analyzing with scss-lint'
+    include:                  '**/*.scss'
+
+  TrailingWhitespace:
+    enabled:                  true
+    description:              'Checking for trailing whitespace'
+    exclude:                  '**/structure.sql'
+
+  TravisLint:
+    enabled:                  true
+    description:              'Checking Travis CI configuration'
+    include:                  '.travis.yml'
+
+  YamlSyntax:
+    enabled:                  true
+    description:              'Checking YAML syntax'
+    include:                  '**/*.yml'
