@@ -27,7 +27,8 @@ module Queryable
                   end
 
     query_params.
-    slice(*query_attrs)
+    slice(*query_attrs).
+    reject { |_k, v| v.nil? || v == '' }
   end
 
   def query_method_name_for(query_item, resource)
