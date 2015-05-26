@@ -26,8 +26,8 @@ module  Sortable
                  else
                    send(sorted_model_name)
                  end
-      resource.
-        order(sorting_arguments)
+
+      resource.order(sorting_arguments)
     end
   end
 
