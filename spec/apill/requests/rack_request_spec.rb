@@ -39,6 +39,19 @@ describe  RackRequest do
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
 
+  # rubocop:disable Metrics/LineLength
+  it 'finds the accept header from the query string if it is encoded' do
+    raw_request = {
+      'HTTP_ACCEPT'             => '',
+      'QUERY_STRING'            => 'accept=application%2Fvnd.matrix%2Bzion%3Bversion%3D10.0',
+      'HTTP_X_APPLICATION_NAME' => 'matrix',
+    }
+    request     = RackRequest.new(raw_request)
+
+    expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
+  end
+  # rubocop:enable Metrics/LineLength
+
   it 'defaults to the application name in the configuration if none is found in ' \
      'the header' do
 

@@ -30,7 +30,7 @@ class   RackRequest < Base
   private
 
   def raw_accept_header_from_params
-    request['QUERY_STRING'][ACCEPT_PARAM_PATTERN, 1]
+    URI.unescape(request['QUERY_STRING'][ACCEPT_PARAM_PATTERN, 1] || '')
   end
 end
 end
