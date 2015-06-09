@@ -9,32 +9,9 @@ plugin_directory: '.git-hooks'
 # See https://github.com/causes/overcommit#security for more information.
 verify_plugin_signatures: true
 
-# Hooks that run after HEAD changes or a file is explicitly checked out. Useful
-# for updating source tags (e.g. via ctags) or warning about new migrations,
-# etc.
-PostCheckout:
-  ALL:
-    required:          false
-    quiet:             false
-
-  BundleCheck:
-    enabled:           true
-    description:       'Checking Gemfile dependencies'
-    include:
-      - 'Gemfile'
-      - 'Gemfile.lock'
-      - '*.gemspec'
-
-  IndexTags:
-    enabled:           true
-    description:       'Indexing source code tags'
-
-# Hooks that are run after `git commit` is executed, before the commit message
-# editor is displayed. These hooks are ideal for syntax checkers, linters, and
-# other checks that you want to run before you allow a commit object to be
-# created.
 PreCommit:
   ALL:
+    problem_on_unmodified_line: report
     requires_files:           true
     required:                 false
     quiet:                    false
@@ -45,93 +22,96 @@ PreCommit:
 
   AuthorEmail:
     enabled:                  true
-    description:              'Checking author email'
-    requires_files:           false
-    required:                 true
-    quiet:                    true
-    pattern:                  '^[^@]+@.*$'
 
   AuthorName:
     enabled:                  true
-    description:              'Checking for author name'
-    requires_files:           false
-    required:                 true
-    quiet:                    true
+
+  BerksfileCheck:
+    enabled:                  true
 
   Brakeman:
-    enabled:                  false
-    description:              'Checking for security vulnerabilities'
-    include:
-      - '**/*.rb'
+    enabled:                  true
+
+  BrokenSymlinks:
+    enabled:                  true
 
   BundleCheck:
     enabled:                  true
-    description:              'Checking Gemfile dependencies'
-    include:
-      - 'Gemfile'
-      - 'Gemfile.lock'
-      - '*.gemspec'
+
+  CaseConflicts:
+    enabled:                  true
 
   ChamberSecurity:
     enabled:                  true
-    description:              'Checking that settings have been secured with Chamber'
-    include:                  'config/settings.yml'
 
   CoffeeLint:
     enabled:                  true
-    description:              'Analyzing with coffeelint'
-    include:                  '**/*.coffee'
 
   CssLint:
     enabled:                  true
-    description:              'Analyzing with csslint'
-    include:                  '**/*.css'
+
+  EsLint:
+    enabled:                  false
+
+  GoLint:
+    enabled:                  true
+
+  GoVet:
+    enabled:                  true
+
+  HamlLint:
+    enabled:                  false
 
   HardTabs:
     enabled:                  true
-    description:              'Checking for hard tabs'
-    exclude:
-      - '**/*.go'
+
+  HtmlTidy:
+    enabled:                  false
+
+  ImageOptim:
+    enabled:                  false
+
+  JavaCheckstyle:
+    enabled:                  true
 
   Jscs:
     enabled:                  true
-    description:              'Analyzing with JSCS'
-    include:                  '**/*.js'
 
   JsHint:
     enabled:                  true
-    description:              'Analyzing with JSHint'
-    include:                  '**/*.js'
+
+  JsLint:
+    enabled:                  false
+
+  Jsl:
+    enabled:                  false
 
   JsonSyntax:
     enabled:                  true
-    description:              'Validating JSON syntax'
-    include:                  '**/*.json'
-
-  JsxHint:
-    enabled:                  true
-    description:              'Analyzing with JSXHint'
-    include:                  '**/*.jsx'
 
   LocalPathsInGemfile:
     enabled:                  true
-    description:              'Checking for references to local paths in your Gemfile'
-    include:                  '**/Gemfile'
 
   MergeConflicts:
     enabled:                  true
-    description:              'Checking for merge conflicts'
 
-  PryBinding:
-    enabled:                  true
-    description:              'Checking for instances of binding.pry'
-    include:
-      - '**/*.rb'
-      - '**/*.rake'
+  Pep257:
+    enabled:                  false
+
+  Pep8:
+    enabled:                  false
+
+  Pyflakes:
+    enabled:                  false
+
+  Pylint:
+    enabled:                  false
+
+  PythonFlake8:
+    enabled:                  false
 
   RailsSchemaUpToDate:
     enabled:                  true
-    description:              'Checking if database schema is up to date'
     include:
       - '**/db/migrate/*.rb'
       - '**/db/schema.rb'
@@ -140,32 +120,157 @@ PreCommit:
   Reek:
     enabled:                  false
 
+  RubyLint:
+    enabled:                  false
+
+  Scalariform:
+    enabled:                  false
+
+  Scalastyle:
+    enabled:                  false
+
   Rubocop:
     enabled:                  true
-    description:              'Analyzing with Rubocop'
-    include:
-      - '**/*.gemspec'
-      - '**/*.rake'
-      - '**/*.rb'
-      - '**/Gemfile'
-      - '**/Rakefile'
 
   ScssLint:
     enabled:                  true
-    description:              'Analyzing with scss-lint'
-    include:                  '**/*.scss'
+
+  SemiStandard:
+    enabled:                  false
+
+  ShellCheck:
+    enabled:                  true
+
+  SlimLint:
+    enabled:                  false
+
+  Standard:
+    enabled:                  false
 
   TrailingWhitespace:
     enabled:                  true
-    description:              'Checking for trailing whitespace'
     exclude:                  '**/structure.sql'
 
   TravisLint:
     enabled:                  true
-    description:              'Checking Travis CI configuration'
-    include:                  '.travis.yml'
+
+  Vint:
+    enabled:                  false
+
+  W3cCss:
+    enabled:                  false
+
+  W3cHtml:
+    enabled:                  false
+
+  XmlLint:
+    enabled:                  true
+
+  XmlSyntax:
+    enabled:                  true
 
   YamlSyntax:
     enabled:                  true
-    description:              'Checking YAML syntax'
-    include:                  '**/*.yml'
+
+PrePush:
+  ALL:
+    requires_files:           false
+    required:                 false
+    quiet:                    false
+
+  ProtectedBranches:
+    enabled:                  false
+
+  RSpec:
+    enabled:                  false
+
+PreRebase:
+  ALL:
+    requires_files:           false
+    required:                 false
+    quiet:                    false
+
+  MergedCommits:
+    enabled:                  false
+
+CommitMsg:
+  ALL:
+    requires_files:           false
+    quiet:                    false
+
+  CapitalizedSubject:
+    enabled:                  true
+
+  GerritChangeId:
+    enabled:                  true
+
+  HardTabs:
+    enabled:                  true
+
+  RussianNovel:
+    enabled:                  false
+
+  SingleLineSubject:
+    enabled:                  true
+
+  SpellCheck:
+    enabled:                  false
+
+  TextWidth:
+    enabled:                  true
+    max_subject_width:        72
+    max_body_width:           80
+
+  TrailingPeriod:
+    enabled:                  true
+
+PostCheckout:
+  ALL:
+    required:                 false
+    quiet:                    false
+
+  BundleCheck:
+    enabled:                  true
+
+  IndexTags:
+    enabled:                  false
+
+  SubmoduleStatus:
+    enabled:                  false
+
+PostCommit:
+  ALL:
+    requires_files:           false
+    required:                 false
+    quiet:                    false
+
+  GitGuilt:
+    enabled:                  false
+
+  IndexTags:
+    enabled:                  false
+
+  SubmoduleStatus:
+    enabled:                  false
+
+PostMerge:
+  ALL:
+    requires_files:           false
+    quiet:                    false
+
+  IndexTags:
+    enabled:                  false
+
+  SubmoduleStatus:
+    enabled:                  true
+
+PostRewrite:
+  ALL:
+    requires_files:           false
+    quiet:                    false
+
+  IndexTags:
+    enabled:                  false
+
+  SubmoduleStatus:
+    enabled:                  false
