@@ -16,20 +16,21 @@ class  Filtering
     new(*attrs).processed
   end
 
-  def self.meta(*attrs)
+  def self.meta(*_attrs)
     {}
   end
 
   def processed
     parameters.each_with_object(resource) do |name, value, filtered_resource|
-      filter_method     = filter_method_for(name)
-      filtered_resource = if !filter_method
-                            resource
-                          elsif filter_method.arity == 0
-                            resource.public_send(filter_method.name)
-                          else
-                            resource.public_send(filter_method.name, value)
-                          end
+      filter_method = filter_method_for(name)
+
+      if !filter_method
+        filtered_resource
+      elsif filter_method.arity == 0
+        filtered_resource.public_send(filter_method.name)
+      else
+        filtered_resource.public_send(filter_method.name, value)
+      end
     end
   end
 

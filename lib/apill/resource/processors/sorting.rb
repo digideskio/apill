@@ -26,7 +26,7 @@ class   Sorting
 
   def meta
     {
-      'sort' => parameters.to_h
+      'sort' => parameters.to_h,
     }
   end
 end

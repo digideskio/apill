@@ -16,7 +16,7 @@ class  Indexing
     new(*attrs).processed
   end
 
-  def self.meta(*attrs)
+  def self.meta(*_attrs)
     {}
   end
 

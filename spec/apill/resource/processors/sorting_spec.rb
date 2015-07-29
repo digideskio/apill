@@ -18,7 +18,7 @@ describe  Sorting do
     expect(sorting.meta).to      eql(
       'sort' => {
         'created_at' => 'desc',
-      }
+      },
     )
   end
 
@@ -33,7 +33,7 @@ describe  Sorting do
     expect(sorting.meta).to      eql(
       'sort' => {
         'my_attribute' => 'asc',
-      }
+      },
     )
   end
 
@@ -48,7 +48,7 @@ describe  Sorting do
     expect(sorting.meta).to eql(
       'sort' => {
         'my_attribute' => 'desc',
-      }
+      },
     )
   end
 
@@ -65,7 +65,7 @@ describe  Sorting do
       'sort' => {
         'my_attribute'       => 'desc',
         'my_other_attribute' => 'asc',
-      }
+      },
     )
   end
 end

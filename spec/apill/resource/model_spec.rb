@@ -10,17 +10,17 @@ describe  Model do
 
     model = Model.new(resource:   resource,
                       parameters: {
-                                    'filter' => {
-                                      'query'          => 'my_query',
-                                      'single_arity'   => true,
-                                      'multiple_arity' => 'multi',
-                                    },
-                                    'sort'   => 'my_attribute',
-                                    'page'   => {
-                                      'number' => 10,
-                                      'size'   => 100,
-                                    }
-                                  })
+                        'filter' => {
+                          'query'          => 'my_query',
+                          'single_arity'   => true,
+                          'multiple_arity' => 'multi',
+                        },
+                        'sort'   => 'my_attribute',
+                        'page'   => {
+                          'number' => 10,
+                          'size'   => 100,
+                        },
+                      })
 
     allow(resource).to receive(:single_arity).
                        and_return(resource)
