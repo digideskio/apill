@@ -40,10 +40,10 @@ module  Pageable
 
   def pagination_data
     {
-      'total-pages' =>   @paginated_resource.total_pages,
-      'current-page' =>  @paginated_resource.current_page,
+      'total-pages'   => @paginated_resource.total_pages,
+      'current-page'  => @paginated_resource.current_page,
       'previous-page' => @paginated_resource.prev_page,
-      'next-page' =>     @paginated_resource.next_page,
+      'next-page'     => @paginated_resource.next_page,
     }
   end
 end
