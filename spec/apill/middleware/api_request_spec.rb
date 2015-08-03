@@ -131,6 +131,25 @@ describe  ApiRequest do
     expect(headers).to  eql({})
     expect(response).to eql 'response'
   end
+
+  it 'converts JSON API compliant dasherized query params to underscored' do
+    app                    = ->(env) { [200, env, 'response'] }
+    api_request_middleware = ApiRequest.new(app)
+
+    request = {
+      'HTTP_HOST'    => 'api.example.com',
+      'HTTP_ACCEPT'  => 'application/vnd.matrix+zion;version=1.0.0',
+      'QUERY_STRING' => 'hello-there=bob-jones&'     \
+                        'nice-to-meet=you-bob&'      \
+                        'hows-the-weather=today-bob',
+    }
+
+    _status, headers, _response = api_request_middleware.call(request)
+
+    expect(headers['QUERY_STRING']).to eql 'hello_there=bob-jones&' \
+                                           'nice_to_meet=you-bob&'  \
+                                           'hows_the_weather=today-bob'
+  end
 end
 end
 end
