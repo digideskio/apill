@@ -1,3 +1,16 @@
+Version v2.8.0 - August 3, 2015
+================================================================================
+
+Added
+--------------------------------------------------------------------------------
+  * Parameter processing to the middleware
+  * Parameters for processing API parameters
+  * Serializer support for JSON API
+
+Changed
+--------------------------------------------------------------------------------
+  * meta tages to dasherized instead of underscored
+
 Version v2.7.1 - June 3, 2015
 ================================================================================
 
@@ -138,9 +151,7 @@ Version v2.0.1 - November 5, 2014
 Bugfix
 --------------------------------------------------------------------------------
   * Add missing require statements
-
-Version v2.0.0 - November 5, 2014
-================================================================================
+  * Fix references from API_APPLICATION to API_APPLICATION_NAME
 
 Feature
 --------------------------------------------------------------------------------
@@ -153,10 +164,6 @@ Feature
   * Added InvalidSubdomainError
   * Update subdomain matcher to work with Rack instead of Rails
   * Convert to CircleCI
-
-Bugfix
---------------------------------------------------------------------------------
-  * Fix references from API_APPLICATION to API_APPLICATION_NAME
 
 Version v1.6.0 - June 28, 2014
 ================================================================================
