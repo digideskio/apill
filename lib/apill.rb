@@ -10,6 +10,7 @@ require 'apill/mixins/indexable'
 require 'apill/mixins/sortable'
 require 'apill/mixins/queryable'
 require 'apill/mixins/pageable'
+require 'apill/serializers/json_api'
 
 require 'apill/middleware/api_request'
 
