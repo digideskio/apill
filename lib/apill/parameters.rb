@@ -14,7 +14,7 @@ class   Parameters
     return query_string unless query_string.respond_to? :gsub
 
     query_string.gsub(/(?<=\A|&|\?)[^=&]+/) do |match|
-      match.gsub!('-', '_')
+      match.tr('-', '_')
     end
   end
 end

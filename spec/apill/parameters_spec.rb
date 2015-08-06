@@ -9,6 +9,12 @@ describe  Parameters do
     expect(Parameters.process(query_params)).to eql 'hello_there=bob-jones'
   end
 
+  it 'does not touch params with no dashes' do
+    query_params = 'hello_there=bob-jones'
+
+    expect(Parameters.process(query_params)).to eql 'hello_there=bob-jones'
+  end
+
   it 'can underscore a middle parameter and a parameter at the end' do
     query_params = 'hello-there=bob-jones&nice-to-meet=you-bob&hows-the-weather=today-bob'
 
