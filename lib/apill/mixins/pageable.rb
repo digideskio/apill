@@ -23,7 +23,7 @@ module  Pageable
       resource = if defined? super
                    super
                  else
-                   send(paginated_model_name)
+                   __send__(paginated_model_name)
                  end
 
       @paginated_resource = resource.

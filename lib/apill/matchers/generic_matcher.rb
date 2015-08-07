@@ -9,7 +9,7 @@ module  GenericMatcher
 
   def initialize(**args)
     args.each do |variable, value|
-      send("#{variable}=", value)
+      __send__("#{variable}=", value)
     end
   end
 

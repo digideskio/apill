@@ -45,7 +45,7 @@ module Queryable
       resource       = if defined? super
                          super
                        else
-                         send(queryed_model_name)
+                         __send__(queryed_model_name)
                        end
       resource       = if resource.respond_to? :records
                          resource.records
@@ -58,7 +58,7 @@ module Queryable
                          resource
                        end
 
-      sanitized_query_params.reduce(resource) do |query_resource, query_param|
+      sanitized_query_params.inject(resource) do |query_resource, query_param|
         key, value        = query_param
         query_method_name = query_method_name_for(key, resource_class).to_sym
 

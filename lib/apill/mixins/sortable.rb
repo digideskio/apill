@@ -24,7 +24,7 @@ module  Sortable
       resource = if defined? super
                    super
                  else
-                   send(sorted_model_name)
+                   __send__(sorted_model_name)
                  end
 
       resource.order(sorting_arguments)

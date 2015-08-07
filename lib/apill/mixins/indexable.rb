@@ -24,7 +24,7 @@ module Indexable
       resource = if defined? super
                    super
                  else
-                   send(indexed_model_name)
+                   __send__(indexed_model_name)
                  end
 
       if index_params.key? 'q'
