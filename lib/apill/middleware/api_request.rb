@@ -23,6 +23,10 @@ class   ApiRequest
 
         env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
 
+        if env['CONTENT_TYPE'] == 'application/vnd.api+json'
+          env['CONTENT_TYPE'] = 'application/json'
+        end
+
         @app.call(env)
       else
         Responses::InvalidApiRequestResponse.call(env)
