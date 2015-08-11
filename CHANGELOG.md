@@ -1,3 +1,19 @@
+Version v3.0.0 - August 11, 2015
+================================================================================
+
+Removed
+--------------------------------------------------------------------------------
+  * kaminiari as a strict dependency of apill
+
+Changed
+--------------------------------------------------------------------------------
+  * Error classes for the new version of human_error
+  * All mixins massively updated
+
+Added
+--------------------------------------------------------------------------------
+  * .ctags configuration file
+
 Version v2.9.0 - August 7, 2015
 ================================================================================
 
@@ -165,7 +181,9 @@ Version v2.0.1 - November 5, 2014
 Bugfix
 --------------------------------------------------------------------------------
   * Add missing require statements
-  * Fix references from API_APPLICATION to API_APPLICATION_NAME
+
+Version v2.0.0 - November 5, 2014
+================================================================================
 
 Feature
 --------------------------------------------------------------------------------
@@ -178,6 +196,10 @@ Feature
   * Added InvalidSubdomainError
   * Update subdomain matcher to work with Rack instead of Rails
   * Convert to CircleCI
+
+Bugfix
+--------------------------------------------------------------------------------
+  * Fix references from API_APPLICATION to API_APPLICATION_NAME
 
 Version v1.6.0 - June 28, 2014
 ================================================================================
