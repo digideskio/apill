@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     apill (2.9.0)
-      human_error (~> 2.0)
+      human_error (~> 3.0)
 
 GEM
   remote: https://rubygems.org/
@@ -15,7 +15,7 @@ GEM
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
     hashie (3.4.0)
-    human_error (2.0.0)
+    human_error (3.0.0)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
