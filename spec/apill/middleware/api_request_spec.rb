@@ -8,7 +8,7 @@ describe  ApiRequest, singletons: HumanError::Configuration do
 
   before(:each) do
     HumanError.configuration.url_mappings = {
-      'external_documentation_urls' => {
+      'external_documentation_urls'  => {
         'errors.invalid_subdomain_response' => 'http://example.com/foo',
       },
       'developer_documentation_urls' => {
@@ -55,20 +55,21 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     expect(JSON.load(response[0])).to include(
       'errors' => [
         {
-          'id'              => match(/[a-z0-9\-]+/),
-          'links'           => {
+          'id'     => match(/[a-z0-9\-]+/),
+          'links'  => {
             'about'         => nil,
-            'documentation' => nil
+            'documentation' => nil,
           },
-          'status'          => 404,
-          'code'            => 'errors.invalid_subdomain_error',
-          'title'           => 'Invalid Subdomain',
-          'detail'          => 'The resource you attempted to access is either not authorized for the authenticated user or does not exist.',
-          'source'          => {
-            'http_host' => 'notvalid.example.com'
-          }
-        }
-      ]
+          'status' => 404,
+          'code'   => 'errors.invalid_subdomain_error',
+          'title'  => 'Invalid Subdomain',
+          'detail' => 'The resource you attempted to access is either not authorized ' \
+                      'for the authenticated user or does not exist.',
+          'source' => {
+            'http_host' => 'notvalid.example.com',
+          },
+        },
+      ],
     )
   end
 
@@ -90,20 +91,21 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     expect(JSON.load(response[0])).to include(
       'errors' => [
         {
-          'id'              => match(/[a-z0-9\-]+/),
-          'links'           => {
+          'id'     => match(/[a-z0-9\-]+/),
+          'links'  => {
             'about'         => nil,
-            'documentation' => nil
+            'documentation' => nil,
           },
-          'status'          => 400,
-          'code'            => 'errors.invalid_api_request_error',
-          'title'           => 'Invalid API Request',
-          'detail'          => 'The accept header that you passed in the request cannot be parsed, please refer to the documentation to verify.',
-          'source'          => {
-            'accept_header' => ''
-          }
-        }
-      ]
+          'status' => 400,
+          'code'   => 'errors.invalid_api_request_error',
+          'title'  => 'Invalid API Request',
+          'detail' => 'The accept header that you passed in the request cannot be ' \
+                      'parsed, please refer to the documentation to verify.',
+          'source' => {
+            'accept_header' => '',
+          },
+        },
+      ],
     )
   end
 
