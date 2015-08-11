@@ -3,15 +3,18 @@ require 'apill/middleware/api_request'
 
 module    Apill
 module    Middleware
-describe  ApiRequest do
+describe  ApiRequest, singletons: HumanError::Configuration do
   let(:app) { ->(_env) { [200, {}, 'response'] } }
 
   before(:each) do
-    HumanError.configure do |config|
-      config.api_error_documentation_url = 'http://error.com'
-      config.knowledgebase_url           = 'http://knowledge.com'
-      config.api_version                 = '1'
-    end
+    HumanError.configuration.url_mappings = {
+      'external_documentation_urls' => {
+        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+      },
+      'developer_documentation_urls' => {
+        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+      },
+    }
 
     Apill.configure do |config|
       config.allowed_subdomains     = %w{api matrix}
@@ -47,31 +50,25 @@ describe  ApiRequest do
 
     status, headers, response = api_request_middleware.call(request)
 
-    expect(status).to   eql 404
-    expect(headers).to  eql({})
-    expect(response).to eql(
-      [
-        '{' \
-          '"error":' \
-          '{' \
-            '"status":404,' \
-            '"code":1010,' \
-            '"developer_documentation_uri":"http://error.com/1010?version=1",' \
-            '"customer_support_uri":"http://knowledge.com/1234567890",' \
-            '"developer_message_key":"errors.invalid.subdomain.error.developer",' \
-            '"developer_message":"The resource you attempted to access is either not ' \
-                                 'authorized for the authenticated user or does not ' \
-                                 'exist.",' \
-            '"developer_details":' \
-              '{' \
-                '"http_host":"notvalid.example.com"' \
-              '},' \
-            '"friendly_message_key":"errors.invalid.subdomain.error.friendly",' \
-            '"friendly_message":"Sorry! The resource you tried to access does not ' \
-                                'exist."' \
-          '}' \
-        '}',
-      ],
+    expect(status).to                 eql 404
+    expect(headers).to                eql({})
+    expect(JSON.load(response[0])).to include(
+      'errors' => [
+        {
+          'id'              => match(/[a-z0-9\-]+/),
+          'links'           => {
+            'about'         => nil,
+            'documentation' => nil
+          },
+          'status'          => 404,
+          'code'            => 'errors.invalid_subdomain_error',
+          'title'           => 'Invalid Subdomain',
+          'detail'          => 'The resource you attempted to access is either not authorized for the authenticated user or does not exist.',
+          'source'          => {
+            'http_host' => 'notvalid.example.com'
+          }
+        }
+      ]
     )
   end
 
@@ -88,31 +85,25 @@ describe  ApiRequest do
 
     status, headers, response = api_request_middleware.call(request)
 
-    expect(status).to   eql 400
-    expect(headers).to  eql({})
-    expect(response).to eql(
-      [
-        '{' \
-          '"error":' \
-          '{' \
-            '"status":400,' \
-            '"code":1007,' \
-            '"developer_documentation_uri":"http://error.com/1007?version=1",' \
-            '"customer_support_uri":"http://knowledge.com/1234567890",' \
-            '"developer_message_key":"errors.invalid.api.request.error.developer",' \
-            '"developer_message":"The accept header that you passed in the request ' \
-                                 'cannot be parsed, please refer to the documentation ' \
-                                 'to verify.",' \
-            '"developer_details":' \
-              '{' \
-                '"accept_header":""' \
-              '},' \
-            '"friendly_message_key":"errors.invalid.api.request.error.friendly",' \
-            '"friendly_message":"Sorry! We couldn\'t understand what you were trying ' \
-                                'to ask us to do."' \
-          '}' \
-        '}',
-      ],
+    expect(status).to                 eql 400
+    expect(headers).to                eql({})
+    expect(JSON.load(response[0])).to include(
+      'errors' => [
+        {
+          'id'              => match(/[a-z0-9\-]+/),
+          'links'           => {
+            'about'         => nil,
+            'documentation' => nil
+          },
+          'status'          => 400,
+          'code'            => 'errors.invalid_api_request_error',
+          'title'           => 'Invalid API Request',
+          'detail'          => 'The accept header that you passed in the request cannot be parsed, please refer to the documentation to verify.',
+          'source'          => {
+            'accept_header' => ''
+          }
+        }
+      ]
     )
   end
 

@@ -2,24 +2,26 @@ require 'human_error'
 
 module  Apill
 module  Errors
-class   InvalidApiRequestError < HumanError::Errors::RequestError
+class   InvalidApiRequestError < RuntimeError
+  include HumanError::Error
+
   attr_accessor :accept_header
 
   def http_status
     400
   end
 
-  def developer_message
+  def title
+    'Invalid API Request'
+  end
+
+  def detail
     'The accept header that you passed in the request cannot be parsed, ' \
     'please refer to the documentation to verify.'
   end
 
-  def developer_details
+  def source
     { accept_header: accept_header }
-  end
-
-  def friendly_message
-    "Sorry! We couldn't understand what you were trying to ask us to do."
   end
 end
 end

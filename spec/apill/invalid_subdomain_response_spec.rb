@@ -3,44 +3,39 @@ require 'apill/responses/invalid_subdomain_response'
 
 module    Apill
 module    Responses
-describe  InvalidSubdomainResponse do
-  before(:each) do
-    HumanError.configuration.api_error_documentation_url = 'http://error.com'
-    HumanError.configuration.knowledgebase_url           = 'http://knowledge.com'
-    HumanError.configuration.api_version                 = '1'
-  end
-
+describe  InvalidSubdomainResponse, singletons: HumanError::Configuration do
   it 'returns the proper response' do
-    request  = { 'HTTP_HOST' => 'api.example.com' }
-    response = InvalidSubdomainResponse.call(request)
+    HumanError.configuration.url_mappings = {
+      'external_documentation_urls' => {
+        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+      },
+      'developer_documentation_urls' => {
+        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+      },
+    }
 
-    expect(response).to eql(
-      [
-        404,
-        {},
-        [
-          '{' \
-            '"error":' \
-            '{' \
-              '"status":404,' \
-              '"code":1010,' \
-              '"developer_documentation_uri":"http://error.com/1010?version=1",' \
-              '"customer_support_uri":"http://knowledge.com/1234567890",' \
-              '"developer_message_key":"errors.invalid.subdomain.error.developer",' \
-              '"developer_message":"The resource you attempted to access is either not ' \
-                                   'authorized for the authenticated user or does not ' \
-                                   'exist.",' \
-              '"developer_details":' \
-                '{' \
-                  '"http_host":"api.example.com"' \
-                '},' \
-              '"friendly_message_key":"errors.invalid.subdomain.error.friendly",' \
-              '"friendly_message":"Sorry! The resource you tried to access does not ' \
-                                  'exist."' \
-            '}' \
-          '}',
-        ],
-      ],
+    request                   = { 'HTTP_HOST' => 'api.example.com' }
+    status, headers, response = InvalidSubdomainResponse.call(request)
+
+    expect(status).to                 eql 404
+    expect(headers).to                eql Hash.new
+    expect(JSON.load(response[0])).to include(
+      'errors'              => [
+        include(
+          'id'              => match(/[a-f0-9\-]+/),
+          'links'           => {
+            'about'         => nil,
+            'documentation' => nil
+          },
+          'status'          => 404,
+          'code'            => 'errors.invalid_subdomain_error',
+          'title'           => 'Invalid Subdomain',
+          'detail'          => 'The resource you attempted to access is either not authorized for the authenticated user or does not exist.',
+          'source'          => {
+            'http_host'     => 'api.example.com'
+          }
+        )
+      ]
     )
   end
 end

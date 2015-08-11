@@ -1,15 +1,10 @@
-require 'kaminari'
-
 require 'apill/version'
 
 require 'apill/configuration'
 require 'apill/matchers/accept_header_matcher'
 require 'apill/matchers/subdomain_matcher'
 require 'apill/matchers/version_matcher'
-require 'apill/mixins/indexable'
-require 'apill/mixins/sortable'
-require 'apill/mixins/queryable'
-require 'apill/mixins/pageable'
+require 'apill/resource'
 require 'apill/serializers/json_api'
 
 require 'apill/middleware/api_request'
