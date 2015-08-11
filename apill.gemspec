@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir['{test,spec,features}/**/*']
 
   spec.add_dependency             'human_error',                ["~> 2.0"]
-  spec.add_dependency             'kaminari',                   ["~> 0.16.2"]
 
   spec.add_development_dependency 'rspec',                      ["~> 3.0"]
   spec.add_development_dependency 'rspectacular',               ["~> 0.50"]

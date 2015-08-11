@@ -1,5 +1,3 @@
-require 'kaminari'
-
 require 'apill/version'
 
 require 'apill/configuration'
