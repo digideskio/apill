@@ -28,6 +28,8 @@ class   Paging
   end
 
   def meta
+    return {} unless parameters.present?
+
     {
       'total-pages'   => processed.total_pages,
       'current-page'  => processed.current_page,

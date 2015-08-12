@@ -27,6 +27,8 @@ class   Sorting
   end
 
   def meta
+    return {} unless parameters.present?
+
     {
       'sort' => parameters.to_h,
     }
