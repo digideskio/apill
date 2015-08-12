@@ -7,21 +7,6 @@ module    Processors
 describe  Sorting do
   let(:sorting_resource) { double }
 
-  it 'can return a default sort' do
-    sorting = Sorting.new(sorting_resource)
-
-    allow(sorting_resource).to receive(:order).
-                               with('created_at' => 'desc').
-                               and_return('sorted')
-
-    expect(sorting.processed).to eql 'sorted'
-    expect(sorting.meta).to      eql(
-      'sort' => {
-        'created_at' => 'desc',
-      },
-    )
-  end
-
   it 'can return an ascending sort' do
     sorting = Sorting.new(sorting_resource, 'sort' => 'my_attribute')
 
