@@ -10,6 +10,10 @@ class   Page
     self.raw_parameters = raw_parameters || {}
   end
 
+  def present?
+    raw_parameters.any?
+  end
+
   def page_number
     raw_parameters['number'] || DEFAULT_STARTING_PAGE
   end

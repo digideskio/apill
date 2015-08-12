@@ -9,6 +9,10 @@ class   Index
     self.raw_parameters = raw_parameters || {}
   end
 
+  def present?
+    query
+  end
+
   def query
     raw_parameters['query'] || raw_parameters['q']
   end

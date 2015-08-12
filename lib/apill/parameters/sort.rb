@@ -9,6 +9,10 @@ class   Sort
     self.raw_parameters = raw_parameters ? raw_parameters.split(',') : ['-created_at']
   end
 
+  def present?
+    raw_parameters.any?
+  end
+
   def to_h
     @to_h ||= Hash[to_a]
   end

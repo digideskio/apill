@@ -68,6 +68,12 @@ describe  Sorting do
       },
     )
   end
+
+  it 'does not do anything if sorting params are not passed in' do
+    sorting = Sorting.new(sorting_resource)
+
+    expect(sorting.processed).to eql sorting_resource
+  end
 end
 end
 end

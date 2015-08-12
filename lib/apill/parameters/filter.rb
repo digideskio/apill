@@ -7,6 +7,10 @@ class   Filter
     self.raw_parameters = raw_parameters || {}
   end
 
+  def present?
+    compacted_parameters.any?
+  end
+
   def each_with_object(memoized)
     compacted_parameters.each do |name, value|
       memoized = yield name, value, memoized
