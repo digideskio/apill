@@ -1,3 +1,20 @@
+Version v3.0.1 - August 11, 2015
+================================================================================
+
+Added
+--------------------------------------------------------------------------------
+  * Check which ignores non-ideomatic page param names
+  * Check to skip process step without appropriate params
+  * Defaults for all parameters if none are passed in
+
+Removed
+--------------------------------------------------------------------------------
+  * Default sort order
+
+Changed
+--------------------------------------------------------------------------------
+  * Filter parameters to extract valid parameters
+
 Version v3.0.0 - August 11, 2015
 ================================================================================
 
