@@ -52,6 +52,16 @@ describe  Paging do
     expect(paging.processed).to eql processed_resource
   end
 
+  it 'does not consider non-ideomatic page params as valid' do
+    paging = Paging.new(paging_resource,
+                        'page' => {
+                          'nombre' => 5,
+                          'tamano' => 10,
+                        })
+
+    expect(paging.processed).to eql paging_resource
+  end
+
   it 'does not do anything if page params are not passed in' do
     paging = Paging.new(paging_resource)
 
