@@ -6,7 +6,11 @@ class   Sort
   attr_accessor :raw_parameters
 
   def initialize(raw_parameters)
-    self.raw_parameters = raw_parameters ? raw_parameters.split(',') : ['-created_at']
+    self.raw_parameters = raw_parameters ? raw_parameters.split(',') : []
+  end
+
+  def present?
+    raw_parameters.any?
   end
 
   def to_h

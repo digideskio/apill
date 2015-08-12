@@ -21,6 +21,8 @@ class   Paging
   end
 
   def processed
+    return resource unless parameters.present?
+
     resource.page(parameters.page_number).
              per(parameters.per_page)
   end

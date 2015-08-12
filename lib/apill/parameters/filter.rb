@@ -4,19 +4,29 @@ class   Filter
   attr_accessor :raw_parameters
 
   def initialize(raw_parameters)
-    self.raw_parameters = raw_parameters
+    self.raw_parameters = raw_parameters || {}
+  end
+
+  def present?
+    compacted_parameters.any?
   end
 
   def each_with_object(memoized)
-    raw_parameters.each do |raw_parameter|
-      next if raw_parameter[0] == 'query' ||
-              raw_parameter[1] == '' ||
-              raw_parameter[1].nil?
-
-      memoized = yield raw_parameter[0], raw_parameter[1], memoized
+    compacted_parameters.each do |name, value|
+      memoized = yield name, value, memoized
     end
 
     memoized
+  end
+
+  private
+
+  def compacted_parameters
+    @compacted_parameters ||= raw_parameters.reject do |name, value|
+                                name == 'query' ||
+                                value == '' ||
+                                value.nil?
+    end
   end
 end
 end

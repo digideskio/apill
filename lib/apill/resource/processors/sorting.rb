@@ -21,6 +21,8 @@ class   Sorting
   end
 
   def processed
+    return resource unless parameters.present?
+
     resource.order(parameters.to_h)
   end
 

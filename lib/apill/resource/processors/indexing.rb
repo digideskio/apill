@@ -7,7 +7,7 @@ class  Indexing
   attr_accessor :resource,
                 :parameters
 
-  def initialize(resource, parameters)
+  def initialize(resource, parameters = {})
     self.resource   = resource
     self.parameters = Parameters::Index.new(parameters['filter'] || {})
   end
@@ -21,8 +21,7 @@ class  Indexing
   end
 
   def processed
-    return resource unless resource.respond_to?(:for_query) &&
-                           parameters.query
+    return resource unless parameters.present?
 
     resource.for_query(parameters.query)
   end
