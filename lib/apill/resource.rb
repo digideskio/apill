@@ -32,7 +32,7 @@ module  Resource
   end
 
   def api_resource_params
-    params.permit(sort:   String,
+    params.permit(:sort,
                   page:   %i{
                     number
                     size
