@@ -14,10 +14,10 @@ describe  Paging do
                           'size' => 10,
                         })
 
-    allow(processed_resource).to receive(:total_pages).and_return  10
-    allow(processed_resource).to receive(:current_page).and_return 1
-    allow(processed_resource).to receive(:prev_page).and_return    nil
-    allow(processed_resource).to receive(:next_page).and_return    nil
+    allow(paging_resource).to receive(:total_pages).and_return  10
+    allow(paging_resource).to receive(:current_page).and_return 1
+    allow(paging_resource).to receive(:prev_page).and_return    nil
+    allow(paging_resource).to receive(:next_page).and_return    nil
 
     allow(paging_resource).to receive(:page).
                               with(1).

@@ -39,18 +39,15 @@ describe  Model do
     allow(resource).to receive(:for_query).
                        with('my_query').
                        and_return(processed_resource)
-    allow(resource).to receive(:total_pages).
-                       and_return(10)
-    allow(resource).to receive(:current_page).
-                       and_return(5)
-    allow(resource).to receive(:prev_page).
-                       and_return(4)
-    allow(resource).to receive(:next_page).
-                       and_return(6)
 
-    allow(processed_resource).to receive(:page).
-                                 with(10).
-                                 and_return(resource)
+    allow(processed_resource).to receive(:total_pages).
+                       and_return(10)
+    allow(processed_resource).to receive(:current_page).
+                       and_return(5)
+    allow(processed_resource).to receive(:prev_page).
+                       and_return(4)
+    allow(processed_resource).to receive(:next_page).
+                       and_return(6)
 
     expect(model.processed).to eql processed_resource
     expect(model.meta).to      eql(

@@ -31,10 +31,10 @@ class   Paging
     return {} unless parameters.present?
 
     {
-      'total-pages'   => processed.total_pages,
-      'current-page'  => processed.current_page,
-      'previous-page' => processed.prev_page,
-      'next-page'     => processed.next_page,
+      'total-pages'   => resource.total_pages,
+      'current-page'  => resource.current_page,
+      'previous-page' => resource.prev_page,
+      'next-page'     => resource.next_page,
     }
   end
 end
