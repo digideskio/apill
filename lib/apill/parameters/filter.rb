@@ -4,7 +4,7 @@ class   Filter
   attr_accessor :raw_parameters
 
   def initialize(raw_parameters)
-    self.raw_parameters = raw_parameters
+    self.raw_parameters = raw_parameters || {}
   end
 
   def each_with_object(memoized)
