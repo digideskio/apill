@@ -21,9 +21,15 @@ class  Indexing
   end
 
   def processed
-    return resource unless parameters.present?
+    return resource unless parameters.present? || force_query
 
-    resource.for_query(parameters.query)
+    resource.for_query(parameters.query || Parameters::Index::DEFAULT_QUERY)
+  end
+
+  private
+
+  def force_query
+    resource.class.name.include? 'Index'
   end
 end
 end
