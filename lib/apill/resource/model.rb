@@ -14,7 +14,7 @@ class   Model
 
   def initialize(resource:, parameters:, **options)
     self.resource   = resource
-    self.parameters = parameters
+    self.parameters = parameters.dup
     self.processors = options.fetch(:processors, DEFAULT_PROCESSORS)
   end
 
