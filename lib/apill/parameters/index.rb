@@ -14,7 +14,16 @@ class   Index
   end
 
   def query
-    raw_parameters['query'] || raw_parameters['q']
+    compacted_parameters['query'] || compacted_parameters['q']
+  end
+
+  private
+
+  def compacted_parameters
+    @compacted_parameters ||= raw_parameters.reject do |name, value|
+                                value == '' ||
+                                value.nil?
+    end
   end
 end
 end

@@ -20,6 +20,15 @@ describe  Indexing do
     expect(indexing.processed).to eql indexing_resource
   end
 
+  it 'does not do anything if indexing params are passed in but they are blank' do
+    indexing = Indexing.new(indexing_resource,
+                            'filter' => {
+                              'query' => '',
+                            })
+
+    expect(indexing.processed).to eql indexing_resource
+  end
+
   it 'forces a query even if no parameters were passed in' do
     indexing_resource = TestIndexClass.new
     indexing          = Indexing.new(indexing_resource)
