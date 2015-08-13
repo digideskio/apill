@@ -20,7 +20,7 @@ class   Index
   private
 
   def compacted_parameters
-    @compacted_parameters ||= raw_parameters.reject do |name, value|
+    @compacted_parameters ||= raw_parameters.reject do |_name, value|
                                 value == '' ||
                                 value.nil?
     end
