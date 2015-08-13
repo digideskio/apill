@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    apill (3.0.6)
+    apill (3.0.7)
       human_error (~> 3.0)
 
 GEM
