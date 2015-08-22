@@ -1,7 +1,7 @@
 module  Apill
 class   Parameters
 class   Filter
-  NUMERICAL_RANGE = /\A([\d\.]+?)\.\.\.?([\d\.]+?)\z/
+  NUMERICAL_RANGE = /\A([\d_\.]+?)\.\.\.?([\d_\.]+?)\z/
 
   attr_accessor :raw_parameters
 
