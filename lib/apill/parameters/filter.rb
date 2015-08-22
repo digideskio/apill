@@ -40,7 +40,7 @@ class   Filter
       exclusive      = value.include? '...'
       starting_point = range_points[1].to_f
       ending_point   = if range_points[2] == 'Infinity'
-                         Float::INFINITY
+                         9_999_999
                        else
                          range_points[2].to_f
                        end

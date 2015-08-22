@@ -75,7 +75,7 @@ describe  Filtering do
                                  with(100.0...200.0).
                                  and_return filtering_resource
     allow(filtering_resource).to receive(:infinity).
-                                 with(9...Float::INFINITY).
+                                 with(9.0...9_999_999).
                                  and_return filtering_resource
     allow(filtering_resource).to receive(:other_stuff).
                                  with(3333.33..888.0).
