@@ -1,6 +1,8 @@
 module  Apill
 class   Parameters
 class   Filter
+  NUMERICAL_RANGE = /\A([\d\.]+?)\.\.\.?([\d\.]+?)\z/
+
   attr_accessor :raw_parameters
 
   def initialize(raw_parameters)
@@ -13,7 +15,7 @@ class   Filter
 
   def each_with_object(memoized)
     compacted_parameters.each do |name, value|
-      memoized = yield name, value, memoized
+      memoized = yield name, format_value(value), memoized
     end
 
     memoized
@@ -28,6 +30,22 @@ class   Filter
                                 value.nil?
     end
   end
+
+  # rubocop:disable Lint/AssignmentInCondition
+  def format_value(value)
+    return value unless value.is_a?(String)
+
+    if range_points = value.match(NUMERICAL_RANGE)
+      exclusive      = value.include? '...'
+      starting_point = range_points[1].to_f
+      ending_point   = range_points[2].to_f
+
+      Range.new(starting_point, ending_point, exclusive)
+    else
+      value
+    end
+  end
+  # rubocop:enable Lint/AssignmentInCondition
 end
 end
 end

@@ -63,6 +63,23 @@ describe  Filtering do
     expect(filtering.processed).to eql 'other_stuffed'
   end
 
+  it 'can properly format numerical ranges' do
+    filtering = Filtering.new(filtering_resource,
+                              'filter' => {
+                                'stuff'       => '100...200',
+                                'other_stuff' => '333.33..888.0',
+                              })
+
+    allow(filtering_resource).to receive(:for_stuff).
+                                 with(100.0...200.0).
+                                 and_return filtering_resource
+    allow(filtering_resource).to receive(:other_stuff).
+                                 with(333.33..888.0).
+                                 and_return 'other_stuffed'
+
+    expect(filtering.processed).to eql 'other_stuffed'
+  end
+
   it 'can handle objects (eg ActiveRelation) that store their proxy class in klass' do
     resource_class = double
     filtering      = Filtering.new(filtering_resource,
