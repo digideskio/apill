@@ -67,11 +67,15 @@ describe  Filtering do
     filtering = Filtering.new(filtering_resource,
                               'filter' => {
                                 'stuff'       => '100...200',
+                                'infinity'    => '9...Infinity',
                                 'other_stuff' => '3_333.33..8_8__8.0',
                               })
 
     allow(filtering_resource).to receive(:for_stuff).
                                  with(100.0...200.0).
+                                 and_return filtering_resource
+    allow(filtering_resource).to receive(:infinity).
+                                 with(9...Float::INFINITY).
                                  and_return filtering_resource
     allow(filtering_resource).to receive(:other_stuff).
                                  with(3333.33..888.0).

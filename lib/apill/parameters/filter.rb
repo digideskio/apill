@@ -2,7 +2,7 @@ module  Apill
 class   Parameters
 class   Filter
   NUMERICAL       = /[\d_\.]+?/
-  NUMERICAL_RANGE = /\A(#{NUMERICAL})\.\.\.?(#{NUMERICAL})\z/
+  NUMERICAL_RANGE = /\A(#{NUMERICAL})\.\.\.?(#{NUMERICAL}|Infinity)\z/
 
   attr_accessor :raw_parameters
 
@@ -39,7 +39,11 @@ class   Filter
     if range_points = value.match(NUMERICAL_RANGE)
       exclusive      = value.include? '...'
       starting_point = range_points[1].to_f
-      ending_point   = range_points[2].to_f
+      ending_point   = if range_points[2] == 'Infinity'
+                         Float::INFINITY
+                       else
+                         range_points[2].to_f
+                       end
 
       Range.new(starting_point, ending_point, exclusive)
     else
