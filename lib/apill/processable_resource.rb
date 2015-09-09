@@ -37,7 +37,8 @@ module  ProcessableResource
                     limit
                     cursor
                   },
-                  filter: api_filterable_parameters)
+                  filter: api_filterable_parameters,
+                  include: api_include_parameters)
   end
 
   def api_filterable_parameters
@@ -56,6 +57,24 @@ module  ProcessableResource
 
       scalar_params << array_params
     end
+  end
+
+  def api_include_parameters
+    @api_include_parameters ||= begin
+      include_params = params.fetch(:include, '').split(',')
+      array_params   = []
+
+      api_includeable_associations.each do |api_includeable_association|
+        if include_params.include? api_includeable_association
+          array_params << api_includeable_association
+        end
+      end
+      array_params
+    end
+  end
+
+  def api_includeable_associations
+    []
   end
 
   def api_filterable_attributes
