@@ -18,6 +18,10 @@ class   Model
     self.processors = options.fetch(:processors, DEFAULT_PROCESSORS)
   end
 
+  def include
+    @include ||= parameters['include']
+  end
+
   def processed
     @processed ||= \
       processors.inject(resource) do |processed_resource, processor|

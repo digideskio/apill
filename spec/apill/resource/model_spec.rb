@@ -15,6 +15,7 @@ describe  Model do
                           'single_arity'   => true,
                           'multiple_arity' => 'multi',
                         },
+                        'include'=> %w{my_association my_other_association},
                         'sort'   => 'my_attribute',
                         'page'   => {
                           'number' => 10,
@@ -50,6 +51,9 @@ describe  Model do
                        and_return(6)
 
     expect(model.processed).to eql processed_resource
+    expect(model.processed).to eql processed_resource
+    expect(model.include).to   eql %w{my_association my_other_association}
+
     expect(model.meta).to      eql(
       'current-page'  => 5,
       'total-pages'   => 10,
