@@ -10,14 +10,14 @@ describe  Model do
 
     model = Model.new(resource:   resource,
                       parameters: {
-                        'filter' => {
+                        'filter'  => {
                           'query'          => 'my_query',
                           'single_arity'   => true,
                           'multiple_arity' => 'multi',
                         },
-                        'include'=> %w{my_association my_other_association},
-                        'sort'   => 'my_attribute',
-                        'page'   => {
+                        'include' => %w{my_association my_other_association},
+                        'sort'    => 'my_attribute',
+                        'page'    => {
                           'number' => 10,
                           'size'   => 100,
                         },

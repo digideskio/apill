@@ -30,14 +30,14 @@ module  ProcessableResource
 
   def api_resource_params
     params.permit(:sort,
-                  page:   %i{
+                  page:    %i{
                     number
                     size
                     offset
                     limit
                     cursor
                   },
-                  filter: api_filterable_parameters,
+                  filter:  api_filterable_parameters,
                   include: api_include_parameters)
   end
 
