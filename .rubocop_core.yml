@@ -354,6 +354,9 @@ Style/MultilineOperationIndentation:
 Style/MultilineTernaryOperator:
   Enabled:                       true
 
+Style/MutableConstant:
+  Enabled:                       true
+
 Style/NegatedIf:
   Enabled:                       true
 
@@ -392,7 +395,16 @@ Style/OptionalArguments:
   Enabled:                       true
 
 Style/OptionHash:
-  Enabled:                       false
+  Enabled:                       true
+  Exclude:
+    - '**/workers/**/*.rb'
+    - '**/jobs/**/*.rb'
+  SuspiciousParamNames:
+    - options
+    - opts
+    - args
+    - params
+    - parameters
 
 Style/ParallelAssignment:
   Enabled:                       true
@@ -444,6 +456,9 @@ Style/RedundantBegin:
   Enabled:                       true
 
 Style/RedundantException:
+  Enabled:                       true
+
+Style/RedundantFreeze:
   Enabled:                       true
 
 Style/RedundantReturn:
@@ -582,6 +597,11 @@ Style/StringLiterals:
 
 Style/StringLiteralsInInterpolation:
   Enabled:                       true
+
+Style/StringMethods:
+  Enabled:                       true
+  PreferredMethods:
+    intern: 'to_sym'
 
 Style/StructInheritance:
   Enabled:                       true
@@ -740,6 +760,9 @@ Lint/DefEndAlignment:
 Lint/DeprecatedClassMethods:
   Enabled:                       true
 
+Lint/DuplicatedKey:
+  Enabled:                       true
+
 Lint/DuplicateMethods:
   Enabled:                       true
 
@@ -846,6 +869,9 @@ Lint/Void:
 ################################################################################
 #                                PERFORMANCE
 ################################################################################
+
+Performance/CaseWhenSplat:
+  Enabled:                       true
 
 Performance/Count:
   Enabled:                       true
