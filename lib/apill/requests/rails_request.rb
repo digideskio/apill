@@ -5,24 +5,19 @@ require 'apill/accept_header'
 module  Apill
 module  Requests
 class   RailsRequest < Base
-  attr_accessor :request
 
-  def initialize(request)
-    self.request = request
+  private
+
+  def raw_accept_header_from_header
+    request.headers['Accept']
   end
 
-  def accept_header_from_header
-    AcceptHeader.new(application: application_name,
-                     header:      request.headers['Accept'] || '')
+  def raw_accept_header_from_params
+    request.params['accept']
   end
 
-  def accept_header_from_params
-    AcceptHeader.new(application: application_name,
-                     header:      request.params['accept'] || '')
-  end
-
-  def application_name
-    request.headers['X-Application-Name'] || Apill.configuration.application_name
+  def raw_request_application_name
+    request.headers['X-Application-Name']
   end
 end
 end

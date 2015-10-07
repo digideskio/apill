@@ -1,12 +1,10 @@
 module  Apill
 module  Requests
 class   Base
-  def self.resolve(original_request)
-    if original_request.respond_to? :headers
-      rails_request_class.new(original_request)
-    else
-      rack_request_class.new(original_request)
-    end
+  attr_accessor :request
+
+  def initialize(request)
+    self.request = request
   end
 
   def accept_header
@@ -16,6 +14,18 @@ class   Base
       accept_header_from_header
     else
       accept_header_from_params
+    end
+  end
+
+  def application_name
+    raw_request_application_name || Apill.configuration.application_name
+  end
+
+  def self.resolve(original_request)
+    if original_request.respond_to? :headers
+      rails_request_class.new(original_request)
+    else
+      rack_request_class.new(original_request)
     end
   end
 
@@ -29,6 +39,18 @@ class   Base
     require 'apill/requests/rack_request'
 
     Object.const_get('Apill::Requests::RackRequest')
+  end
+
+  private
+
+  def accept_header_from_header
+    AcceptHeader.new(application: application_name,
+                     header:      raw_accept_header_from_header || '')
+  end
+
+  def accept_header_from_params
+    AcceptHeader.new(application: application_name,
+                     header:      raw_accept_header_from_params || '')
   end
 end
 end
