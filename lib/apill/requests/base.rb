@@ -1,10 +1,14 @@
 module  Apill
 module  Requests
 class   Base
-  attr_accessor :request
+  attr_accessor :token_private_key,
+                :request
 
-  def initialize(request:)
-    self.request = request
+  def initialize(token_private_key: Apill.configuration.token_private_key,
+                 request:)
+
+    self.token_private_key = token_private_key
+    self.request           = request
   end
 
   def accept_header
