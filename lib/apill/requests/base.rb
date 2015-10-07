@@ -1,6 +1,11 @@
+require 'apill/tokens/invalid_request_authorization'
+require 'apill/tokens/request_authorization'
+
 module  Apill
 module  Requests
 class   Base
+  TOKEN_PATTERN = %r{\A(?:Token ([A-Za-z0-9_/\+\=\-\.]+))?\z}
+
   attr_accessor :token_private_key,
                 :request
 
@@ -18,6 +23,23 @@ class   Base
       accept_header_from_header
     else
       accept_header_from_params
+    end
+  end
+
+  def authorization_token
+    if (
+         !authorization_token_from_header.blank? &&
+         authorization_token_from_header.valid?
+       ) \
+       ||
+       (
+         authorization_token_from_params.blank? ||
+         !authorization_token_from_params.valid?
+       )
+
+      authorization_token_from_header
+    else
+      authorization_token_from_params
     end
   end
 
@@ -55,6 +77,26 @@ class   Base
   def accept_header_from_params
     AcceptHeader.new(application: application_name,
                      header:      raw_accept_header_from_params || '')
+  end
+
+  def authorization_token_from_header
+    return Tokens::InvalidRequestAuthorization.instance unless raw_authorization_header.match(TOKEN_PATTERN)
+
+    Tokens::RequestAuthorization.convert(
+      token_private_key: token_private_key,
+      raw_token:         raw_authorization_token_from_header || '')
+  end
+
+  def authorization_token_from_params
+    Tokens::RequestAuthorization.convert(
+      token_private_key: token_private_key,
+      raw_token:         raw_authorization_token_from_params || '')
+  end
+
+  private
+
+  def raw_authorization_token_from_header
+    raw_authorization_header[TOKEN_PATTERN, 1] || ''
   end
 end
 end

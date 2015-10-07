@@ -15,6 +15,14 @@ class   RailsRequest < Base
     request.params['accept']
   end
 
+  def raw_authorization_header
+    request.headers['HTTP_AUTHORIZATION'] || ''
+  end
+
+  def raw_authorization_token_from_params
+    request.params['auth_token'] || ''
+  end
+
   def raw_request_application_name
     request.headers['X-Application-Name']
   end
