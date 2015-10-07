@@ -4,7 +4,8 @@ module  Apill
       :allowed_subdomains,
       :allowed_api_subdomains,
       :application_name,
-      :default_api_version
+      :default_api_version,
+      :token_private_key
 
     def to_h
       {
