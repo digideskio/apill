@@ -12,7 +12,7 @@ describe  RailsRequest do
                       'Accept'             => 'application/vnd.matrix+zion;version=10.0',
                     },
                     params:  {})
-    request     = RailsRequest.new(raw_request)
+    request     = RailsRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -26,7 +26,7 @@ describe  RailsRequest do
                       'Accept'             => 'invalid/vnd.matrix+zion;version=10.0',
                     },
                     params:  {})
-    request     = RailsRequest.new(raw_request)
+    request     = RailsRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'invalid/vnd.matrix+zion;version=10.0'
   end
@@ -37,7 +37,7 @@ describe  RailsRequest do
                       'X-Application-Name' => 'matrix',
                     },
                     params:  { 'accept' => 'application/vnd.matrix+zion;version=10.0' })
-    request     = RailsRequest.new(raw_request)
+    request     = RailsRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -50,7 +50,7 @@ describe  RailsRequest do
     raw_request = OpenStruct.new(
                     headers: {},
                     params:  { 'accept' => 'application/vnd.zion+zion;version=10.0' })
-    request     = RailsRequest.new(raw_request)
+    request     = RailsRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.zion+zion;version=10.0'
   end

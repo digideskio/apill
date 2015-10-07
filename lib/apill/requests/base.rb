@@ -3,7 +3,7 @@ module  Requests
 class   Base
   attr_accessor :request
 
-  def initialize(request)
+  def initialize(request:)
     self.request = request
   end
 
@@ -23,9 +23,9 @@ class   Base
 
   def self.resolve(original_request)
     if original_request.respond_to? :headers
-      rails_request_class.new(original_request)
+      rails_request_class.new(request: original_request)
     else
-      rack_request_class.new(original_request)
+      rack_request_class.new(request: original_request)
     end
   end
 

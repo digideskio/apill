@@ -10,7 +10,7 @@ describe  RackRequest do
       'QUERY_STRING'            => '',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(raw_request)
+    request     = RackRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -23,7 +23,7 @@ describe  RackRequest do
       'QUERY_STRING'            => '',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(raw_request)
+    request     = RackRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'invalid/vnd.matrix+zion;version=10.0'
   end
@@ -34,7 +34,7 @@ describe  RackRequest do
       'QUERY_STRING'            => 'accept=application/vnd.matrix+zion;version=10.0',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(raw_request)
+    request     = RackRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -46,7 +46,7 @@ describe  RackRequest do
       'QUERY_STRING'            => 'accept=application%2Fvnd.matrix%2Bzion%3Bversion%3D10.0',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(raw_request)
+    request     = RackRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -61,7 +61,7 @@ describe  RackRequest do
       'HTTP_ACCEPT'  => '',
       'QUERY_STRING' => 'accept=application/vnd.zion+zion;version=10.0',
     }
-    request     = RackRequest.new(raw_request)
+    request     = RackRequest.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.zion+zion;version=10.0'
   end
