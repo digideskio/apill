@@ -1,4 +1,4 @@
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/matchers/subdomain_matcher'
 require 'apill/configuration'
 

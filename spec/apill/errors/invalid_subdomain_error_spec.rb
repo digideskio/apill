@@ -1,4 +1,4 @@
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/errors/invalid_subdomain_error'
 
 module    Apill

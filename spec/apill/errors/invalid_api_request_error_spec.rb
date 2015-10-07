@@ -1,4 +1,4 @@
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/errors/invalid_api_request_error'
 
 module    Apill

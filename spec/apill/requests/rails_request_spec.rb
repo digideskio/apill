@@ -1,5 +1,5 @@
 require 'ostruct'
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/requests/rails_request'
 
 module    Apill

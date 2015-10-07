@@ -1,4 +1,4 @@
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/responses/invalid_subdomain_response'
 
 module    Apill

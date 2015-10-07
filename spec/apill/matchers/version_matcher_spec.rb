@@ -1,4 +1,4 @@
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/matchers/version_matcher'
 
 module    Apill

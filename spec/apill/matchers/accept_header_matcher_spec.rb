@@ -1,4 +1,4 @@
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/matchers/accept_header_matcher'
 
 module    Apill
