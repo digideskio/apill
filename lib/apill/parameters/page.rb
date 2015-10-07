@@ -1,7 +1,7 @@
 module  Apill
 class   Parameters
 class   Page
-  PAGING_PARAMETERS     = %w{number size limit offset cursor}
+  PAGING_PARAMETERS     = %w{number size limit offset cursor}.freeze
   DEFAULT_STARTING_PAGE = 1
   DEFAULT_PAGE_SIZE     = 25
 

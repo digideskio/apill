@@ -5,7 +5,6 @@ require 'apill/accept_header'
 module  Apill
 module  Requests
 class   RailsRequest < Base
-
   private
 
   def raw_accept_header_from_header

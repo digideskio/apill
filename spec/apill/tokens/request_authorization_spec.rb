@@ -42,7 +42,7 @@ describe  RequestAuthorization do
                                          raw_token:         valid_token)
 
     expect(token).to      be_a RequestAuthorization
-    expect(token.to_h).to eql([{'bar' => 'baz'}, {"typ"=>"JWT", "alg"=>"RS256"}])
+    expect(token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])
   end
 end
 end
