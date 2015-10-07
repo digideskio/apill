@@ -3,6 +3,7 @@ PATH
   specs:
     apill (3.1.2)
       human_error (~> 3.0)
+      jwt (~> 1.5)
 
 GEM
   remote: https://rubygems.org/
@@ -15,7 +16,8 @@ GEM
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
     hashie (3.4.0)
-    human_error (3.0.0)
+    human_error (3.0.1)
+    jwt (1.5.1)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -44,4 +46,4 @@ DEPENDENCIES
   rspectacular (~> 0.50)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
