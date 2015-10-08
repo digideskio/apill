@@ -2,7 +2,7 @@ require 'apill/errors/invalid_api_request_error'
 
 module  Apill
 module  Responses
-class   InvalidApiRequestResponse
+class   InvalidApiRequest
   def self.call(env)
     error = Apill::Errors::InvalidApiRequestError.new(accept_header: env['HTTP_ACCEPT'])
 

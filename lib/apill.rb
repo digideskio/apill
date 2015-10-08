@@ -9,5 +9,5 @@ require 'apill/serializers/json_api'
 
 require 'apill/middleware/api_request'
 
-require 'apill/responses/invalid_api_request_response'
+require 'apill/responses/invalid_api_request'
 require 'apill/responses/invalid_subdomain'
