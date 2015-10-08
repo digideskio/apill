@@ -1,9 +1,9 @@
-require 'apill/matchers/generic_matcher'
+require 'apill/matchers/generic'
 
 module  Apill
 module  Matchers
 class   AcceptHeader
-  include Apill::Matchers::GenericMatcher
+  include Apill::Matchers::Generic
 
   def matches?(request)
     super

@@ -1,10 +1,10 @@
 require 'apill/configuration'
-require 'apill/matchers/generic_matcher'
+require 'apill/matchers/generic'
 
 module  Apill
 module  Matchers
 class   VersionMatcher
-  include GenericMatcher
+  include Generic
 
   attr_accessor :version_constraint,
                 :default_version

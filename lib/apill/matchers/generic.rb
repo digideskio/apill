@@ -3,7 +3,7 @@ require 'apill/requests/base'
 
 module  Apill
 module  Matchers
-module  GenericMatcher
+module  Generic
   attr_accessor :application,
                 :accept_header
 
