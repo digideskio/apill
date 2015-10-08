@@ -3,7 +3,7 @@ require 'apill/errors/invalid_token'
 module  Apill
 module  Responses
 class   InvalidToken
-  def self.call(env)
+  def self.call(_env)
     error = Apill::Errors::InvalidToken.new
 
     [

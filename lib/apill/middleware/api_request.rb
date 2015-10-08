@@ -29,7 +29,7 @@ class   ApiRequest
     return Responses::InvalidToken.call(env)      unless token.valid?
 
     env['HTTP_X_JSON_WEB_TOKEN'] = token.to_h
-    env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
+    env['QUERY_STRING']          = Parameters.process(env['QUERY_STRING'])
 
     if env['CONTENT_TYPE'] == 'application/vnd.api+json'
       env['CONTENT_TYPE'] = 'application/json'

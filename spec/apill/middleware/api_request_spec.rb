@@ -130,10 +130,10 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     api_request_middleware                = ApiRequest.new(app)
 
     request = {
-      'HTTP_HOST'           => 'api.example.com',
-      'HTTP_ACCEPT'         => 'application/vnd.matrix+zion;version=1.0.0',
-      'HTTP_AUTHORIZATION'  => "Token #{valid_token}",
-      'QUERY_STRING'        => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_HOST'          => 'api.example.com',
+      'HTTP_ACCEPT'        => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_AUTHORIZATION' => "Token #{valid_token}",
+      'QUERY_STRING'       => 'accept=application/vnd.matrix+zion;version=1.0.0',
     }
 
     status, headers, response = api_request_middleware.call(request)
@@ -148,13 +148,13 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     api_request_middleware                = ApiRequest.new(app)
 
     request = {
-      'HTTP_HOST'           => 'api.example.com',
-      'HTTP_ACCEPT'         => 'application/vnd.matrix+zion;version=1.0.0',
-      'HTTP_AUTHORIZATION'  => "Token #{invalid_token}",
-      'QUERY_STRING'        => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_HOST'          => 'api.example.com',
+      'HTTP_ACCEPT'        => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
+      'QUERY_STRING'       => 'accept=application/vnd.matrix+zion;version=1.0.0',
     }
 
-    status, headers, response = api_request_middleware.call(request)
+    _status, _headers, response = api_request_middleware.call(request)
 
     expect(response.first).to include 'errors.invalid_token'
   end
