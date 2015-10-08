@@ -1,6 +1,6 @@
 module  Apill
 module  Matchers
-class   SubdomainMatcher
+class   Subdomain
   def initialize(allowed_subdomains:     Apill.configuration.allowed_subdomains,
                  allowed_api_subdomains: Apill.configuration.allowed_api_subdomains,
                  request:)
