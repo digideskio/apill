@@ -1,7 +1,7 @@
 require 'apill/version'
 
 require 'apill/configuration'
-require 'apill/matchers/accept_header_matcher'
+require 'apill/matchers/accept_header'
 require 'apill/matchers/subdomain'
 require 'apill/matchers/version_matcher'
 require 'apill/resource'

@@ -2,7 +2,7 @@ require 'apill/matchers/generic_matcher'
 
 module  Apill
 module  Matchers
-class   AcceptHeaderMatcher
+class   AcceptHeader
   include Apill::Matchers::GenericMatcher
 
   def matches?(request)

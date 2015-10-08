@@ -1,16 +1,16 @@
 require 'spec_helper'
-require 'apill/matchers/accept_header_matcher'
+require 'apill/matchers/accept_header'
 
 module    Apill
 module    Matchers
-describe  AcceptHeaderMatcher do
+describe  AcceptHeader do
   it 'matches if the subdomain is API and the accept header is valid' do
     request = {
       'HTTP_ACCEPT'             => 'application/vnd.matrix+zion;version=1.0.0',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
-    matcher = AcceptHeaderMatcher.new
+    matcher = AcceptHeader.new
 
     expect(matcher.matches?(request)).to be_a TrueClass
   end
@@ -23,7 +23,7 @@ describe  AcceptHeaderMatcher do
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
-    matcher = AcceptHeaderMatcher.new
+    matcher = AcceptHeader.new
 
     expect(matcher.matches?(request)).to be_a TrueClass
   end
@@ -37,7 +37,7 @@ describe  AcceptHeaderMatcher do
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
-    matcher = AcceptHeaderMatcher.new
+    matcher = AcceptHeader.new
 
     expect(matcher.matches?(request)).to be_a TrueClass
   end
@@ -51,7 +51,7 @@ describe  AcceptHeaderMatcher do
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
-    matcher = AcceptHeaderMatcher.new
+    matcher = AcceptHeader.new
     matcher.matches?(request)
 
     expect(matcher.accept_header.version).to eql '1.0.0'
@@ -66,7 +66,7 @@ describe  AcceptHeaderMatcher do
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
-    matcher = AcceptHeaderMatcher.new
+    matcher = AcceptHeader.new
     matcher.matches?(request)
 
     expect(matcher.accept_header.version).to eql '2.0.0'
@@ -81,7 +81,7 @@ describe  AcceptHeaderMatcher do
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
-    matcher = AcceptHeaderMatcher.new
+    matcher = AcceptHeader.new
     matcher.matches?(request)
 
     expect(matcher.accept_header.raw_accept_header).to eql \
@@ -95,7 +95,7 @@ describe  AcceptHeaderMatcher do
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
 
-    matcher = AcceptHeaderMatcher.new
+    matcher = AcceptHeader.new
 
     expect(matcher.matches?(request)).to be_a FalseClass
   end
