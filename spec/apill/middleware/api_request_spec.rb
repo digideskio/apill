@@ -9,10 +9,10 @@ describe  ApiRequest, singletons: HumanError::Configuration do
   before(:each) do
     HumanError.configuration.url_mappings = {
       'external_documentation_urls'  => {
-        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+        'errors.responses.invalid_subdomain' => 'http://example.com/foo',
       },
       'developer_documentation_urls' => {
-        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+        'errors.responses.invalid_subdomain' => 'http://example.com/foo',
       },
     }
 

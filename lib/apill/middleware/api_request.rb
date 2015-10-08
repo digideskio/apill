@@ -3,7 +3,7 @@ require 'apill/parameters'
 require 'apill/matchers/subdomain_matcher'
 require 'apill/matchers/accept_header_matcher'
 require 'apill/responses/invalid_api_request_response'
-require 'apill/responses/invalid_subdomain_response'
+require 'apill/responses/invalid_subdomain'
 
 module  Apill
 module  Middleware
@@ -17,7 +17,7 @@ class   ApiRequest
 
     subdomain_matcher = Matchers::SubdomainMatcher.new(request: env)
 
-    return Responses::InvalidSubdomainResponse.call(env) unless subdomain_matcher.matches?
+    return Responses::InvalidSubdomain.call(env)  unless subdomain_matcher.matches?
     return Responses::InvalidApiRequestResponse.call(env) unless !subdomain_matcher.matches_api_subdomain? ||
                                                                  Matchers::AcceptHeaderMatcher.new.matches?(env)
 

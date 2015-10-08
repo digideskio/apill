@@ -2,7 +2,7 @@ require 'apill/errors/invalid_subdomain_error'
 
 module  Apill
 module  Responses
-class   InvalidSubdomainResponse
+class   InvalidSubdomain
   def self.call(env)
     error = Apill::Errors::InvalidSubdomainError.new(http_host: env['HTTP_HOST'])
 
