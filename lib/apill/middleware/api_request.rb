@@ -17,10 +17,11 @@ class   ApiRequest
     env['HTTP_X_APPLICATION_NAME'] = Apill.configuration.application_name
 
     subdomain_matcher = Matchers::Subdomain.new(request: env)
+    accept_header_matcher = Matchers::AcceptHeader.new
 
     return Responses::InvalidSubdomain.call(env)  unless subdomain_matcher.matches?
     return Responses::InvalidApiRequest.call(env) unless !subdomain_matcher.matches_api_subdomain? ||
-                                                         Matchers::AcceptHeader.new.matches?(env)
+                                                         accept_header_matcher.matches?(env)
 
     env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
 
