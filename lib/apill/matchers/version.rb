@@ -3,7 +3,7 @@ require 'apill/matchers/generic'
 
 module  Apill
 module  Matchers
-class   VersionMatcher
+class   Version
   include Generic
 
   attr_accessor :version_constraint,
