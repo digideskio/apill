@@ -9,9 +9,7 @@ class   Version
   attr_accessor :version_constraint,
                 :default_version
 
-  def matches?(request)
-    super
-
+  def matches?
     requested_version == version_constraint
   end
 

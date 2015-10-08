@@ -3,11 +3,9 @@ require 'apill/matchers/generic'
 module  Apill
 module  Matchers
 class   AcceptHeader
-  include Apill::Matchers::Generic
+  include Generic
 
-  def matches?(request)
-    super
-
+  def matches?
     accept_header.valid?
   end
 end

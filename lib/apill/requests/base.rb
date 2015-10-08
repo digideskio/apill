@@ -46,6 +46,10 @@ class   Base
     raw_request_application_name || Apill.configuration.application_name
   end
 
+  def subdomain
+    @subdomain ||= raw_host[/\A([a-z\-]+)/i, 1]
+  end
+
   def self.resolve(original_request)
     if original_request.respond_to? :headers
       rails_request_class.new(request: original_request)
@@ -94,6 +98,10 @@ class   Base
   end
 
   private
+
+  def raw_host
+    request.fetch('HTTP_HOST', '')
+  end
 
   def raw_authorization_token_from_header
     raw_authorization_header[TOKEN_PATTERN, 1] || ''
