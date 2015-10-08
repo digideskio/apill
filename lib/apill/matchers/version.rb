@@ -1,17 +1,15 @@
 require 'apill/configuration'
-require 'apill/matchers/generic_matcher'
+require 'apill/matchers/generic'
 
 module  Apill
 module  Matchers
-class   VersionMatcher
-  include GenericMatcher
+class   Version
+  include Generic
 
   attr_accessor :version_constraint,
                 :default_version
 
-  def matches?(request)
-    super
-
+  def matches?
     requested_version == version_constraint
   end
 

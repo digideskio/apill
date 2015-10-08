@@ -1,10 +1,10 @@
-require 'apill/errors/invalid_api_request_error'
+require 'apill/errors/invalid_api_request'
 
 module  Apill
 module  Responses
-class   InvalidApiRequestResponse
+class   InvalidApiRequest
   def self.call(env)
-    error = Apill::Errors::InvalidApiRequestError.new(accept_header: env['HTTP_ACCEPT'])
+    error = Apill::Errors::InvalidApiRequest.new(accept_header: env['HTTP_ACCEPT'])
 
     [
       error.http_status,  # HTTP Status Code

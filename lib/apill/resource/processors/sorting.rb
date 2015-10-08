@@ -7,10 +7,12 @@ class   Sorting
   attr_accessor :resource,
                 :parameters
 
+  # rubocop:disable Style/OptionHash
   def initialize(resource, parameters = {})
     self.resource   = resource
     self.parameters = Parameters::Sort.new(parameters['sort'])
   end
+  # rubocop:enable Style/OptionHash
 
   def self.processed(*attrs)
     new(*attrs).processed

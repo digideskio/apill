@@ -1,20 +1,16 @@
-require 'apill/accept_header'
-require 'apill/requests/base'
-
 module  Apill
 module  Matchers
-module  GenericMatcher
+module  Generic
   attr_accessor :application,
-                :accept_header
+                :accept_header,
+                :request
 
-  def initialize(**args)
+  def initialize(request:, **args)
     args.each do |variable, value|
       __send__("#{variable}=", value)
     end
-  end
 
-  def matches?(request)
-    request            = Requests::Base.resolve(request)
+    self.request       = request
     self.application   = request.application_name
     self.accept_header = request.accept_header
   end

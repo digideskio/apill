@@ -1,6 +1,6 @@
 module  Apill
 module  Matchers
-class   SubdomainMatcher
+class   Subdomain
   def initialize(allowed_subdomains:     Apill.configuration.allowed_subdomains,
                  allowed_api_subdomains: Apill.configuration.allowed_api_subdomains,
                  request:)
@@ -11,11 +11,11 @@ class   SubdomainMatcher
   end
 
   def matches?
-    allowed_subdomains.include? request_subdomain
+    allowed_subdomains.include? request.subdomain
   end
 
   def matches_api_subdomain?
-    allowed_api_subdomains.include? request_subdomain
+    allowed_api_subdomains.include? request.subdomain
   end
 
   protected
@@ -23,12 +23,6 @@ class   SubdomainMatcher
   attr_accessor :allowed_subdomains,
                 :allowed_api_subdomains,
                 :request
-
-  private
-
-  def request_subdomain
-    @request_subdomain ||= request.fetch('HTTP_HOST', '')[/\A([a-z\-]+)/i, 1]
-  end
 end
 end
 end

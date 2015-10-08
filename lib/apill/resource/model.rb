@@ -6,7 +6,7 @@ require 'apill/resource/processors/indexing'
 module  Apill
 module  Resource
 class   Model
-  DEFAULT_PROCESSORS = %w{filtering sorting paging indexing}
+  DEFAULT_PROCESSORS = %w{filtering sorting paging indexing}.freeze
 
   attr_accessor :resource,
                 :parameters,

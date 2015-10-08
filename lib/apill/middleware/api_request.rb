@@ -1,9 +1,11 @@
 require 'apill/configuration'
 require 'apill/parameters'
-require 'apill/matchers/subdomain_matcher'
-require 'apill/matchers/accept_header_matcher'
-require 'apill/responses/invalid_api_request_response'
-require 'apill/responses/invalid_subdomain_response'
+require 'apill/matchers/subdomain'
+require 'apill/matchers/accept_header'
+require 'apill/requests/base'
+require 'apill/responses/invalid_api_request'
+require 'apill/responses/invalid_subdomain'
+require 'apill/responses/invalid_token'
 
 module  Apill
 module  Middleware
@@ -12,29 +14,30 @@ class   ApiRequest
     @app = app
   end
 
+  # rubocop:disable Metrics/LineLength
   def call(env)
     env['HTTP_X_APPLICATION_NAME'] = Apill.configuration.application_name
 
-    subdomain_matcher = Matchers::SubdomainMatcher.new(request: env)
+    request               = Requests::Base.resolve(env)
+    subdomain_matcher     = Matchers::Subdomain.new(request: request)
+    accept_header_matcher = Matchers::AcceptHeader.new(request: request)
+    token                 = request.authorization_token
 
-    if subdomain_matcher.matches?
-      if !subdomain_matcher.matches_api_subdomain? ||
-          Matchers::AcceptHeaderMatcher.new.matches?(env)
+    return Responses::InvalidSubdomain.call(env)  unless subdomain_matcher.matches?
+    return Responses::InvalidApiRequest.call(env) unless !subdomain_matcher.matches_api_subdomain? ||
+                                                         accept_header_matcher.matches?
+    return Responses::InvalidToken.call(env)      unless token.valid?
 
-        env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
+    env['HTTP_X_JSON_WEB_TOKEN'] = token.to_h
+    env['QUERY_STRING']          = Parameters.process(env['QUERY_STRING'])
 
-        if env['CONTENT_TYPE'] == 'application/vnd.api+json'
-          env['CONTENT_TYPE'] = 'application/json'
-        end
-
-        @app.call(env)
-      else
-        Responses::InvalidApiRequestResponse.call(env)
-      end
-    else
-      Responses::InvalidSubdomainResponse.call(env)
+    if env['CONTENT_TYPE'] == 'application/vnd.api+json'
+      env['CONTENT_TYPE'] = 'application/json'
     end
+
+    @app.call(env)
   end
+  # rubocop:enable Metrics/LineLength
 end
 end
 end

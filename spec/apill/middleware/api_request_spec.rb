@@ -1,4 +1,4 @@
-require 'rspectacular'
+require 'spec_helper'
 require 'apill/middleware/api_request'
 
 module    Apill
@@ -9,10 +9,10 @@ describe  ApiRequest, singletons: HumanError::Configuration do
   before(:each) do
     HumanError.configuration.url_mappings = {
       'external_documentation_urls'  => {
-        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+        'errors.responses.invalid_subdomain' => 'http://example.com/foo',
       },
       'developer_documentation_urls' => {
-        'errors.invalid_subdomain_response' => 'http://example.com/foo',
+        'errors.responses.invalid_subdomain' => 'http://example.com/foo',
       },
     }
 
@@ -61,7 +61,7 @@ describe  ApiRequest, singletons: HumanError::Configuration do
             'documentation' => nil,
           },
           'status' => 404,
-          'code'   => 'errors.invalid_subdomain_error',
+          'code'   => 'errors.invalid_subdomain',
           'title'  => 'Invalid Subdomain',
           'detail' => 'The resource you attempted to access is either not authorized ' \
                       'for the authenticated user or does not exist.',
@@ -97,7 +97,7 @@ describe  ApiRequest, singletons: HumanError::Configuration do
             'documentation' => nil,
           },
           'status' => 400,
-          'code'   => 'errors.invalid_api_request_error',
+          'code'   => 'errors.invalid_api_request',
           'title'  => 'Invalid API Request',
           'detail' => 'The accept header that you passed in the request cannot be ' \
                       'parsed, please refer to the documentation to verify.',
@@ -123,6 +123,40 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     expect(status).to   eql 200
     expect(headers).to  eql({})
     expect(response).to eql 'response'
+  end
+
+  it 'does allow requests if the subdomain, the accept header and the token are valid' do
+    Apill.configuration.token_private_key = test_private_key
+    api_request_middleware                = ApiRequest.new(app)
+
+    request = {
+      'HTTP_HOST'          => 'api.example.com',
+      'HTTP_ACCEPT'        => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_AUTHORIZATION' => "Token #{valid_token}",
+      'QUERY_STRING'       => 'accept=application/vnd.matrix+zion;version=1.0.0',
+    }
+
+    status, headers, response = api_request_middleware.call(request)
+
+    expect(status).to   eql 200
+    expect(headers).to  eql({})
+    expect(response).to eql 'response'
+  end
+
+  it 'returns the proper response if the token is invalid' do
+    Apill.configuration.token_private_key = test_private_key
+    api_request_middleware                = ApiRequest.new(app)
+
+    request = {
+      'HTTP_HOST'          => 'api.example.com',
+      'HTTP_ACCEPT'        => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
+      'QUERY_STRING'       => 'accept=application/vnd.matrix+zion;version=1.0.0',
+    }
+
+    _status, _headers, response = api_request_middleware.call(request)
+
+    expect(response.first).to include 'errors.invalid_token'
   end
 
   it 'converts JSON API compliant dasherized query params to underscored' do

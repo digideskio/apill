@@ -1,7 +1,7 @@
 module  Apill
 class   Parameters
 class   Sort
-  DESCENDING_PREFIX = '-'
+  DESCENDING_PREFIX = '-'.freeze
 
   attr_accessor :raw_parameters
 

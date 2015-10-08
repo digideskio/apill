@@ -2,7 +2,7 @@ require 'human_error'
 
 module  Apill
 module  Errors
-class   InvalidApiRequestError < RuntimeError
+class   InvalidApiRequest < RuntimeError
   include HumanError::Error
 
   attr_accessor :accept_header
