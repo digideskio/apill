@@ -21,13 +21,13 @@ class   ApiRequest
     return Responses::InvalidApiRequest.call(env) unless !subdomain_matcher.matches_api_subdomain? ||
                                                                  Matchers::AcceptHeader.new.matches?(env)
 
-        env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
+    env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
 
-        if env['CONTENT_TYPE'] == 'application/vnd.api+json'
-          env['CONTENT_TYPE'] = 'application/json'
-        end
+    if env['CONTENT_TYPE'] == 'application/vnd.api+json'
+      env['CONTENT_TYPE'] = 'application/json'
+    end
 
-        @app.call(env)
+    @app.call(env)
   end
 end
 end

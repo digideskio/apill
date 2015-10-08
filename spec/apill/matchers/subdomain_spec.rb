@@ -34,7 +34,7 @@ describe  Subdomain do
   it 'allows the matched subdomain to be specified' do
     request = { 'HTTP_HOST' => 'matrix.example.com' }
     matcher = Subdomain.new(allowed_subdomains: 'matrix',
-                                   request:            request)
+                            request:            request)
 
     expect(matcher.matches?).to be_a TrueClass
   end
@@ -42,13 +42,13 @@ describe  Subdomain do
   it 'allows more than one subdomain to be matched' do
     request = { 'HTTP_HOST' => 'matrix.example.com' }
     matcher = Subdomain.new(allowed_subdomains: %w{api matrix},
-                                   request:            request)
+                            request:            request)
 
     expect(matcher.matches?).to be_a TrueClass
 
     request = { 'HTTP_HOST' => 'api.example.com' }
     matcher = Subdomain.new(allowed_subdomains: %w{api matrix},
-                                   request:            request)
+                            request:            request)
 
     expect(matcher.matches?).to be_a TrueClass
   end
@@ -56,7 +56,7 @@ describe  Subdomain do
   it 'can match only the api subdomain' do
     request = { 'HTTP_HOST' => 'matrix.example.com' }
     matcher = Subdomain.new(allowed_api_subdomains: %w{matrix},
-                                   request:                request)
+                            request:                request)
 
     expect(matcher.matches_api_subdomain?).to be_a TrueClass
   end
