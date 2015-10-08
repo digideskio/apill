@@ -1,17 +1,17 @@
 require 'spec_helper'
-require 'apill/errors/invalid_subdomain_error'
+require 'apill/errors/invalid_subdomain'
 
 module    Apill
 module    Errors
-describe  InvalidSubdomainError do
-  let(:error) { InvalidSubdomainError.new }
+describe  InvalidSubdomain do
+  let(:error) { InvalidSubdomain.new }
 
   it 'has a status of 404' do
     expect(error.http_status).to eql 404
   end
 
   it 'has a code' do
-    expect(error.code).to eql 'errors.invalid_subdomain_error'
+    expect(error.code).to eql 'errors.invalid_subdomain'
   end
 
   it 'can output the detail' do
@@ -21,7 +21,7 @@ describe  InvalidSubdomainError do
   end
 
   it 'can output the source' do
-    error = InvalidSubdomainError.new http_host: 'foo'
+    error = InvalidSubdomain.new http_host: 'foo'
 
     expect(error.source).to eql(http_host: 'foo')
   end

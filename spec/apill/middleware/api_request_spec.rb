@@ -61,7 +61,7 @@ describe  ApiRequest, singletons: HumanError::Configuration do
             'documentation' => nil,
           },
           'status' => 404,
-          'code'   => 'errors.invalid_subdomain_error',
+          'code'   => 'errors.invalid_subdomain',
           'title'  => 'Invalid Subdomain',
           'detail' => 'The resource you attempted to access is either not authorized ' \
                       'for the authenticated user or does not exist.',

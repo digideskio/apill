@@ -2,7 +2,7 @@ require 'human_error'
 
 module  Apill
 module  Errors
-class   InvalidSubdomainError < RuntimeError
+class   InvalidSubdomain < RuntimeError
   include HumanError::Error
 
   attr_accessor :http_host
