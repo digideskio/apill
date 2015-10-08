@@ -18,9 +18,8 @@ class   ApiRequest
     subdomain_matcher = Matchers::SubdomainMatcher.new(request: env)
 
     return Responses::InvalidSubdomainResponse.call(env) unless subdomain_matcher.matches?
-
-      if !subdomain_matcher.matches_api_subdomain? ||
-          Matchers::AcceptHeaderMatcher.new.matches?(env)
+    return Responses::InvalidApiRequestResponse.call(env) unless !subdomain_matcher.matches_api_subdomain? ||
+                                                                 Matchers::AcceptHeaderMatcher.new.matches?(env)
 
         env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
 
@@ -29,9 +28,6 @@ class   ApiRequest
         end
 
         @app.call(env)
-      else
-        Responses::InvalidApiRequestResponse.call(env)
-      end
   end
 end
 end
