@@ -1,16 +1,16 @@
 require 'spec_helper'
-require 'apill/requests/rack_request'
+require 'apill/requests/rack'
 
 module    Apill
 module    Requests
-describe  RackRequest do
+describe  Rack do
   it 'finds the accept header from the headers if it is valid' do
     raw_request = {
       'HTTP_ACCEPT'             => 'application/vnd.matrix+zion;version=10.0',
       'QUERY_STRING'            => '',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(request: raw_request)
+    request     = Rack.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -23,7 +23,7 @@ describe  RackRequest do
       'QUERY_STRING'            => '',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(request: raw_request)
+    request     = Rack.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'invalid/vnd.matrix+zion;version=10.0'
   end
@@ -34,7 +34,7 @@ describe  RackRequest do
       'QUERY_STRING'            => 'accept=application/vnd.matrix+zion;version=10.0',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(request: raw_request)
+    request     = Rack.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -46,7 +46,7 @@ describe  RackRequest do
       'QUERY_STRING'            => 'accept=application%2Fvnd.matrix%2Bzion%3Bversion%3D10.0',
       'HTTP_X_APPLICATION_NAME' => 'matrix',
     }
-    request     = RackRequest.new(request: raw_request)
+    request     = Rack.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -57,7 +57,7 @@ describe  RackRequest do
       'HTTP_AUTHORIZATION' => "Token #{valid_token}",
       'QUERY_STRING'       => '',
     }
-    request     = RackRequest.new(token_private_key: test_private_key,
+    request     = Rack.new(token_private_key: test_private_key,
                                   request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -69,7 +69,7 @@ describe  RackRequest do
       'HTTP_AUTHORIZATION' => "#{valid_token}",
       'QUERY_STRING'       => '',
     }
-    request     = RackRequest.new(token_private_key: test_private_key,
+    request     = Rack.new(token_private_key: test_private_key,
                                   request:           raw_request)
 
     expect(request.authorization_token).not_to  be_valid
@@ -83,7 +83,7 @@ describe  RackRequest do
       'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
       'QUERY_STRING'       => "auth_token=#{valid_token}",
     }
-    request     = RackRequest.new(token_private_key: test_private_key,
+    request     = Rack.new(token_private_key: test_private_key,
                                   request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -96,7 +96,7 @@ describe  RackRequest do
     raw_request = {
       'QUERY_STRING' => "auth_token=#{valid_token}",
     }
-    request     = RackRequest.new(token_private_key: test_private_key,
+    request     = Rack.new(token_private_key: test_private_key,
                                   request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -107,7 +107,7 @@ describe  RackRequest do
     raw_request = {
       'QUERY_STRING' => '',
     }
-    request     = RackRequest.new(token_private_key: test_private_key,
+    request     = Rack.new(token_private_key: test_private_key,
                                   request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -118,7 +118,7 @@ describe  RackRequest do
     raw_request = {
       'QUERY_STRING' => "auth_token=#{valid_token}",
     }
-    request     = RackRequest.new(token_private_key: test_private_key,
+    request     = Rack.new(token_private_key: test_private_key,
                                   request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -134,7 +134,7 @@ describe  RackRequest do
       'HTTP_ACCEPT'  => '',
       'QUERY_STRING' => 'accept=application/vnd.zion+zion;version=10.0',
     }
-    request     = RackRequest.new(request: raw_request)
+    request     = Rack.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.zion+zion;version=10.0'
   end

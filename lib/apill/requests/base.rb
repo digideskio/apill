@@ -62,9 +62,9 @@ class   Base
   end
 
   def self.rack_request_class
-    require 'apill/requests/rack_request'
+    require 'apill/requests/rack'
 
-    Object.const_get('Apill::Requests::RackRequest')
+    Object.const_get('Apill::Requests::Rack')
   end
 
   private
