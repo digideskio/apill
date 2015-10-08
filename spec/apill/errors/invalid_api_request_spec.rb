@@ -1,17 +1,17 @@
 require 'spec_helper'
-require 'apill/errors/invalid_api_request_error'
+require 'apill/errors/invalid_api_request'
 
 module    Apill
 module    Errors
-describe  InvalidApiRequestError do
-  let(:error) { InvalidApiRequestError.new }
+describe  InvalidApiRequest do
+  let(:error) { InvalidApiRequest.new }
 
   it 'has a status of 400' do
     expect(error.http_status).to eql 400
   end
 
   it 'has a code' do
-    expect(error.code).to eql 'errors.invalid_api_request_error'
+    expect(error.code).to eql 'errors.invalid_api_request'
   end
 
   it 'can output the detail' do
@@ -21,7 +21,7 @@ describe  InvalidApiRequestError do
   end
 
   it 'can output the source' do
-    error = InvalidApiRequestError.new accept_header: 'foo'
+    error = InvalidApiRequest.new accept_header: 'foo'
 
     expect(error.source).to eql(accept_header: 'foo')
   end

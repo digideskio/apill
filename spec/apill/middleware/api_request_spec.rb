@@ -97,7 +97,7 @@ describe  ApiRequest, singletons: HumanError::Configuration do
             'documentation' => nil,
           },
           'status' => 400,
-          'code'   => 'errors.invalid_api_request_error',
+          'code'   => 'errors.invalid_api_request',
           'title'  => 'Invalid API Request',
           'detail' => 'The accept header that you passed in the request cannot be ' \
                       'parsed, please refer to the documentation to verify.',
