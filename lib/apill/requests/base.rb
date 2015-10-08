@@ -30,12 +30,11 @@ class   Base
     if (
          !authorization_token_from_header.blank? &&
          authorization_token_from_header.valid?
-       ) \
-       ||
-       (
-         authorization_token_from_params.blank? ||
-         !authorization_token_from_params.valid?
-       )
+    ) ||
+    (
+      authorization_token_from_params.blank? ||
+      !authorization_token_from_params.valid?
+    )
 
       authorization_token_from_header
     else
@@ -80,7 +79,8 @@ class   Base
   end
 
   def authorization_token_from_header
-    return Tokens::InvalidRequestAuthorization.instance unless raw_authorization_header.match(TOKEN_PATTERN)
+    return Tokens::InvalidRequestAuthorization.instance \
+      unless raw_authorization_header.match(TOKEN_PATTERN)
 
     Tokens::RequestAuthorization.convert(
       token_private_key: token_private_key,

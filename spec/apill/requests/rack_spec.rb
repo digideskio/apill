@@ -58,10 +58,14 @@ describe  Rack do
       'QUERY_STRING'       => '',
     }
     request     = Rack.new(token_private_key: test_private_key,
-                                  request:           raw_request)
+                           request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
-    expect(request.authorization_token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])
+    expect(request.authorization_token.to_h).to eql(
+      [
+        { 'bar' => 'baz' },
+        { 'typ' => 'JWT', 'alg' => 'RS256' },
+      ])
   end
 
   it 'can process an authorization token if it is sent through incorrectly' do
@@ -70,7 +74,7 @@ describe  Rack do
       'QUERY_STRING'       => '',
     }
     request     = Rack.new(token_private_key: test_private_key,
-                                  request:           raw_request)
+                           request:           raw_request)
 
     expect(request.authorization_token).not_to  be_valid
     expect(request.authorization_token.to_h).to eql({})
@@ -84,10 +88,14 @@ describe  Rack do
       'QUERY_STRING'       => "auth_token=#{valid_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
-                                  request:           raw_request)
+                           request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
-    expect(request.authorization_token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])
+    expect(request.authorization_token.to_h).to eql(
+      [
+        { 'bar' => 'baz' },
+        { 'typ' => 'JWT', 'alg' => 'RS256' },
+      ])
   end
 
   it 'finds the authorization token from the params if the authorization token from ' \
@@ -97,10 +105,14 @@ describe  Rack do
       'QUERY_STRING' => "auth_token=#{valid_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
-                                  request:           raw_request)
+                           request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
-    expect(request.authorization_token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])
+    expect(request.authorization_token.to_h).to eql(
+      [
+        { 'bar' => 'baz' },
+        { 'typ' => 'JWT', 'alg' => 'RS256' },
+      ])
   end
 
   it 'is a null authorization token if neither authorization token is present' do
@@ -108,7 +120,7 @@ describe  Rack do
       'QUERY_STRING' => '',
     }
     request     = Rack.new(token_private_key: test_private_key,
-                                  request:           raw_request)
+                           request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
     expect(request.authorization_token.to_h).to eql({})
@@ -119,10 +131,14 @@ describe  Rack do
       'QUERY_STRING' => "auth_token=#{valid_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
-                                  request:           raw_request)
+                           request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
-    expect(request.authorization_token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])
+    expect(request.authorization_token.to_h).to eql(
+      [
+        { 'bar' => 'baz' },
+        { 'typ' => 'JWT', 'alg' => 'RS256' },
+      ])
   end
 
   it 'defaults to the application name in the configuration if none is found in ' \

@@ -42,7 +42,7 @@ describe  Version do
       }
 
       matcher = Version.new(version_constraint: '10.1',
-                                   default_version:    '10.0')
+                            default_version:    '10.0')
 
       expect(matcher.matches?(request)).to be_a FalseClass
     end
@@ -56,7 +56,7 @@ describe  Version do
       }
 
       matcher = Version.new(version_constraint: '10.0',
-                                   default_version:    '10.0')
+                            default_version:    '10.0')
 
       expect(matcher.matches?(request)).to be_a TrueClass
     end

@@ -12,6 +12,7 @@ class   ApiRequest
     @app = app
   end
 
+  # rubocop:disable Metrics/LineLength
   def call(env)
     env['HTTP_X_APPLICATION_NAME'] = Apill.configuration.application_name
 
@@ -19,7 +20,7 @@ class   ApiRequest
 
     return Responses::InvalidSubdomain.call(env)  unless subdomain_matcher.matches?
     return Responses::InvalidApiRequest.call(env) unless !subdomain_matcher.matches_api_subdomain? ||
-                                                                 Matchers::AcceptHeader.new.matches?(env)
+                                                         Matchers::AcceptHeader.new.matches?(env)
 
     env['QUERY_STRING'] = Parameters.process(env['QUERY_STRING'])
 
@@ -29,6 +30,7 @@ class   ApiRequest
 
     @app.call(env)
   end
+  # rubocop:enable Metrics/LineLength
 end
 end
 end
