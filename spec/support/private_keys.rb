@@ -1,3 +1,5 @@
+require 'json/jwt'
+
 def test_private_key
   OpenSSL::PKey::RSA.new File.read(File.expand_path('../fixtures/test_rsa_key', __dir__))
 end

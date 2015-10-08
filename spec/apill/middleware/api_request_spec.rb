@@ -125,6 +125,40 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     expect(response).to eql 'response'
   end
 
+  it 'does allow requests if the subdomain, the accept header and the token are valid' do
+    Apill.configuration.token_private_key = test_private_key
+    api_request_middleware                = ApiRequest.new(app)
+
+    request = {
+      'HTTP_HOST'           => 'api.example.com',
+      'HTTP_ACCEPT'         => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_AUTHORIZATION'  => "Token #{valid_token}",
+      'QUERY_STRING'        => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+    }
+
+    status, headers, response = api_request_middleware.call(request)
+
+    expect(status).to   eql 200
+    expect(headers).to  eql({})
+    expect(response).to eql 'response'
+  end
+
+  it 'returns the proper response if the token is invalid' do
+    Apill.configuration.token_private_key = test_private_key
+    api_request_middleware                = ApiRequest.new(app)
+
+    request = {
+      'HTTP_HOST'           => 'api.example.com',
+      'HTTP_ACCEPT'         => 'application/vnd.matrix+zion;version=1.0.0',
+      'HTTP_AUTHORIZATION'  => "Token #{invalid_token}",
+      'QUERY_STRING'        => 'first=my_param&accept=application/vnd.matrix+zion;version=1.0.0',
+    }
+
+    status, headers, response = api_request_middleware.call(request)
+
+    expect(response.first).to include 'errors.invalid_token'
+  end
+
   it 'converts JSON API compliant dasherized query params to underscored' do
     app                    = ->(env) { [200, env, 'response'] }
     api_request_middleware = ApiRequest.new(app)
