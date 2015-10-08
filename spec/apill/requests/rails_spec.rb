@@ -1,10 +1,10 @@
 require 'ostruct'
 require 'spec_helper'
-require 'apill/requests/rails_request'
+require 'apill/requests/rails'
 
 module    Apill
 module    Requests
-describe  RailsRequest do
+describe  Rails do
   it 'finds the accept header from the headers if it is valid' do
     raw_request = OpenStruct.new(
                     headers: {
@@ -12,7 +12,7 @@ describe  RailsRequest do
                       'Accept'             => 'application/vnd.matrix+zion;version=10.0',
                     },
                     params:  {})
-    request     = RailsRequest.new(request: raw_request)
+    request     = Rails.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -26,7 +26,7 @@ describe  RailsRequest do
                       'Accept'             => 'invalid/vnd.matrix+zion;version=10.0',
                     },
                     params:  {})
-    request     = RailsRequest.new(request: raw_request)
+    request     = Rails.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'invalid/vnd.matrix+zion;version=10.0'
   end
@@ -37,7 +37,7 @@ describe  RailsRequest do
                       'X-Application-Name' => 'matrix',
                     },
                     params:  { 'accept' => 'application/vnd.matrix+zion;version=10.0' })
-    request     = RailsRequest.new(request: raw_request)
+    request     = Rails.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.matrix+zion;version=10.0'
   end
@@ -48,7 +48,7 @@ describe  RailsRequest do
                       'HTTP_AUTHORIZATION' => "Token #{valid_token}",
                     },
                     params:  {})
-    request     = RailsRequest.new(token_private_key: test_private_key,
+    request     = Rails.new(token_private_key: test_private_key,
                                    request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -61,7 +61,7 @@ describe  RailsRequest do
                       'HTTP_AUTHORIZATION' => "#{valid_token}",
                     },
                     params:  {})
-    request     = RailsRequest.new(token_private_key: test_private_key,
+    request     = Rails.new(token_private_key: test_private_key,
                                    request:           raw_request)
 
     expect(request.authorization_token).not_to  be_valid
@@ -76,7 +76,7 @@ describe  RailsRequest do
                       'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
                     },
                     params:  { 'auth_token' => valid_token })
-    request     = RailsRequest.new(token_private_key: test_private_key,
+    request     = Rails.new(token_private_key: test_private_key,
                                    request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -89,7 +89,7 @@ describe  RailsRequest do
     raw_request = OpenStruct.new(
                     headers: {},
                     params:  { 'auth_token' => valid_token })
-    request     = RailsRequest.new(token_private_key: test_private_key,
+    request     = Rails.new(token_private_key: test_private_key,
                                    request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -100,7 +100,7 @@ describe  RailsRequest do
     raw_request = OpenStruct.new(
                     headers: {},
                     params:  {})
-    request     = RailsRequest.new(token_private_key: test_private_key,
+    request     = Rails.new(token_private_key: test_private_key,
                                    request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -111,7 +111,7 @@ describe  RailsRequest do
     raw_request = OpenStruct.new(
                     headers: {},
                     params:  { 'auth_token' => valid_token })
-    request     = RailsRequest.new(token_private_key: test_private_key,
+    request     = Rails.new(token_private_key: test_private_key,
                                    request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
@@ -126,7 +126,7 @@ describe  RailsRequest do
     raw_request = OpenStruct.new(
                     headers: {},
                     params:  { 'accept' => 'application/vnd.zion+zion;version=10.0' })
-    request     = RailsRequest.new(request: raw_request)
+    request     = Rails.new(request: raw_request)
 
     expect(request.accept_header.to_s).to eql 'application/vnd.zion+zion;version=10.0'
   end

@@ -56,9 +56,9 @@ class   Base
   end
 
   def self.rails_request_class
-    require 'apill/requests/rails_request'
+    require 'apill/requests/rails'
 
-    Object.const_get('Apill::Requests::RailsRequest')
+    Object.const_get('Apill::Requests::Rails')
   end
 
   def self.rack_request_class
