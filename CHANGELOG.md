@@ -1,3 +1,37 @@
+Version v4.0.0 - October 19, 2015
+================================================================================
+
+Added
+--------------------------------------------------------------------------------
+  * Token decryption and verification to the middleware
+  * Responses::InvalidToken
+  * Errors::InvalidToken
+  * token_private_key to Requests::Base initializer
+  * token_private_key to configuration
+  * Tokens::RequestAuthorization
+  * Tokens::NullAuthorization
+  * Tokens::InvalidRequestAuthorization
+
+Changed
+--------------------------------------------------------------------------------
+  * Matchers to take the request on initialization
+  * Extract local variable
+  * Rename RailsRequest to Rails
+  * Rename RackRequest to Rack
+  * Rename VersionMatcher to Version
+  * Rename GenericMatcher to Generic
+  * Rename InvalidSubdomainError to InvalidSubdomain
+  * Rename AcceptHeaderMatcher to AcceptHeader
+  * Rename SubdomainMatcher to Subdomain
+  * Rename InvalidApiRequestError to InvalidApiRequest
+  * Rename InvalidApiRequestResponse to InvalidApiRequest
+  * Rename InvalidSubdomainResponse to InvalidSubdomain
+  * ApiRequest middleware to use a short circuit
+  * ApiRequest middleware to use short circuit
+  * Requests to allow parsing of authorization tokens
+  * Requests::Base to use keyword parameters
+  * Request class structure
+
 Version v3.1.2 - August 22, 2015
 ================================================================================
 
