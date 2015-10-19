@@ -5,14 +5,22 @@ module  Generic
                 :accept_header,
                 :request
 
-  def initialize(request:, **args)
+  def initialize(**args)
     args.each do |variable, value|
       __send__("#{variable}=", value)
     end
+  end
 
-    self.request       = request
-    self.application   = request.application_name
-    self.accept_header = request.accept_header
+  def matches?(request)
+    self.request = request
+  end
+
+  def application
+    request.application_name
+  end
+
+  def accept_header
+    request.accept_header
   end
 end
 end

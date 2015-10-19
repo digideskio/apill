@@ -5,7 +5,9 @@ module  Matchers
 class   AcceptHeader
   include Generic
 
-  def matches?
+  def matches?(request)
+    super
+
     accept_header.valid?
   end
 end

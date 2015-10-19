@@ -19,13 +19,13 @@ class   ApiRequest
     env['HTTP_X_APPLICATION_NAME'] = Apill.configuration.application_name
 
     request               = Requests::Base.resolve(env)
-    subdomain_matcher     = Matchers::Subdomain.new(request: request)
-    accept_header_matcher = Matchers::AcceptHeader.new(request: request)
+    subdomain_matcher     = Matchers::Subdomain.new
+    accept_header_matcher = Matchers::AcceptHeader.new
     token                 = request.authorization_token
 
-    return Responses::InvalidSubdomain.call(env)  unless subdomain_matcher.matches?
-    return Responses::InvalidApiRequest.call(env) unless !subdomain_matcher.matches_api_subdomain? ||
-                                                         accept_header_matcher.matches?
+    return Responses::InvalidSubdomain.call(env)  unless subdomain_matcher.matches?(request)
+    return Responses::InvalidApiRequest.call(env) unless !subdomain_matcher.matches_api_subdomain?(request) ||
+                                                         accept_header_matcher.matches?(request)
     return Responses::InvalidToken.call(env)      unless token.valid?
 
     env['HTTP_X_JSON_WEB_TOKEN'] = token.to_h

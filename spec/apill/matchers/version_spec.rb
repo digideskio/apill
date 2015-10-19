@@ -15,10 +15,9 @@ describe  Version do
       }
       request = Requests::Base.resolve(env)
 
-      matcher = Version.new(request:            request,
-                            version_constraint: '10.1')
+      matcher = Version.new(version_constraint: '10.1')
 
-      expect(matcher).not_to be_matches
+      expect(matcher.matches?(request)).to be_a FalseClass
     end
 
     it 'does match if the subdomain is API and the requested version equals the ' \
@@ -30,10 +29,9 @@ describe  Version do
       }
       request = Requests::Base.resolve(env)
 
-      matcher = Version.new(request:            request,
-                            version_constraint: '10.0')
+      matcher = Version.new(version_constraint: '10.0')
 
-      expect(matcher).to be_matches
+      expect(matcher.matches?(request)).to be_a TrueClass
     end
   end
 
@@ -47,11 +45,10 @@ describe  Version do
       }
       request = Requests::Base.resolve(env)
 
-      matcher = Version.new(request:            request,
-                            version_constraint: '10.1',
+      matcher = Version.new(version_constraint: '10.1',
                             default_version:    '10.0')
 
-      expect(matcher).not_to be_matches
+      expect(matcher.matches?(request)).to be_a FalseClass
     end
 
     it 'does match if the subdomain is API and the requested version equals the ' \
@@ -63,11 +60,10 @@ describe  Version do
       }
       request = Requests::Base.resolve(env)
 
-      matcher = Version.new(request:            request,
-                            version_constraint: '10.0',
+      matcher = Version.new(version_constraint: '10.0',
                             default_version:    '10.0')
 
-      expect(matcher).to be_matches
+      expect(matcher.matches?(request)).to be_a TrueClass
     end
   end
 
@@ -80,10 +76,9 @@ describe  Version do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = Version.new(request:            request,
-                          version_constraint: '100.0')
+    matcher = Version.new(version_constraint: '100.0')
 
-    expect(matcher).to be_matches
+    expect(matcher.matches?(request)).to be_a TrueClass
   end
 end
 end

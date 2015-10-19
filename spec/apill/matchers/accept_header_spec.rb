@@ -12,9 +12,9 @@ describe  AcceptHeader do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = AcceptHeader.new(request: request)
+    matcher = AcceptHeader.new
 
-    expect(matcher).to be_matches
+    expect(matcher.matches?(request)).to be_a TrueClass
   end
 
   it 'matches if the subdomain is API and the accept header is passed in as ' \
@@ -26,9 +26,9 @@ describe  AcceptHeader do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = AcceptHeader.new(request: request)
+    matcher = AcceptHeader.new
 
-    expect(matcher).to be_matches
+    expect(matcher.matches?(request)).to be_a TrueClass
   end
 
   it 'matches if the subdomain is API and the accept header is passed in as a ' \
@@ -41,9 +41,9 @@ describe  AcceptHeader do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = AcceptHeader.new(request: request)
+    matcher = AcceptHeader.new
 
-    expect(matcher).to be_matches
+    expect(matcher.matches?(request)).to be_a TrueClass
   end
 
   it 'matches the header accept header if the subdomain is API and the accept header ' \
@@ -56,8 +56,8 @@ describe  AcceptHeader do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = AcceptHeader.new(request: request)
-    matcher.matches?
+    matcher = AcceptHeader.new
+    matcher.matches?(request)
 
     expect(matcher.accept_header.version).to eql '1.0.0'
   end
@@ -72,8 +72,8 @@ describe  AcceptHeader do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = AcceptHeader.new(request: request)
-    matcher.matches?
+    matcher = AcceptHeader.new
+    matcher.matches?(request)
 
     expect(matcher.accept_header.version).to eql '2.0.0'
   end
@@ -88,8 +88,8 @@ describe  AcceptHeader do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = AcceptHeader.new(request: request)
-    matcher.matches?
+    matcher = AcceptHeader.new
+    matcher.matches?(request)
 
     expect(matcher.accept_header.raw_accept_header).to eql \
       'application/vndmatrix+zion;version=1.0.0'
@@ -103,9 +103,9 @@ describe  AcceptHeader do
     }
     request = Requests::Base.resolve(env)
 
-    matcher = AcceptHeader.new(request: request)
+    matcher = AcceptHeader.new
 
-    expect(matcher).not_to be_matches
+    expect(matcher.matches?(request)).to be_a FalseClass
   end
 end
 end
