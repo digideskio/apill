@@ -1,3 +1,20 @@
+Version v4.0.2 - October 21, 2015
+================================================================================
+
+Changed
+--------------------------------------------------------------------------------
+  * Requests::Base not to re-resolve an already transformed request
+  * Responses::InvalidToken to return the realm
+  * to_h on null/invalid tokens to an array of hashes
+  * Header parameter used to pass the decrypted token information
+
+Version v3.1.3 - October 21, 2015
+================================================================================
+
+Fixed
+--------------------------------------------------------------------------------
+  * CONTENT_TYPE being passed with multiple content types
+
 Version v4.0.1 - October 19, 2015
 ================================================================================
 
@@ -38,13 +55,6 @@ Changed
   * Requests to allow parsing of authorization tokens
   * Requests::Base to use keyword parameters
   * Request class structure
-
-Version v3.1.3 - October 21, 2015
-================================================================================
-
-Fixed
---------------------------------------------------------------------------------
-  * CONTENT_TYPE being passed with multiple content types
 
 Version v3.1.2 - August 22, 2015
 ================================================================================
