@@ -77,7 +77,7 @@ describe  Rack do
                            request:           raw_request)
 
     expect(request.authorization_token).not_to  be_valid
-    expect(request.authorization_token.to_h).to eql({})
+    expect(request.authorization_token.to_h).to eql([{}, {}])
   end
 
   it 'finds the authorization token from the params if the authorization token from ' \
@@ -123,7 +123,7 @@ describe  Rack do
                            request:           raw_request)
 
     expect(request.authorization_token).to      be_valid
-    expect(request.authorization_token.to_h).to eql({})
+    expect(request.authorization_token.to_h).to eql([{}, {}])
   end
 
   it 'finds the authorization token from the params' do

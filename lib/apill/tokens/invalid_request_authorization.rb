@@ -14,7 +14,7 @@ class   InvalidRequestAuthorization
   end
 
   def to_h
-    {}
+    [{}, {}]
   end
 end
 end
