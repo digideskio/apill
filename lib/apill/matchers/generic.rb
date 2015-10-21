@@ -1,3 +1,5 @@
+require 'apill/requests/base'
+
 module  Apill
 module  Matchers
 module  Generic
@@ -12,7 +14,7 @@ module  Generic
   end
 
   def matches?(request)
-    self.request = request
+    self.request = Requests::Base.resolve(request)
   end
 
   def application
