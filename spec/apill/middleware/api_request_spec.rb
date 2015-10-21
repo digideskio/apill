@@ -143,6 +143,42 @@ describe  ApiRequest, singletons: HumanError::Configuration do
                                            'nice_to_meet=you-bob&'  \
                                            'hows_the_weather=today-bob'
   end
+
+  it 'properly converts the content type for Rails when it is the only one' do
+    api_request_middleware = ApiRequest.new(app)
+
+    request = {
+      'CONTENT_TYPE' => 'application/vnd.api+json',
+      'HTTP_HOST'    => 'matrix.example.com',
+      'HTTP_ACCEPT'  => '',
+      'QUERY_STRING' => '',
+    }
+
+    allow(app).to receive(:call)
+
+    _response = api_request_middleware.call(request)
+
+    expect(app).to have_received(:call).
+                   with(a_hash_including('CONTENT_TYPE' => 'application/json'))
+  end
+
+  it 'properly converts the content type for Rails when it is not the only one' do
+    api_request_middleware = ApiRequest.new(app)
+
+    request = {
+      'CONTENT_TYPE' => 'application/vnd.api+json;other',
+      'HTTP_HOST'    => 'matrix.example.com',
+      'HTTP_ACCEPT'  => '',
+      'QUERY_STRING' => '',
+    }
+
+    allow(app).to receive(:call)
+
+    _response = api_request_middleware.call(request)
+
+    expect(app).to have_received(:call).
+                   with(a_hash_including('CONTENT_TYPE' => 'application/json;other'))
+  end
 end
 end
 end
