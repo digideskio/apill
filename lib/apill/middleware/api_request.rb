@@ -25,10 +25,12 @@ class   ApiRequest
     accept_header_matcher = Matchers::AcceptHeader.new
     token                 = request.authorization_token
 
-    return Responses::InvalidToken.call(env)      unless token.valid?
     return Responses::InvalidSubdomain.call(env)      unless subdomain_matcher.matches?(request)
     return Responses::InvalidApiRequest.call(env)     unless !subdomain_matcher.matches_api_subdomain?(request) ||
                                                              accept_header_matcher.matches?(request)
+    return Responses::InvalidToken.call(env,
+                                        application_name: request.application_name) \
+           unless token.valid?
 
     env['X_DECRYPTED_JSON_WEB_TOKEN'] = token.to_h
     env['QUERY_STRING']               = Parameters.process(env['QUERY_STRING'])
