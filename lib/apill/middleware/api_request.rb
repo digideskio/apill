@@ -30,12 +30,12 @@ class   ApiRequest
                                                          accept_header_matcher.matches?(request)
     return Responses::InvalidToken.call(env)      unless token.valid?
 
-    env['HTTP_X_JSON_WEB_TOKEN'] = token.to_h
     env['QUERY_STRING']          = Parameters.process(env['QUERY_STRING'])
     env['CONTENT_TYPE']          = env['CONTENT_TYPE'].
                                    to_s.
                                    gsub! JSON_API_MIME_TYPE_PATTERN,
                                          'application/json'
+    env['X_DECRYPTED_JSON_WEB_TOKEN'] = token.to_h
 
     @app.call(env)
   end
