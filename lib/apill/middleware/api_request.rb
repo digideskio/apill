@@ -25,17 +25,17 @@ class   ApiRequest
     accept_header_matcher = Matchers::AcceptHeader.new
     token                 = request.authorization_token
 
-    return Responses::InvalidSubdomain.call(env)  unless subdomain_matcher.matches?(request)
-    return Responses::InvalidApiRequest.call(env) unless !subdomain_matcher.matches_api_subdomain?(request) ||
-                                                         accept_header_matcher.matches?(request)
     return Responses::InvalidToken.call(env)      unless token.valid?
+    return Responses::InvalidSubdomain.call(env)      unless subdomain_matcher.matches?(request)
+    return Responses::InvalidApiRequest.call(env)     unless !subdomain_matcher.matches_api_subdomain?(request) ||
+                                                             accept_header_matcher.matches?(request)
 
-    env['QUERY_STRING']          = Parameters.process(env['QUERY_STRING'])
-    env['CONTENT_TYPE']          = env['CONTENT_TYPE'].
-                                   to_s.
-                                   gsub! JSON_API_MIME_TYPE_PATTERN,
-                                         'application/json'
     env['X_DECRYPTED_JSON_WEB_TOKEN'] = token.to_h
+    env['QUERY_STRING']               = Parameters.process(env['QUERY_STRING'])
+    env['CONTENT_TYPE']               = env['CONTENT_TYPE'].
+                                        to_s.
+                                        gsub! JSON_API_MIME_TYPE_PATTERN,
+                                              'application/json'
 
     @app.call(env)
   end
