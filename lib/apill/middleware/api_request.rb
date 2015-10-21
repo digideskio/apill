@@ -10,6 +10,8 @@ require 'apill/responses/invalid_token'
 module  Apill
 module  Middleware
 class   ApiRequest
+  JSON_API_MIME_TYPE_PATTERN = %r{application/vnd\.api\+json(?=\z|;)}
+
   def initialize(app)
     @app = app
   end
@@ -30,10 +32,10 @@ class   ApiRequest
 
     env['HTTP_X_JSON_WEB_TOKEN'] = token.to_h
     env['QUERY_STRING']          = Parameters.process(env['QUERY_STRING'])
-
-    if env['CONTENT_TYPE'] == 'application/vnd.api+json'
-      env['CONTENT_TYPE'] = 'application/json'
-    end
+    env['CONTENT_TYPE']          = env['CONTENT_TYPE'].
+                                   to_s.
+                                   gsub! JSON_API_MIME_TYPE_PATTERN,
+                                         'application/json'
 
     @app.call(env)
   end

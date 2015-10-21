@@ -39,6 +39,13 @@ Changed
   * Requests::Base to use keyword parameters
   * Request class structure
 
+Version v3.1.3 - October 21, 2015
+================================================================================
+
+Fixed
+--------------------------------------------------------------------------------
+  * CONTENT_TYPE being passed with multiple content types
+
 Version v3.1.2 - August 22, 2015
 ================================================================================
 
