@@ -51,7 +51,9 @@ class   Base
   end
 
   def self.resolve(original_request)
-    if original_request.respond_to? :headers
+    if original_request.is_a? self
+      original_request
+    elsif original_request.respond_to? :headers
       rails_request_class.new(request: original_request)
     else
       rack_request_class.new(request: original_request)
