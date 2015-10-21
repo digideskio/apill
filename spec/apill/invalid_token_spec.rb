@@ -18,7 +18,7 @@ describe  InvalidToken, singletons: HumanError::Configuration do
     status, headers, response = InvalidToken.call(request, application_name: 'my_app')
 
     expect(status).to                 eql 401
-    expect(headers).to                eql({'WWW-Authenticate' => 'Token realm="my_app"'})
+    expect(headers).to                eql('WWW-Authenticate' => 'Token realm="my_app"')
     expect(JSON.load(response[0])).to include(
       'errors'              => [
         include(

@@ -16,7 +16,7 @@ class   ApiRequest
     @app = app
   end
 
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Metrics/LineLength, Metrics/AbcSize
   def call(env)
     env['HTTP_X_APPLICATION_NAME'] = Apill.configuration.application_name
 
@@ -41,7 +41,7 @@ class   ApiRequest
 
     @app.call(env)
   end
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Metrics/LineLength, Metrics/AbcSize
 end
 end
 end
