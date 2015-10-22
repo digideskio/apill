@@ -6,7 +6,7 @@ module  Apill
 module  Requests
 class   Rack < Base
   ACCEPT_PARAM_PATTERN     = /(?:\A|&)accept=(.+?)(?=\z|&)/
-  AUTH_TOKEN_PARAM_PATTERN = /(?:\A|&)auth_token=(.+?)(?=\z|&)/
+  BASE64_TOKEN_PARAM_PATTERN   = /(?:\A|&)#{BASE64_TOKEN_PARAM_NAME}=(.+?)(?=\z|&)/
 
   private
 
@@ -23,7 +23,7 @@ class   Rack < Base
   end
 
   def raw_authorization_token_from_params
-    URI.unescape(request['QUERY_STRING'][AUTH_TOKEN_PARAM_PATTERN, 1] || '')
+    URI.unescape(request['QUERY_STRING'][BASE64_TOKEN_PARAM_PATTERN, 1] || '')
   end
 
   def raw_request_application_name

@@ -20,7 +20,7 @@ class   Rails < Base
   end
 
   def raw_authorization_token_from_params
-    request.params['auth_token'] || ''
+    request.params[#{BASE64_TOKEN_PARAM_NAME}] || ''
   end
 
   def raw_request_application_name

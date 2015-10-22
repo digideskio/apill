@@ -5,6 +5,7 @@ module  Apill
 module  Requests
 class   Base
   BASE64_PATTERN            = %r{[A-Za-z0-9_/\+\=\-\.]}
+  BASE64_TOKEN_PARAM_NAME   = 'token_b64'
   TOKEN_PATTERN = %r{\A(?:Token (#{BASE64_PATTERN}+))?\z}
 
   attr_accessor :token_private_key,
