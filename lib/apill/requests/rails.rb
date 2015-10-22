@@ -1,6 +1,7 @@
 require 'apill/configuration'
 require 'apill/requests/base'
 require 'apill/accept_header'
+require 'apill/tokens/json_web_token'
 
 module  Apill
 module  Requests
