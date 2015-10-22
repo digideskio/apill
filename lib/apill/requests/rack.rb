@@ -5,8 +5,8 @@ require 'apill/accept_header'
 module  Apill
 module  Requests
 class   Rack < Base
-  ACCEPT_PARAM_PATTERN     = /(?:\A|&)accept=(.+?)(?=\z|&)/
   BASE64_TOKEN_PARAM_PATTERN   = /(?:\A|&)#{BASE64_TOKEN_PARAM_NAME}=(.+?)(?=\z|&)/
+  ACCEPT_PARAM_PATTERN         = /(?:\A|&)accept=(.+?)(?=\z|&)/
 
   private
 
