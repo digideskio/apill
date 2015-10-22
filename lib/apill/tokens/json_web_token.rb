@@ -5,7 +5,7 @@ require 'apill/tokens/json_web_tokens/null'
 
 module  Apill
 module  Tokens
-class   RequestAuthorization
+class   JsonWebToken
   attr_accessor :token
 
   def initialize(token:)

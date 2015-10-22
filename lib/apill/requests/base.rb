@@ -1,5 +1,5 @@
 require 'apill/tokens/json_web_tokens/invalid'
-require 'apill/tokens/request_authorization'
+require 'apill/tokens/json_web_token'
 
 module  Apill
 module  Requests
@@ -88,13 +88,13 @@ class   Base
     return Tokens::JsonWebTokens::Invalid.instance \
       unless raw_authorization_header.match(TOKEN_PATTERN)
 
-    Tokens::RequestAuthorization.convert(
+    Tokens::JsonWebToken.convert(
       token_private_key: token_private_key,
       raw_token:         raw_authorization_token_from_header || '')
   end
 
   def authorization_token_from_params
-    Tokens::RequestAuthorization.convert(
+    Tokens::JsonWebToken.convert(
       token_private_key: token_private_key,
       raw_token:         raw_authorization_token_from_params || '')
   end
