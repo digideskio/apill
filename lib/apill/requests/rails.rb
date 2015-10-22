@@ -2,14 +2,20 @@ require 'apill/configuration'
 require 'apill/requests/base'
 require 'apill/accept_header'
 require 'apill/tokens/json_web_token'
+require 'apill/tokens/base64'
 
 module  Apill
 module  Requests
 class   Rails < Base
   def authorization_token_from_params
+    case
+    when request.params.key?(JSON_WEB_TOKEN_PARAM_NAME)
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
         raw_token:         request.params[JSON_WEB_TOKEN_PARAM_NAME] || '')
+    when request.params.key?(BASE64_TOKEN_PARAM_NAME)
+      Tokens::Base64.new(token: request.params[BASE64_TOKEN_PARAM_NAME] || '')
+    end
   end
 
   private

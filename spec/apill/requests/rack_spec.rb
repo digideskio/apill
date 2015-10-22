@@ -126,7 +126,7 @@ describe  Rack do
     expect(request.authorization_token.to_h).to eql([{}, {}])
   end
 
-  it 'finds the authorization token from the params' do
+  it 'finds the JSON web token from the params' do
     raw_request = {
       'QUERY_STRING' => "token_jwt=#{valid_jwt_token}",
     }
@@ -138,6 +138,20 @@ describe  Rack do
       [
         { 'bar' => 'baz' },
         { 'typ' => 'JWT', 'alg' => 'RS256' },
+      ])
+  end
+
+  it 'finds the generic Base64 web token from the params' do
+    raw_request = {
+      'QUERY_STRING' => "token_b64=#{valid_b64_token}",
+    }
+    request     = Rack.new(request: raw_request)
+
+    expect(request.authorization_token).to      be_valid
+    expect(request.authorization_token.to_h).to eql(
+      [
+        { 'token' => valid_b64_token },
+        { 'typ'   => 'base64' },
       ])
   end
 

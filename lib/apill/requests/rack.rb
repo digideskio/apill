@@ -2,6 +2,7 @@ require 'apill/configuration'
 require 'apill/requests/base'
 require 'apill/accept_header'
 require 'apill/tokens/json_web_token'
+require 'apill/tokens/base64'
 
 module  Apill
 module  Requests
@@ -11,13 +12,17 @@ class   Rack < Base
   JSON_WEB_TOKEN_PARAM_PATTERN = /(?:\A|&)#{JSON_WEB_TOKEN_PARAM_NAME}=(#{JSON_WEB_TOKEN_PATTERN})(?=\z|&)/
 
   def authorization_token_from_params
+    case request['QUERY_STRING']
+    when JSON_WEB_TOKEN_PARAM_PATTERN
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
-        raw_token:         URI.unescape(
-                             request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] ||
-                             ''
-                           ),
+        raw_token:         request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] || ''
       )
+    when BASE64_TOKEN_PARAM_PATTERN
+      base64_token = request['QUERY_STRING'][BASE64_TOKEN_PARAM_PATTERN, 1]
+
+      Tokens::Base64.new(token: base64_token)
+    end
   end
 
   private

@@ -134,6 +134,20 @@ describe  Rails do
       ])
   end
 
+  it 'finds the generic Base64 web token from the params' do
+    raw_request = OpenStruct.new(
+                    headers: {},
+                    params:  { 'token_b64' => valid_b64_token })
+    request     = Rails.new(request: raw_request)
+
+    expect(request.authorization_token).to      be_valid
+    expect(request.authorization_token.to_h).to eql(
+      [
+        { 'token' => valid_b64_token },
+        { 'typ'   => 'base64' },
+      ])
+  end
+
   it 'defaults to the application name in the configuration if none is found in ' \
      'the header' do
 

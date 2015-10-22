@@ -1,4 +1,5 @@
 require 'json/jwt'
+require 'base64'
 
 def test_private_key
   OpenSSL::PKey::RSA.new File.read(File.expand_path('../fixtures/test_rsa_key', __dir__))
@@ -16,4 +17,12 @@ end
 
 def invalid_jwt_token
   @invalid_token ||= valid_jwt_token.tr('a', 'f')
+end
+
+def valid_b64_token(payload = 'hereisacoollittlestring')
+  @valid_b64_token ||= Base64.encode64(payload).chomp
+end
+
+def invalid_b64_token
+  @invalid_b64_token ||= valid_b64_token.tr('abcdefghijklmnop', '$o#m$k#i$g#e$c#a')
 end
