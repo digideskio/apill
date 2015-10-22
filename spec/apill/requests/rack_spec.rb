@@ -54,7 +54,7 @@ describe  Rack do
 
   it 'finds the authorization token from the header' do
     raw_request = {
-      'HTTP_AUTHORIZATION' => "Token #{valid_token}",
+      'HTTP_AUTHORIZATION' => "Token #{valid_jwt_token}",
       'QUERY_STRING'       => '',
     }
     request     = Rack.new(token_private_key: test_private_key,
@@ -70,7 +70,7 @@ describe  Rack do
 
   it 'can process an authorization token if it is sent through incorrectly' do
     raw_request = {
-      'HTTP_AUTHORIZATION' => "#{valid_token}",
+      'HTTP_AUTHORIZATION' => "#{valid_jwt_token}",
       'QUERY_STRING'       => '',
     }
     request     = Rack.new(token_private_key: test_private_key,
@@ -84,8 +84,8 @@ describe  Rack do
      'the header is invalid and the authorization token from the params is valid' do
 
     raw_request = {
-      'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
-      'QUERY_STRING'       => "token_jwt=#{valid_token}",
+      'HTTP_AUTHORIZATION' => "Token #{invalid_jwt_token}",
+      'QUERY_STRING'       => "token_jwt=#{valid_jwt_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)
@@ -102,7 +102,7 @@ describe  Rack do
      'the header is not present and the authorization token from the params is valid' do
 
     raw_request = {
-      'QUERY_STRING' => "token_jwt=#{valid_token}",
+      'QUERY_STRING' => "token_jwt=#{valid_jwt_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)
@@ -128,7 +128,7 @@ describe  Rack do
 
   it 'finds the authorization token from the params' do
     raw_request = {
-      'QUERY_STRING' => "token_jwt=#{valid_token}",
+      'QUERY_STRING' => "token_jwt=#{valid_jwt_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)

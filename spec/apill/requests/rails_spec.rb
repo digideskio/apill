@@ -45,7 +45,7 @@ describe  Rails do
   it 'finds the authorization token from the header' do
     raw_request = OpenStruct.new(
                     headers: {
-                      'HTTP_AUTHORIZATION' => "Token #{valid_token}",
+                      'HTTP_AUTHORIZATION' => "Token #{valid_jwt_token}",
                     },
                     params:  {})
     request     = Rails.new(token_private_key: test_private_key,
@@ -62,7 +62,7 @@ describe  Rails do
   it 'can process an authorization token if it is sent through incorrectly' do
     raw_request = OpenStruct.new(
                     headers: {
-                      'HTTP_AUTHORIZATION' => "#{valid_token}",
+                      'HTTP_AUTHORIZATION' => "#{valid_jwt_token}",
                     },
                     params:  {})
     request     = Rails.new(token_private_key: test_private_key,
@@ -77,9 +77,9 @@ describe  Rails do
 
     raw_request = OpenStruct.new(
                     headers: {
-                      'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
+                      'HTTP_AUTHORIZATION' => "Token #{invalid_jwt_token}",
                     },
-                    params:  { 'token_jwt' => valid_token })
+                    params:  { 'token_jwt' => valid_jwt_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
@@ -96,7 +96,7 @@ describe  Rails do
 
     raw_request = OpenStruct.new(
                     headers: {},
-                    params:  { 'token_jwt' => valid_token })
+                    params:  { 'token_jwt' => valid_jwt_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
@@ -119,10 +119,10 @@ describe  Rails do
     expect(request.authorization_token.to_h).to eql([{}, {}])
   end
 
-  it 'finds the authorization token from the params' do
+  it 'finds the JSON web token from the params' do
     raw_request = OpenStruct.new(
                     headers: {},
-                    params:  { 'token_jwt' => valid_token })
+                    params:  { 'token_jwt' => valid_jwt_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
