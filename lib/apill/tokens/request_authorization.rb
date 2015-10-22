@@ -1,7 +1,7 @@
 require 'jwt'
 require 'json/jwt'
 require 'apill/tokens/json_web_tokens/invalid'
-require 'apill/tokens/null_request_authorization'
+require 'apill/tokens/json_web_tokens/null'
 
 module  Apill
 module  Tokens
@@ -25,7 +25,7 @@ class   RequestAuthorization
   end
 
   def self.convert(raw_token:, token_private_key: Apill.configuration.token_private_key)
-    return NullRequestAuthorization.instance if raw_token.to_s == ''
+    return JsonWebTokens::Null.instance if raw_token.to_s == ''
 
     decrypted_token = JSON::JWT.decode(raw_token, token_private_key).plain_text
     decoded_token   = JWT.decode(decrypted_token,

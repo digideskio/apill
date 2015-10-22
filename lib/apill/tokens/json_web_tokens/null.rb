@@ -2,7 +2,8 @@ require 'singleton'
 
 module  Apill
 module  Tokens
-class   NullRequestAuthorization
+module  JsonWebTokens
+class   Null
   include Singleton
 
   def valid?
@@ -16,6 +17,7 @@ class   NullRequestAuthorization
   def to_h
     [{}, {}]
   end
+end
 end
 end
 end

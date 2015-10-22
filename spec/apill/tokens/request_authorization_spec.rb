@@ -8,7 +8,7 @@ describe  RequestAuthorization do
     token = RequestAuthorization.convert(token_private_key: test_private_key,
                                          raw_token:         nil)
 
-    expect(token).to be_a NullRequestAuthorization
+    expect(token).to be_a JsonWebTokens::Null
   end
 
   it 'can convert an invalid token' do
