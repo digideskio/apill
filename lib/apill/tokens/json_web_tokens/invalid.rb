@@ -1,19 +1,9 @@
-require 'singleton'
+require 'apill/tokens/invalid'
 
 module  Apill
 module  Tokens
 module  JsonWebTokens
-class   Invalid
-  include Singleton
-
-  def valid?
-    false
-  end
-
-  def blank?
-    false
-  end
-
+class   Invalid < Tokens::Invalid
   def to_h
     [{}, {}]
   end

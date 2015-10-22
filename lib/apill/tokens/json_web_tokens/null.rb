@@ -1,19 +1,9 @@
-require 'singleton'
+require 'apill/tokens/null'
 
 module  Apill
 module  Tokens
 module  JsonWebTokens
-class   Null
-  include Singleton
-
-  def valid?
-    true
-  end
-
-  def blank?
-    true
-  end
-
+class   Null < Tokens::Null
   def to_h
     [{}, {}]
   end
