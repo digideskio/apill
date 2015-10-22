@@ -4,7 +4,8 @@ require 'apill/tokens/json_web_token'
 module  Apill
 module  Requests
 class   Base
-  TOKEN_PATTERN = %r{\A(?:Token ([A-Za-z0-9_/\+\=\-\.]+))?\z}
+  BASE64_PATTERN            = %r{[A-Za-z0-9_/\+\=\-\.]}
+  TOKEN_PATTERN = %r{\A(?:Token (#{BASE64_PATTERN}+))?\z}
 
   attr_accessor :token_private_key,
                 :request
