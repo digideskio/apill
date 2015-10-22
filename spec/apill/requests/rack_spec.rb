@@ -190,6 +190,14 @@ describe  Rack do
 
     expect(request.authorization_token).to be_valid
     expect(request.authorization_token).to be_blank
+
+    raw_request = {
+      'QUERY_STRING' => "",
+    }
+    request     = Rack.new(request: raw_request)
+
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
   end
 
   it 'defaults to the application name in the configuration if none is found in ' \

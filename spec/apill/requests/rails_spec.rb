@@ -183,6 +183,14 @@ describe  Rails do
 
     expect(request.authorization_token).to be_valid
     expect(request.authorization_token).to be_blank
+
+    raw_request = OpenStruct.new(
+                    headers: {},
+                    params:  {})
+    request     = Rails.new(request: raw_request)
+
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
   end
 
   it 'defaults to the application name in the configuration if none is found in ' \

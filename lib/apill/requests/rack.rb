@@ -22,6 +22,8 @@ class   Rack < Base
       base64_token = request['QUERY_STRING'][BASE64_TOKEN_PARAM_PATTERN, 1]
 
       Tokens::Base64.convert(raw_token: base64_token)
+    else
+      Tokens::Null.instance
     end
   end
 
