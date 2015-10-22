@@ -7,12 +7,13 @@ module  Requests
 class   Rack < Base
   ACCEPT_PARAM_PATTERN         = /(?:\A|&)accept=(.+?)(?=\z|&)/
   BASE64_TOKEN_PARAM_PATTERN   = /(?:\A|&)#{BASE64_TOKEN_PARAM_NAME}=(#{BASE64_PATTERN}+)(?=\z|&)/
+  JSON_WEB_TOKEN_PARAM_PATTERN = /(?:\A|&)#{JSON_WEB_TOKEN_PARAM_NAME}=(#{JSON_WEB_TOKEN_PATTERN})(?=\z|&)/
 
   def authorization_token_from_params
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
         raw_token:         URI.unescape(
-                              request['QUERY_STRING'][BASE64_TOKEN_PARAM_PATTERN, 1] ||
+                              request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] ||
                               ''
                            ),
       )

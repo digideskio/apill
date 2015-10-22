@@ -8,7 +8,7 @@ class   Rails < Base
   def authorization_token_from_params
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
-        raw_token:         request.params[BASE64_TOKEN_PARAM_NAME] || '')
+        raw_token:         request.params[JSON_WEB_TOKEN_PARAM_NAME] || '')
   end
 
   private

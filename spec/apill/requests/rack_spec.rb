@@ -85,7 +85,7 @@ describe  Rack do
 
     raw_request = {
       'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
-      'QUERY_STRING'       => "token_b64=#{valid_token}",
+      'QUERY_STRING'       => "token_jwt=#{valid_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)
@@ -102,7 +102,7 @@ describe  Rack do
      'the header is not present and the authorization token from the params is valid' do
 
     raw_request = {
-      'QUERY_STRING' => "token_b64=#{valid_token}",
+      'QUERY_STRING' => "token_jwt=#{valid_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)
@@ -128,7 +128,7 @@ describe  Rack do
 
   it 'finds the authorization token from the params' do
     raw_request = {
-      'QUERY_STRING' => "token_b64=#{valid_token}",
+      'QUERY_STRING' => "token_jwt=#{valid_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)

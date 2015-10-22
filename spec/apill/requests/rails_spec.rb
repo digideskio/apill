@@ -79,7 +79,7 @@ describe  Rails do
                     headers: {
                       'HTTP_AUTHORIZATION' => "Token #{invalid_token}",
                     },
-                    params:  { 'token_b64' => valid_token })
+                    params:  { 'token_jwt' => valid_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
@@ -96,7 +96,7 @@ describe  Rails do
 
     raw_request = OpenStruct.new(
                     headers: {},
-                    params:  { 'token_b64' => valid_token })
+                    params:  { 'token_jwt' => valid_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
@@ -122,7 +122,7 @@ describe  Rails do
   it 'finds the authorization token from the params' do
     raw_request = OpenStruct.new(
                     headers: {},
-                    params:  { 'token_b64' => valid_token })
+                    params:  { 'token_jwt' => valid_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
