@@ -95,12 +95,6 @@ class   Base
       raw_token:         raw_authorization_token_from_header || '')
   end
 
-  def authorization_token_from_params
-    Tokens::JsonWebToken.convert(
-      token_private_key: token_private_key,
-      raw_token:         raw_authorization_token_from_params || '')
-  end
-
   private
 
   def raw_host
