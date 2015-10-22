@@ -1,4 +1,4 @@
-require 'apill/tokens/invalid_request_authorization'
+require 'apill/tokens/json_web_tokens/invalid'
 require 'apill/tokens/request_authorization'
 
 module  Apill
@@ -85,7 +85,7 @@ class   Base
   end
 
   def authorization_token_from_header
-    return Tokens::InvalidRequestAuthorization.instance \
+    return Tokens::JsonWebTokens::Invalid.instance \
       unless raw_authorization_header.match(TOKEN_PATTERN)
 
     Tokens::RequestAuthorization.convert(

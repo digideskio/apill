@@ -1,6 +1,6 @@
 require 'jwt'
 require 'json/jwt'
-require 'apill/tokens/invalid_request_authorization'
+require 'apill/tokens/json_web_tokens/invalid'
 require 'apill/tokens/null_request_authorization'
 
 module  Apill
@@ -55,7 +55,7 @@ class   RequestAuthorization
          JWT::InvalidJtiError,
          OpenSSL::PKey::RSAError
 
-    InvalidRequestAuthorization.instance
+    JsonWebTokens::Invalid.instance
   end
 end
 end

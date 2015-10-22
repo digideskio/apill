@@ -15,7 +15,7 @@ describe  RequestAuthorization do
     token = RequestAuthorization.convert(token_private_key: test_private_key,
                                          raw_token:         invalid_token)
 
-    expect(token).to be_a InvalidRequestAuthorization
+    expect(token).to be_a JsonWebTokens::Invalid
   end
 
   it 'can verify an expired token' do
@@ -25,7 +25,7 @@ describe  RequestAuthorization do
                     token_private_key: test_private_key,
                     raw_token:         expired_jwe)
 
-    expect(token).to be_a InvalidRequestAuthorization
+    expect(token).to be_a JsonWebTokens::Invalid
   end
 
   it 'can convert an invalidly signed token' do
@@ -34,7 +34,7 @@ describe  RequestAuthorization do
                           token_private_key: other_private_key,
                           raw_token:         valid_token)
 
-    expect(token).to be_a InvalidRequestAuthorization
+    expect(token).to be_a JsonWebTokens::Invalid
   end
 
   it 'can convert a valid token' do
