@@ -13,8 +13,8 @@ class   Rack < Base
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
         raw_token:         URI.unescape(
-                              request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] ||
-                              ''
+                             request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] ||
+                             ''
                            ),
       )
   end
