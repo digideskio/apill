@@ -24,6 +24,20 @@ describe  Base64 do
       },
     ])
   end
+
+  it 'can convert itself into a null token' do
+    token = Base64.convert(raw_token: nil)
+
+    expect(token).to be_valid
+    expect(token).to be_blank
+  end
+
+  it 'can convert itself into an invalid token' do
+    token = Base64.convert(raw_token: 'bla.h')
+
+    expect(token).not_to be_valid
+    expect(token).not_to be_blank
+  end
 end
 end
 end

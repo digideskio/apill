@@ -8,8 +8,8 @@ module  Apill
 module  Requests
 class   Rack < Base
   ACCEPT_PARAM_PATTERN         = /(?:\A|&)accept=(.+?)(?=\z|&)/
-  BASE64_TOKEN_PARAM_PATTERN   = /(?:\A|&)#{BASE64_TOKEN_PARAM_NAME}=(#{BASE64_PATTERN}+)(?=\z|&)/
-  JSON_WEB_TOKEN_PARAM_PATTERN = /(?:\A|&)#{JSON_WEB_TOKEN_PARAM_NAME}=(#{JSON_WEB_TOKEN_PATTERN})(?=\z|&)/
+  BASE64_TOKEN_PARAM_PATTERN   = /(?:\A|&)#{BASE64_TOKEN_PARAM_NAME}=(.*)(?=\z|&)/
+  JSON_WEB_TOKEN_PARAM_PATTERN = /(?:\A|&)#{JSON_WEB_TOKEN_PARAM_NAME}=(.*)(?=\z|&)/
 
   def authorization_token_from_params
     case request['QUERY_STRING']
@@ -21,7 +21,7 @@ class   Rack < Base
     when BASE64_TOKEN_PARAM_PATTERN
       base64_token = request['QUERY_STRING'][BASE64_TOKEN_PARAM_PATTERN, 1]
 
-      Tokens::Base64.new(token: base64_token)
+      Tokens::Base64.convert(raw_token: base64_token)
     end
   end
 

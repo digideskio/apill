@@ -155,6 +155,43 @@ describe  Rack do
       ])
   end
 
+  it 'finds invalid tokens from the params' do
+    raw_request = {
+      'QUERY_STRING' => "token_b64=bla.h",
+    }
+    request     = Rack.new(request: raw_request)
+
+    expect(request.authorization_token_from_params).not_to be_valid
+    expect(request.authorization_token_from_params).not_to be_blank
+
+    raw_request = {
+      'QUERY_STRING' => "token_jwt=#{invalid_jwt_token}",
+    }
+    request     = Rack.new(token_private_key: test_private_key,
+                           request:           raw_request)
+
+    expect(request.authorization_token_from_params).not_to be_valid
+    expect(request.authorization_token_from_params).not_to be_blank
+  end
+
+  it 'finds the null token from the params if nothing is passed in' do
+    raw_request = {
+      'QUERY_STRING' => "token_b64=",
+    }
+    request     = Rack.new(request: raw_request)
+
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
+
+    raw_request = {
+      'QUERY_STRING' => "token_jwt=",
+    }
+    request     = Rack.new(request: raw_request)
+
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
+  end
+
   it 'defaults to the application name in the configuration if none is found in ' \
      'the header' do
 

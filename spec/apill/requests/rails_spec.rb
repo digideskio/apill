@@ -148,6 +148,43 @@ describe  Rails do
       ])
   end
 
+  it 'finds invalid tokens from the params' do
+    raw_request = OpenStruct.new(
+                    headers: {},
+                    params:  { 'token_b64' => 'bla.h' })
+    request     = Rails.new(request: raw_request)
+
+    expect(request.authorization_token_from_params).not_to be_valid
+    expect(request.authorization_token_from_params).not_to be_blank
+
+    raw_request = OpenStruct.new(
+                    headers: {},
+                    params:  { 'token_jwt' => invalid_jwt_token })
+    request     = Rails.new(token_private_key: test_private_key,
+                           request:            raw_request)
+
+    expect(request.authorization_token_from_params).not_to be_valid
+    expect(request.authorization_token_from_params).not_to be_blank
+  end
+
+  it 'finds the null token from the params if nothing is passed in' do
+    raw_request = OpenStruct.new(
+                    headers: {},
+                    params:  { 'token_b64' => '' })
+    request     = Rails.new(request: raw_request)
+
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
+
+    raw_request = OpenStruct.new(
+                    headers: {},
+                    params:  { 'token_jwt' => '' })
+    request     = Rails.new(request: raw_request)
+
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
+  end
+
   it 'defaults to the application name in the configuration if none is found in ' \
      'the header' do
 
