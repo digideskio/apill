@@ -16,7 +16,7 @@ class   Rack < Base
     when JSON_WEB_TOKEN_PARAM_PATTERN
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
-        raw_token:         request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] || ''
+        raw_token:         request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] || '',
       )
     when BASE64_TOKEN_PARAM_PATTERN
       base64_token = request['QUERY_STRING'][BASE64_TOKEN_PARAM_PATTERN, 1]

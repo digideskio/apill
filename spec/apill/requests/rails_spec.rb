@@ -189,7 +189,7 @@ describe  Rails do
                     headers: {},
                     params:  { 'token_jwt' => invalid_jwt_token })
     request     = Rails.new(token_private_key: test_private_key,
-                           request:            raw_request)
+                            request:           raw_request)
 
     expect(request.authorization_token_from_params).not_to be_valid
     expect(request.authorization_token_from_params).not_to be_blank

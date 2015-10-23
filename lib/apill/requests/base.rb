@@ -5,8 +5,8 @@ module  Apill
 module  Requests
 class   Base
   BASE64_PATTERN                = %r{[A-Za-z0-9_/\+\=\-\.]}
-  BASE64_TOKEN_PARAM_NAME       = 'token_b64'
-  JSON_WEB_TOKEN_PARAM_NAME     = 'token_jwt'
+  BASE64_TOKEN_PARAM_NAME       = 'token_b64'.freeze
+  JSON_WEB_TOKEN_PARAM_NAME     = 'token_jwt'.freeze
   JSON_WEB_TOKEN_PATTERN        = /(#{BASE64_PATTERN}+?\.){4}#{BASE64_PATTERN}+?/
   BASE64_TOKEN_HEADER_PATTERN   = /\A(?:Basic|Bearer)\s+(.*)\z/
   JSON_WEB_TOKEN_HEADER_PATTERN = /\AToken\s+(.*)\z/

@@ -185,7 +185,7 @@ describe  Rack do
 
   it 'finds invalid tokens from the params' do
     raw_request = {
-      'QUERY_STRING' => "token_b64=bla.h",
+      'QUERY_STRING' => 'token_b64=bla.h',
     }
     request     = Rack.new(request: raw_request)
 
@@ -204,7 +204,7 @@ describe  Rack do
 
   it 'finds the null token from the params if nothing is passed in' do
     raw_request = {
-      'QUERY_STRING' => "token_b64=",
+      'QUERY_STRING' => 'token_b64=',
     }
     request     = Rack.new(request: raw_request)
 
@@ -212,7 +212,7 @@ describe  Rack do
     expect(request.authorization_token_from_params).to be_blank
 
     raw_request = {
-      'QUERY_STRING' => "token_jwt=",
+      'QUERY_STRING' => 'token_jwt=',
     }
     request     = Rack.new(request: raw_request)
 
@@ -220,7 +220,7 @@ describe  Rack do
     expect(request.authorization_token_from_params).to be_blank
 
     raw_request = {
-      'QUERY_STRING' => "",
+      'QUERY_STRING' => '',
     }
     request     = Rack.new(request: raw_request)
 
