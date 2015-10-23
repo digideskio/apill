@@ -59,7 +59,35 @@ describe  Rails do
       ])
   end
 
-  it 'can process an authorization token if it is sent through incorrectly' do
+  it 'finds the Base64 token from the header' do
+    raw_request = OpenStruct.new(
+                    headers: {
+                      'HTTP_AUTHORIZATION' => "Basic #{valid_b64_token}",
+                    },
+                    params:  {})
+    request     = Rails.new(token_private_key: test_private_key,
+                            request:           raw_request)
+
+    expect(request.authorization_token).to      be_valid
+    expect(request.authorization_token.to_h).to eql(
+      [
+        { 'token' => valid_b64_token },
+        { 'typ'   => 'base64' },
+      ])
+  end
+
+  it 'finds a null token from the header if there is no header' do
+    raw_request = OpenStruct.new(
+                    headers: {},
+                    params:  {})
+    request     = Rails.new(token_private_key: test_private_key,
+                            request:           raw_request)
+
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
+  end
+
+  it 'ignores incorrectly passed in tokens since we do not know what to do' do
     raw_request = OpenStruct.new(
                     headers: {
                       'HTTP_AUTHORIZATION' => "#{valid_jwt_token}",
@@ -68,8 +96,8 @@ describe  Rails do
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
-    expect(request.authorization_token).not_to  be_valid
-    expect(request.authorization_token.to_h).to eql([{}, {}])
+    expect(request.authorization_token).to be_valid
+    expect(request.authorization_token).to be_blank
   end
 
   it 'finds the authorization token from the params if the authorization token from ' \
@@ -173,24 +201,24 @@ describe  Rails do
                     params:  { 'token_b64' => '' })
     request     = Rails.new(request: raw_request)
 
-    expect(request.authorization_token).to be_valid
-    expect(request.authorization_token).to be_blank
+    expect(request.authorization_token_from_params).to be_valid
+    expect(request.authorization_token_from_params).to be_blank
 
     raw_request = OpenStruct.new(
                     headers: {},
                     params:  { 'token_jwt' => '' })
     request     = Rails.new(request: raw_request)
 
-    expect(request.authorization_token).to be_valid
-    expect(request.authorization_token).to be_blank
+    expect(request.authorization_token_from_params).to be_valid
+    expect(request.authorization_token_from_params).to be_blank
 
     raw_request = OpenStruct.new(
                     headers: {},
                     params:  {})
     request     = Rails.new(request: raw_request)
 
-    expect(request.authorization_token).to be_valid
-    expect(request.authorization_token).to be_blank
+    expect(request.authorization_token_from_params).to be_valid
+    expect(request.authorization_token_from_params).to be_blank
   end
 
   it 'defaults to the application name in the configuration if none is found in ' \

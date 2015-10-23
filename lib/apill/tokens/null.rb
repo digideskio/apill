@@ -14,7 +14,7 @@ class   Null
   end
 
   def to_h
-    {}
+    [{}, {}]
   end
 
   def to_s

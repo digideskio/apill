@@ -8,7 +8,8 @@ class   Base
   BASE64_TOKEN_PARAM_NAME       = 'token_b64'
   JSON_WEB_TOKEN_PARAM_NAME     = 'token_jwt'
   JSON_WEB_TOKEN_PATTERN        = /(#{BASE64_PATTERN}+?\.){4}#{BASE64_PATTERN}+?/
-  JSON_WEB_TOKEN_HEADER_PATTERN = /\AToken\s+(#{BASE64_PATTERN}+)\z/
+  BASE64_TOKEN_HEADER_PATTERN   = /\A(?:Basic|Bearer)\s+(.*)\z/
+  JSON_WEB_TOKEN_HEADER_PATTERN = /\AToken\s+(.*)\z/
 
   attr_accessor :token_private_key,
                 :request
@@ -89,12 +90,17 @@ class   Base
   end
 
   def authorization_token_from_header
-    return Tokens::JsonWebTokens::Invalid.instance \
-      unless raw_authorization_header.match(TOKEN_PATTERN)
-
+    case raw_authorization_header
+    when JSON_WEB_TOKEN_HEADER_PATTERN
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
         raw_token:         raw_authorization_header[JSON_WEB_TOKEN_HEADER_PATTERN, 1])
+    when BASE64_TOKEN_HEADER_PATTERN
+      Tokens::Base64.convert(
+        raw_token: raw_authorization_header[BASE64_TOKEN_HEADER_PATTERN, 1])
+    else
+      Tokens::Null.instance
+    end
   end
 
   private
