@@ -9,13 +9,13 @@ class   Subdomain
   end
 
   def matches?(request)
-    self.request = request
+    self.request = Requests::Base.resolve(request)
 
     allowed_subdomains.include? request.subdomain
   end
 
   def matches_api_subdomain?(request)
-    self.request = request
+    self.request = Requests::Base.resolve(request)
 
     allowed_api_subdomains.include? request.subdomain
   end

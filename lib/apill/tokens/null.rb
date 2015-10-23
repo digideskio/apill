@@ -2,19 +2,23 @@ require 'singleton'
 
 module  Apill
 module  Tokens
-class   InvalidRequestAuthorization
+class   Null
   include Singleton
 
   def valid?
-    false
+    true
   end
 
   def blank?
-    false
+    true
   end
 
   def to_h
     [{}, {}]
+  end
+
+  def to_s
+    ''
   end
 end
 end
