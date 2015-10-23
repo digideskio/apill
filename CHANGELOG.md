@@ -1,3 +1,33 @@
+Version v4.1.0 - October 22, 2015
+================================================================================
+
+Changed
+--------------------------------------------------------------------------------
+  * Header token detection to detect Base64 and JWT tokens
+  * Rename TOKEN_PATTERN to JSON_WEB_TOKEN_HEADER_PATTERN
+  * From talking about generic Base64 to Json Web Tokens
+  * Require Base64 tokens to have a Base64 pattern
+  * authorization_token_from_params into each individual request
+  * Param name passed in if it's a simple Base64 token
+
+Removed
+--------------------------------------------------------------------------------
+  * raw_authorization_token_from_header
+
+Added
+--------------------------------------------------------------------------------
+  * Ability for request to handle if no param token is passed in
+  * Ability for the Base64 token to handle null and invalid tokens
+  * Ability for requests to handle Base64 tokens in the params
+  * Missing requires
+  * Tokens::Base64 for simple Base64 tokens
+  * BASE64_PATTERN
+  * Base Null and Invalid tokens
+
+Fixed
+--------------------------------------------------------------------------------
+  * Don't forget to convert requests on all matches
+
 Version v4.0.3 - October 21, 2015
 ================================================================================
 
@@ -339,9 +369,7 @@ Version v2.0.1 - November 5, 2014
 Bugfix
 --------------------------------------------------------------------------------
   * Add missing require statements
-
-Version v2.0.0 - November 5, 2014
-================================================================================
+  * Fix references from API_APPLICATION to API_APPLICATION_NAME
 
 Feature
 --------------------------------------------------------------------------------
@@ -354,10 +382,6 @@ Feature
   * Added InvalidSubdomainError
   * Update subdomain matcher to work with Rack instead of Rails
   * Convert to CircleCI
-
-Bugfix
---------------------------------------------------------------------------------
-  * Fix references from API_APPLICATION to API_APPLICATION_NAME
 
 Version v1.6.0 - June 28, 2014
 ================================================================================
