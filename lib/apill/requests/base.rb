@@ -4,11 +4,11 @@ require 'apill/tokens/json_web_token'
 module  Apill
 module  Requests
 class   Base
-  TOKEN_PATTERN = %r{\A(?:Token (#{BASE64_PATTERN}+))?\z}
   BASE64_PATTERN                = %r{[A-Za-z0-9_/\+\=\-\.]}
   BASE64_TOKEN_PARAM_NAME       = 'token_b64'
   JSON_WEB_TOKEN_PARAM_NAME     = 'token_jwt'
   JSON_WEB_TOKEN_PATTERN        = /(#{BASE64_PATTERN}+?\.){4}#{BASE64_PATTERN}+?/
+  JSON_WEB_TOKEN_HEADER_PATTERN = /\AToken\s+(#{BASE64_PATTERN}+)\z/
 
   attr_accessor :token_private_key,
                 :request
@@ -94,7 +94,7 @@ class   Base
 
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
-        raw_token:         raw_authorization_header[TOKEN_PATTERN, 1])
+        raw_token:         raw_authorization_header[JSON_WEB_TOKEN_HEADER_PATTERN, 1])
   end
 
   private
