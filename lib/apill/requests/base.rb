@@ -94,17 +94,13 @@ class   Base
 
       Tokens::JsonWebToken.convert(
         token_private_key: token_private_key,
-        raw_token:         raw_authorization_token_from_header || '')
+        raw_token:         raw_authorization_header[TOKEN_PATTERN, 1])
   end
 
   private
 
   def raw_host
     request.fetch('HTTP_HOST', '')
-  end
-
-  def raw_authorization_token_from_header
-    raw_authorization_header[TOKEN_PATTERN, 1] || ''
   end
 end
 end
