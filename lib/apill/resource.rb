@@ -5,9 +5,9 @@ require 'human_error/verifiable_resource'
 module  Apill
 module  Resource
   def self.included(base)
-    base.include Apill::ProcessableResource
     base.include HumanError::RescuableResource
     base.include HumanError::VerifiableResource
+    base.include Apill::ProcessableResource
   end
 end
 end
