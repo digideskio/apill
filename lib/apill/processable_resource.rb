@@ -22,6 +22,8 @@ module  ProcessableResource
     base.extend  ClassMethods
   end
 
+  private
+
   def api_resource
     @resource ||= Resource::Model.new(
                     resource:   public_send(self.class.plural_resource_name),
