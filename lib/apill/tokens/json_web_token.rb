@@ -6,10 +6,10 @@ require 'apill/tokens/json_web_tokens/null'
 module  Apill
 module  Tokens
 class   JsonWebToken
-  attr_accessor :token
+  attr_accessor :data
 
-  def initialize(token:)
-    self.token = token
+  def initialize(data:)
+    self.data = data
   end
 
   def valid?
@@ -21,7 +21,7 @@ class   JsonWebToken
   end
 
   def to_h
-    token
+    data
   end
 
   def self.convert(raw_token:, token_private_key: Apill.configuration.token_private_key)
@@ -38,7 +38,7 @@ class   JsonWebToken
                                  leeway:            5,
                                 )
 
-    new(token: decoded_token)
+    new(data: decoded_token)
   rescue JSON::JWT::Exception,
          JSON::JWT::InvalidFormat,
          JSON::JWT::VerificationFailed,
