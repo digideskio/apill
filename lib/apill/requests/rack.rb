@@ -15,9 +15,8 @@ class   Rack < Base
     case request['QUERY_STRING']
     when JSON_WEB_TOKEN_PARAM_PATTERN
       Tokens::JsonWebToken.from_jwe(
-        token_private_key: token_private_key,
         encrypted_token:         request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] || '',
-      )
+        token_private_key: token_private_key)
     when BASE64_TOKEN_PARAM_PATTERN
       base64_token = request['QUERY_STRING'][BASE64_TOKEN_PARAM_PATTERN, 1]
 
