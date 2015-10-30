@@ -6,6 +6,24 @@ require 'apill/tokens/json_web_tokens/null'
 module  Apill
 module  Tokens
 class   JsonWebToken
+  TRANSFORMATION_EXCEPTIONS = [
+    JSON::JWT::Exception,
+    JSON::JWT::InvalidFormat,
+    JSON::JWT::VerificationFailed,
+    JSON::JWT::UnexpectedAlgorithm,
+    JWT::DecodeError,
+    JWT::VerificationError,
+    JWT::ExpiredSignature,
+    JWT::IncorrectAlgorithm,
+    JWT::ImmatureSignature,
+    JWT::InvalidIssuerError,
+    JWT::InvalidIatError,
+    JWT::InvalidAudError,
+    JWT::InvalidSubError,
+    JWT::InvalidJtiError,
+    OpenSSL::PKey::RSAError,
+  ]
+
   attr_accessor :data
 
   def initialize(data:)
@@ -34,22 +52,7 @@ class   JsonWebToken
                         plain_text
 
     from_jws(decrypted_token, private_key: private_key)
-  rescue JSON::JWT::Exception,
-         JSON::JWT::InvalidFormat,
-         JSON::JWT::VerificationFailed,
-         JSON::JWT::UnexpectedAlgorithm,
-         JWT::DecodeError,
-         JWT::VerificationError,
-         JWT::ExpiredSignature,
-         JWT::IncorrectAlgorithm,
-         JWT::ImmatureSignature,
-         JWT::InvalidIssuerError,
-         JWT::InvalidIatError,
-         JWT::InvalidAudError,
-         JWT::InvalidSubError,
-         JWT::InvalidJtiError,
-         OpenSSL::PKey::RSAError
-
+  rescue *TRANSFORMATION_EXCEPTIONS
     JsonWebTokens::Invalid.instance
   end
 
@@ -70,22 +73,7 @@ class   JsonWebToken
                      )
 
     new(data: data)
-  rescue JSON::JWT::Exception,
-         JSON::JWT::InvalidFormat,
-         JSON::JWT::VerificationFailed,
-         JSON::JWT::UnexpectedAlgorithm,
-         JWT::DecodeError,
-         JWT::VerificationError,
-         JWT::ExpiredSignature,
-         JWT::IncorrectAlgorithm,
-         JWT::ImmatureSignature,
-         JWT::InvalidIssuerError,
-         JWT::InvalidIatError,
-         JWT::InvalidAudError,
-         JWT::InvalidSubError,
-         JWT::InvalidJtiError,
-         OpenSSL::PKey::RSAError
-
+  rescue *TRANSFORMATION_EXCEPTIONS
     JsonWebTokens::Invalid.instance
   end
 end
