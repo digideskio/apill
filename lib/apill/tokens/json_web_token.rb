@@ -24,14 +24,16 @@ class   JsonWebToken
     data
   end
 
-  def self.from_jwe(encrypted_token, token_private_key: Apill.configuration.token_private_key)
+  def self.from_jwe(encrypted_token,
+                    private_key: Apill.configuration.token_private_key)
+
     return JsonWebTokens::Null.instance if encrypted_token.to_s == ''
 
     decrypted_token = JSON::JWT.
-                        decode(encrypted_token, token_private_key).
+                        decode(encrypted_token, private_key).
                         plain_text
 
-    from_jws(decrypted_token, private_key: token_private_key)
+    from_jws(decrypted_token, private_key: private_key)
   rescue JSON::JWT::Exception,
          JSON::JWT::InvalidFormat,
          JSON::JWT::VerificationFailed,
@@ -56,17 +58,18 @@ class   JsonWebToken
 
     return JsonWebTokens::Null.instance if signed_token.to_s == ''
 
-    decoded_token   = JWT.decode(signed_token,
-                                 private_key,
-                                 true,
-                                 algorithm:         'RS256',
-                                 verify_expiration: true,
-                                 verify_not_before: true,
-                                 verify_iat:        true,
-                                 leeway:            5,
-                                )
+    data = JWT.decode(
+                       signed_token,
+                       private_key,
+                       true,
+                       algorithm:         'RS256',
+                       verify_expiration: true,
+                       verify_not_before: true,
+                       verify_iat:        true,
+                       leeway:            5,
+                     )
 
-    new(data: decoded_token)
+    new(data: data)
   rescue JSON::JWT::Exception,
          JSON::JWT::InvalidFormat,
          JSON::JWT::VerificationFailed,

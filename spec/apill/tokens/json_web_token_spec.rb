@@ -4,40 +4,40 @@ require 'apill/tokens/json_web_token'
 module    Apill
 module    Tokens
 describe  JsonWebToken do
-  it 'can convert an empty token' do
+  it 'can convert an empty encrypted token' do
     token = JsonWebToken.from_jwe(nil,
-                                  token_private_key: test_private_key)
+                                  private_key: test_private_key)
 
     expect(token).to be_a JsonWebTokens::Null
   end
 
-  it 'can convert an invalid token' do
+  it 'can convert an invalid encrypted token' do
     token = JsonWebToken.from_jwe(invalid_jwe_token,
-                                  token_private_key: test_private_key)
+                                  private_key: test_private_key)
 
     expect(token).to be_a JsonWebTokens::Invalid
   end
 
-  it 'can verify an expired token' do
+  it 'can verify an expired encrypted token' do
     expired_jwe = valid_jwe_token('exp' => 1.day.ago.to_i,
                                   'baz' => 'bar')
     token       = JsonWebToken.from_jwe(expired_jwe,
-                                        token_private_key: test_private_key)
+                                        private_key: test_private_key)
 
     expect(token).to be_a JsonWebTokens::Invalid
   end
 
-  it 'can convert an invalidly signed token' do
+  it 'can convert an invalidly signed encrypted token' do
     other_private_key = OpenSSL::PKey::RSA.new(2048)
     token             = JsonWebToken.from_jwe(valid_jwe_token,
-                                              token_private_key: other_private_key)
+                                              private_key: other_private_key)
 
     expect(token).to be_a JsonWebTokens::Invalid
   end
 
-  it 'can convert a valid token' do
+  it 'can convert a valid encrypted token' do
     token = JsonWebToken.from_jwe(valid_jwe_token,
-                                  token_private_key: test_private_key)
+                                  private_key: test_private_key)
 
     expect(token).to      be_a JsonWebToken
     expect(token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])
