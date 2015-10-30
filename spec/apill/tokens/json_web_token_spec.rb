@@ -77,6 +77,54 @@ describe  JsonWebToken do
     expect(token).to      be_a JsonWebToken
     expect(token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])
   end
+
+  it 'can transform into a JWT' do
+    token = JsonWebToken.new(data:        { 'foo' => 'bar' },
+                             private_key: test_private_key)
+
+    jwt   = token.to_jwt
+    jwt_s = token.to_jwt_s
+
+    expect(jwt.to_h).to eql({'foo' => 'bar'})
+    expect(jwt_s).to    eql('eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJmb28iOiJiYXIifQ.')
+  end
+
+  it 'can transform into a JWS and back' do
+    token = JsonWebToken.new(data:        { 'foo' => 'bar' },
+                             private_key: test_private_key)
+
+    jws   = token.to_jws
+    jws_s = token.to_jws_s
+
+    expect(jws.to_h).to eql({'foo' => 'bar'})
+    expect(jws_s).to    eql('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJmb28iOiJiYXIifQ.DhPBu9Bfha08hSoy1a8Ps5YGxv2_KJCoNALH8dzd8b_VgKCPRQlIaHZwQfS5N1yfZczc2EqXIhPma4I2i-L92oDxyugZYfhMH6XUXSgB6F7SU5WtiglQ8gfgxC_u_K5htD_6zpRaHi6UTNbG8NF3RFBYK9za4GFPPWQawRQpdH2CxjyZP6pilmkynLuKx0OeQbJf1yzdgn1cDt60M8uoZZTzPgoU598ilDjYEETwyGyCi79S3A3ix8oDaJLhM8stPOHLUeglKrkwxOFglzVs7bULjzxZlygZujsHfWu16cjp_P3b4TIH_hiH0-Cjin-EVt4va2TnfGJ8HDxHxzWn7g')
+
+    converted_token = JsonWebToken.from_jws(jws_s,
+                                            private_key: test_private_key)
+
+    expect(converted_token.to_h).to eql [
+      {'foo' => 'bar'},
+      {"typ"=>"JWT", "alg"=>"RS256"}
+    ]
+  end
+
+  it 'can transform into a JWE and back' do
+    token = JsonWebToken.new(data:        { 'foo' => 'bar' },
+                             private_key: test_private_key)
+
+    jwe   = token.to_jwe
+    jwe_s = token.to_jwe_s
+
+    expect(jwe.plain_text).to eql('eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJmb28iOiJiYXIifQ.DhPBu9Bfha08hSoy1a8Ps5YGxv2_KJCoNALH8dzd8b_VgKCPRQlIaHZwQfS5N1yfZczc2EqXIhPma4I2i-L92oDxyugZYfhMH6XUXSgB6F7SU5WtiglQ8gfgxC_u_K5htD_6zpRaHi6UTNbG8NF3RFBYK9za4GFPPWQawRQpdH2CxjyZP6pilmkynLuKx0OeQbJf1yzdgn1cDt60M8uoZZTzPgoU598ilDjYEETwyGyCi79S3A3ix8oDaJLhM8stPOHLUeglKrkwxOFglzVs7bULjzxZlygZujsHfWu16cjp_P3b4TIH_hiH0-Cjin-EVt4va2TnfGJ8HDxHxzWn7g')
+
+    converted_token = JsonWebToken.from_jwe(jwe_s,
+                                            private_key: test_private_key)
+
+    expect(converted_token.to_h).to eql [
+      {'foo' => 'bar'},
+      {"typ"=>"JWT", "alg"=>"RS256"}
+    ]
+  end
 end
 end
 end

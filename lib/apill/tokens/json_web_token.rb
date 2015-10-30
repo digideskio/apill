@@ -24,10 +24,14 @@ class   JsonWebToken
     OpenSSL::PKey::RSAError,
   ]
 
-  attr_accessor :data
+  attr_accessor :data,
+                :private_key
 
-  def initialize(data:)
-    self.data = data
+  def initialize(data:,
+                 private_key: Apill.configuration.token_private_key)
+
+    self.data        = data
+    self.private_key = private_key
   end
 
   def valid?
@@ -40,6 +44,30 @@ class   JsonWebToken
 
   def to_h
     data
+  end
+
+  def to_jwt
+    @jwt ||= JSON::JWT.new(data)
+  end
+
+  def to_jwt_s
+    @jwt_s ||= to_jwt.to_s
+  end
+
+  def to_jws
+    @jws ||= to_jwt.sign(private_key,    'RS256')
+  end
+
+  def to_jws_s
+    @jws_s ||= to_jws.to_s
+  end
+
+  def to_jwe
+    @jwe ||= to_jws.encrypt(private_key, 'RSA-OAEP', 'A256GCM')
+  end
+
+  def to_jwe_s
+    @jwe_s ||= to_jwe.to_s
   end
 
   def self.from_jwe(encrypted_token,
@@ -72,7 +100,8 @@ class   JsonWebToken
                        leeway:            5,
                      )
 
-    new(data: data)
+    new(data:        data,
+        private_key: private_key)
   rescue *TRANSFORMATION_EXCEPTIONS
     JsonWebTokens::Invalid.instance
   end
