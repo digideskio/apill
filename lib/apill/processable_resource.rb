@@ -4,14 +4,14 @@ module  Apill
 module  ProcessableResource
   module ClassMethods
     def plural_resource_name
-      name[/(\w+)Controller\z/, 1].
+      name[/\A((.*?::)?.*?)(\w+)Controller\z/, 3].
       underscore.
       pluralize.
       downcase
     end
 
     def singular_resource_name
-      name[/(\w+)Controller\z/, 1].
+      name[/\A((.*?::)?.*?)(\w+)Controller\z/, 3].
       underscore.
       singularize.
       downcase
