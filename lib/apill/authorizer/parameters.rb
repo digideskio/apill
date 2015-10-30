@@ -14,6 +14,10 @@ class   Parameters
       self.public_send("#{name}=", value)
     end
   end
+
+  def call
+    params
+  end
 end
 end
 end
