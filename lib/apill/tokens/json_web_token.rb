@@ -27,9 +27,37 @@ class   JsonWebToken
   def self.from_jwe(encrypted_token, token_private_key: Apill.configuration.token_private_key)
     return JsonWebTokens::Null.instance if encrypted_token.to_s == ''
 
-    decrypted_token = JSON::JWT.decode(encrypted_token, token_private_key).plain_text
-    decoded_token   = JWT.decode(decrypted_token,
-                                 token_private_key,
+    decrypted_token = JSON::JWT.
+                        decode(encrypted_token, token_private_key).
+                        plain_text
+
+    from_jws(decrypted_token, private_key: token_private_key)
+  rescue JSON::JWT::Exception,
+         JSON::JWT::InvalidFormat,
+         JSON::JWT::VerificationFailed,
+         JSON::JWT::UnexpectedAlgorithm,
+         JWT::DecodeError,
+         JWT::VerificationError,
+         JWT::ExpiredSignature,
+         JWT::IncorrectAlgorithm,
+         JWT::ImmatureSignature,
+         JWT::InvalidIssuerError,
+         JWT::InvalidIatError,
+         JWT::InvalidAudError,
+         JWT::InvalidSubError,
+         JWT::InvalidJtiError,
+         OpenSSL::PKey::RSAError
+
+    JsonWebTokens::Invalid.instance
+  end
+
+  def self.from_jws(signed_token,
+                    private_key: Apill.configuration.token_private_key)
+
+    return JsonWebTokens::Null.instance if signed_token.to_s == ''
+
+    decoded_token   = JWT.decode(signed_token,
+                                 private_key,
                                  true,
                                  algorithm:         'RS256',
                                  verify_expiration: true,
