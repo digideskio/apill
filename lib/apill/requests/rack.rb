@@ -14,7 +14,7 @@ class   Rack < Base
   def authorization_token_from_params
     case request['QUERY_STRING']
     when JSON_WEB_TOKEN_PARAM_PATTERN
-      Tokens::JsonWebToken.convert(
+      Tokens::JsonWebToken.from_jwe(
         token_private_key: token_private_key,
         raw_token:         request['QUERY_STRING'][JSON_WEB_TOKEN_PARAM_PATTERN, 1] || '',
       )
