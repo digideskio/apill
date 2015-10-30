@@ -24,10 +24,10 @@ class   JsonWebToken
     data
   end
 
-  def self.from_jwe(raw_token:, token_private_key: Apill.configuration.token_private_key)
-    return JsonWebTokens::Null.instance if raw_token.to_s == ''
+  def self.from_jwe(encrypted_token:, token_private_key: Apill.configuration.token_private_key)
+    return JsonWebTokens::Null.instance if encrypted_token.to_s == ''
 
-    decrypted_token = JSON::JWT.decode(raw_token, token_private_key).plain_text
+    decrypted_token = JSON::JWT.decode(encrypted_token, token_private_key).plain_text
     decoded_token   = JWT.decode(decrypted_token,
                                  token_private_key,
                                  true,

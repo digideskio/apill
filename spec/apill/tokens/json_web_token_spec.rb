@@ -6,14 +6,14 @@ module    Tokens
 describe  JsonWebToken do
   it 'can convert an empty token' do
     token = JsonWebToken.from_jwe(token_private_key: test_private_key,
-                                 raw_token:         nil)
+                                 encrypted_token:         nil)
 
     expect(token).to be_a JsonWebTokens::Null
   end
 
   it 'can convert an invalid token' do
     token = JsonWebToken.from_jwe(token_private_key: test_private_key,
-                                 raw_token:         invalid_jwt_token)
+                                 encrypted_token:         invalid_jwt_token)
 
     expect(token).to be_a JsonWebTokens::Invalid
   end
@@ -23,7 +23,7 @@ describe  JsonWebToken do
                                   'baz' => 'bar')
     token       = JsonWebToken.from_jwe(
                     token_private_key: test_private_key,
-                    raw_token:         expired_jwe)
+                    encrypted_token:         expired_jwe)
 
     expect(token).to be_a JsonWebTokens::Invalid
   end
@@ -32,14 +32,14 @@ describe  JsonWebToken do
     other_private_key = OpenSSL::PKey::RSA.new(2048)
     token             = JsonWebToken.from_jwe(
                           token_private_key: other_private_key,
-                          raw_token:         valid_jwt_token)
+                          encrypted_token:         valid_jwt_token)
 
     expect(token).to be_a JsonWebTokens::Invalid
   end
 
   it 'can convert a valid token' do
     token = JsonWebToken.from_jwe(token_private_key: test_private_key,
-                                 raw_token:         valid_jwt_token)
+                                 encrypted_token:         valid_jwt_token)
 
     expect(token).to      be_a JsonWebToken
     expect(token.to_h).to eql([{ 'bar' => 'baz' }, { 'typ' => 'JWT', 'alg' => 'RS256' }])

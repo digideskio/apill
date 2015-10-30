@@ -94,7 +94,7 @@ class   Base
     when JSON_WEB_TOKEN_HEADER_PATTERN
       Tokens::JsonWebToken.from_jwe(
         token_private_key: token_private_key,
-        raw_token:         raw_authorization_header[JSON_WEB_TOKEN_HEADER_PATTERN, 1])
+        encrypted_token:   raw_authorization_header[JSON_WEB_TOKEN_HEADER_PATTERN, 1])
     when BASE64_TOKEN_HEADER_PATTERN
       Tokens::Base64.convert(
         raw_token: raw_authorization_header[BASE64_TOKEN_HEADER_PATTERN, 1])
