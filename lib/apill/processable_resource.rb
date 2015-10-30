@@ -1,25 +1,10 @@
 require 'apill/resource/model'
+require 'apill/resource/naming'
 
 module  Apill
 module  ProcessableResource
-  module ClassMethods
-    def plural_resource_name
-      name[/\A((.*?::)?.*?)(\w+)Controller\z/, 3].
-      underscore.
-      pluralize.
-      downcase
-    end
-
-    def singular_resource_name
-      name[/\A((.*?::)?.*?)(\w+)Controller\z/, 3].
-      underscore.
-      singularize.
-      downcase
-    end
-  end
-
   def self.included(base)
-    base.extend  ClassMethods
+    base.include Resource::Naming
   end
 
   private
