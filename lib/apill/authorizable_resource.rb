@@ -2,7 +2,7 @@ require 'apill/resource/naming'
 
 module  Apill
 module  AuthorizableResource
-  NON_SPECIFIC_RESOURCE_ACTIONS = %w{index}
+  NON_SPECIFIC_RESOURCE_ACTIONS = %w{index}.freeze
 
   module ClassMethods
     def authorizer_prefix
@@ -69,7 +69,7 @@ module  AuthorizableResource
   end
 
   def authorized_user_field_name
-    authorized_user_underscored_class_name + "_id"
+    authorized_user_underscored_class_name + '_id'
   end
 
   def requested_user_id

@@ -13,7 +13,7 @@ class   Scope
     self.scope_root        = scope_root
 
     other.each do |name, value|
-      self.public_send("#{name}=", value)
+      public_send("#{name}=", value)
     end
   end
 

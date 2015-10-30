@@ -11,7 +11,7 @@ class   Parameters
     self.params = params
 
     other.each do |name, value|
-      self.public_send("#{name}=", value)
+      public_send("#{name}=", value)
     end
   end
 
