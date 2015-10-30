@@ -1,6 +1,21 @@
 module  Apill
 module  Authorizer
 class   Scope
+  attr_accessor :token,
+                :user,
+                :requested_user_id,
+                :scope_root
+
+  def initialize(token:, user:, requested_user_id:, scope_root:, **other)
+    self.token             = token
+    self.user              = user
+    self.requested_user_id = requested_user_id
+    self.scope_root        = scope_root
+
+    other.each do |name, value|
+      self.public_send("#{name}=", value)
+    end
+  end
 end
 end
 end
