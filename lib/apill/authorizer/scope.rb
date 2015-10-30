@@ -16,6 +16,10 @@ class   Scope
       self.public_send("#{name}=", value)
     end
   end
+
+  def call
+    scope_root.none
+  end
 end
 end
 end
