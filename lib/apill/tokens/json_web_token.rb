@@ -22,7 +22,7 @@ class   JsonWebToken
     JWT::InvalidSubError,
     JWT::InvalidJtiError,
     OpenSSL::PKey::RSAError,
-  ]
+  ].freeze
 
   attr_accessor :data,
                 :private_key
@@ -98,7 +98,7 @@ class   JsonWebToken
                        verify_not_before: true,
                        verify_iat:        true,
                        leeway:            5,
-                     )
+    )
 
     new(data:        data,
         private_key: private_key)
