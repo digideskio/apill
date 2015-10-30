@@ -5,18 +5,31 @@ def test_private_key
   OpenSSL::PKey::RSA.new File.read(File.expand_path('../fixtures/test_rsa_key', __dir__))
 end
 
-def valid_jwe_token(payload = { 'bar' => 'baz' })
-  @valid_token ||= begin
-                     jwt = JSON::JWT.new(payload)
-                     jws = jwt.sign(test_private_key, :RS256)
-                     jwe = jws.encrypt(test_private_key, :'RSA-OAEP', :A256GCM)
+def valid_jws_token(payload = { 'bar' => 'baz' })
+  @valid_jws_token ||= begin
+                         jwt = JSON::JWT.new(payload)
+                         jws = jwt.sign(test_private_key, :RS256)
 
-                     jwe.to_s
-                   end
+                         jws.to_s
+                       end
+end
+
+def valid_jwe_token(payload = { 'bar' => 'baz' })
+  @valid_jwe_token ||= begin
+                         jwt = JSON::JWT.new(payload)
+                         jws = jwt.sign(test_private_key, :RS256)
+                         jwe = jws.encrypt(test_private_key, :'RSA-OAEP', :A256GCM)
+
+                         jwe.to_s
+                       end
+end
+
+def invalid_jws_token
+  @invalid_jws_token ||= valid_jws_token.tr('a', 'f')
 end
 
 def invalid_jwe_token
-  @invalid_token ||= valid_jwe_token.tr('a', 'f')
+  @invalid_jwe_token ||= valid_jwe_token.tr('a', 'f')
 end
 
 def valid_b64_token(payload = 'hereisacoollittlestring')
