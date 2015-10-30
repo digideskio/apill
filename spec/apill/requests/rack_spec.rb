@@ -54,7 +54,7 @@ describe  Rack do
 
   it 'finds the authorization token from the header' do
     raw_request = {
-      'HTTP_AUTHORIZATION' => "Token #{valid_jwt_token}",
+      'HTTP_AUTHORIZATION' => "Token #{valid_jwe_token}",
       'QUERY_STRING'       => '',
     }
     request     = Rack.new(token_private_key: test_private_key,
@@ -98,7 +98,7 @@ describe  Rack do
 
   it 'ignores incorrectly passed in tokens since we do not know what to do' do
     raw_request = {
-      'HTTP_AUTHORIZATION' => "#{valid_jwt_token}",
+      'HTTP_AUTHORIZATION' => "#{valid_jwe_token}",
       'QUERY_STRING'       => '',
     }
     request     = Rack.new(token_private_key: test_private_key,
@@ -112,8 +112,8 @@ describe  Rack do
      'the header is invalid and the authorization token from the params is valid' do
 
     raw_request = {
-      'HTTP_AUTHORIZATION' => "Token #{invalid_jwt_token}",
-      'QUERY_STRING'       => "token_jwt=#{valid_jwt_token}",
+      'HTTP_AUTHORIZATION' => "Token #{invalid_jwe_token}",
+      'QUERY_STRING'       => "token_jwt=#{valid_jwe_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)
@@ -130,7 +130,7 @@ describe  Rack do
      'the header is not present and the authorization token from the params is valid' do
 
     raw_request = {
-      'QUERY_STRING' => "token_jwt=#{valid_jwt_token}",
+      'QUERY_STRING' => "token_jwt=#{valid_jwe_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)
@@ -156,7 +156,7 @@ describe  Rack do
 
   it 'finds the JSON web token from the params' do
     raw_request = {
-      'QUERY_STRING' => "token_jwt=#{valid_jwt_token}",
+      'QUERY_STRING' => "token_jwt=#{valid_jwe_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)
@@ -193,7 +193,7 @@ describe  Rack do
     expect(request.authorization_token_from_params).not_to be_blank
 
     raw_request = {
-      'QUERY_STRING' => "token_jwt=#{invalid_jwt_token}",
+      'QUERY_STRING' => "token_jwt=#{invalid_jwe_token}",
     }
     request     = Rack.new(token_private_key: test_private_key,
                            request:           raw_request)

@@ -5,7 +5,7 @@ def test_private_key
   OpenSSL::PKey::RSA.new File.read(File.expand_path('../fixtures/test_rsa_key', __dir__))
 end
 
-def valid_jwt_token(payload = { 'bar' => 'baz' })
+def valid_jwe_token(payload = { 'bar' => 'baz' })
   @valid_token ||= begin
                      jwt = JSON::JWT.new(payload)
                      jws = jwt.sign(test_private_key, :RS256)
@@ -15,8 +15,8 @@ def valid_jwt_token(payload = { 'bar' => 'baz' })
                    end
 end
 
-def invalid_jwt_token
-  @invalid_token ||= valid_jwt_token.tr('a', 'f')
+def invalid_jwe_token
+  @invalid_token ||= valid_jwe_token.tr('a', 'f')
 end
 
 def valid_b64_token(payload = 'hereisacoollittlestring')

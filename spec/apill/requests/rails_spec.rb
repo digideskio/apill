@@ -45,7 +45,7 @@ describe  Rails do
   it 'finds the authorization token from the header' do
     raw_request = OpenStruct.new(
                     headers: {
-                      'HTTP_AUTHORIZATION' => "Token #{valid_jwt_token}",
+                      'HTTP_AUTHORIZATION' => "Token #{valid_jwe_token}",
                     },
                     params:  {})
     request     = Rails.new(token_private_key: test_private_key,
@@ -90,7 +90,7 @@ describe  Rails do
   it 'ignores incorrectly passed in tokens since we do not know what to do' do
     raw_request = OpenStruct.new(
                     headers: {
-                      'HTTP_AUTHORIZATION' => "#{valid_jwt_token}",
+                      'HTTP_AUTHORIZATION' => "#{valid_jwe_token}",
                     },
                     params:  {})
     request     = Rails.new(token_private_key: test_private_key,
@@ -105,9 +105,9 @@ describe  Rails do
 
     raw_request = OpenStruct.new(
                     headers: {
-                      'HTTP_AUTHORIZATION' => "Token #{invalid_jwt_token}",
+                      'HTTP_AUTHORIZATION' => "Token #{invalid_jwe_token}",
                     },
-                    params:  { 'token_jwt' => valid_jwt_token })
+                    params:  { 'token_jwt' => valid_jwe_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
@@ -124,7 +124,7 @@ describe  Rails do
 
     raw_request = OpenStruct.new(
                     headers: {},
-                    params:  { 'token_jwt' => valid_jwt_token })
+                    params:  { 'token_jwt' => valid_jwe_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
@@ -150,7 +150,7 @@ describe  Rails do
   it 'finds the JSON web token from the params' do
     raw_request = OpenStruct.new(
                     headers: {},
-                    params:  { 'token_jwt' => valid_jwt_token })
+                    params:  { 'token_jwt' => valid_jwe_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
@@ -187,7 +187,7 @@ describe  Rails do
 
     raw_request = OpenStruct.new(
                     headers: {},
-                    params:  { 'token_jwt' => invalid_jwt_token })
+                    params:  { 'token_jwt' => invalid_jwe_token })
     request     = Rails.new(token_private_key: test_private_key,
                             request:           raw_request)
 
