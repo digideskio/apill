@@ -24,7 +24,7 @@ class   JsonWebToken
     data
   end
 
-  def self.from_jwe(encrypted_token:, token_private_key: Apill.configuration.token_private_key)
+  def self.from_jwe(encrypted_token, token_private_key: Apill.configuration.token_private_key)
     return JsonWebTokens::Null.instance if encrypted_token.to_s == ''
 
     decrypted_token = JSON::JWT.decode(encrypted_token, token_private_key).plain_text
