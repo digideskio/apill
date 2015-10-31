@@ -1,8 +1,8 @@
 require 'rspectacular'
-require 'apill/authorizer/parameters'
+require 'apill/authorizers/parameters'
 
 module    Apill
-module    Authorizer
+module    Authorizers
 describe  Parameters do
   it 'defaults to nothing' do
     parameters = Parameters.new(token:  '123',

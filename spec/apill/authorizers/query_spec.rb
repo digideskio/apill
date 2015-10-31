@@ -1,8 +1,8 @@
 require 'rspectacular'
-require 'apill/authorizer/query'
+require 'apill/authorizers/query'
 
 module    Apill
-module    Authorizer
+module    Authorizers
 describe  Query do
   it 'does not authorize the resource by default' do
     authorizer = Query.new(token:    '123',

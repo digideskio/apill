@@ -1,9 +1,9 @@
 require 'rspectacular'
 require 'ostruct'
-require 'apill/authorizer/scope'
+require 'apill/authorizers/scope'
 
 module    Apill
-module    Authorizer
+module    Authorizers
 describe  Scope do
   it 'defaults to nothing' do
     scope = Scope.new(token:             '123',

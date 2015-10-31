@@ -1,5 +1,5 @@
 module  Apill
-module  Authorizer
+module  Authorizers
 class   Parameters
   attr_accessor :token,
                 :user,
