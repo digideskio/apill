@@ -123,6 +123,7 @@ module  AuthorizableResource
     new(token:             token,
         user:              authorized_user,
         requested_user_id: requested_user_id,
+        params:            authorized_params,
         scope_root:        authorized_scope_root).
     call
   end

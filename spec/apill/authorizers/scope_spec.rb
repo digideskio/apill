@@ -9,6 +9,7 @@ describe  Scope do
     scope = Scope.new(token:             '123',
                       user:              'my_user',
                       requested_user_id: '456',
+                      params:            {},
                       scope_root:        OpenStruct.new(none: []))
 
     expect(scope.call).to be_empty

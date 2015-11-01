@@ -4,12 +4,14 @@ class   Scope
   attr_accessor :token,
                 :user,
                 :requested_user_id,
+                :params,
                 :scope_root
 
-  def initialize(token:, user:, requested_user_id:, scope_root:, **other)
+  def initialize(token:, user:, requested_user_id:, params:, scope_root:, **other)
     self.token             = token
     self.user              = user
     self.requested_user_id = requested_user_id
+    self.params            = params
     self.scope_root        = scope_root
 
     other.each do |name, value|
