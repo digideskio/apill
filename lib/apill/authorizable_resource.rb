@@ -7,7 +7,7 @@ module  AuthorizableResource
 
   module ClassMethods
     def authorizer_prefix
-      name[CONTROLLER_RESOURCE_NAME_PATTERN, 2]
+      name[Resource::Naming::CONTROLLER_RESOURCE_NAME_PATTERN, 2]
     end
 
     def authorizer_class
