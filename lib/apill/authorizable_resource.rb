@@ -120,8 +120,6 @@ module  AuthorizableResource
   end
 
   def authorized_params
-    self.
-    class.
     authorizer_params_class.
     new(token:  token,
         user:   authorized_user,
