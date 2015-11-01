@@ -101,6 +101,14 @@ module  AuthorizableResource
     public_send(self.class.singular_resource_name)
   end
 
+  def authorized_collection
+    return nil unless RESOURCE_COLLECTION_ACTIONS.include?(action_name)
+
+    @authorized_collection ||= Resource::Model.
+      new(resource:   public_send(self.class.plural_resource_name),
+          parameters: authorized_params)
+  end
+
   def authorizer
     authorizer_class.
     new(token:    token,
@@ -138,12 +146,6 @@ module  AuthorizableResource
 
   def authorization_query
     "able_to_#{action_name}?"
-  end
-
-  def api_resource
-    @resource ||= Resource::Model.new(
-                    resource:   public_send(self.class.plural_resource_name),
-                    parameters: api_resource_params)
   end
 end
 end
