@@ -49,6 +49,9 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
+    rspectacular (0.70.0)
+      fuubar (~> 2.0)
+      rspec (~> 3.1)
     ruby-progressbar (1.7.5)
     securecompare (1.0.0)
     thor (0.19.1)
@@ -64,7 +67,7 @@ DEPENDENCIES
   apill!
   chamber
   rspec (~> 3.0)
-  rspectacular (~> 0.50)
+  rspectacular (~> 0.70)
 
 BUNDLED WITH
    1.10.6
