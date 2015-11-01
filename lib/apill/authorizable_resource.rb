@@ -22,10 +22,18 @@ module  AuthorizableResource
       "Apill::Authorizers::Scope".constantize
     end
 
-    def authorizer_params_class
-      "#{authorizer_prefix}Authorizers::#{resource_class_name}::Parameters".constantize
+    def authorizer_resource_params_class
+      "#{authorizer_prefix}Authorizers::#{resource_class_name}::ResourceParameters".
+      constantize
     rescue NameError
-      "Apill::Authorizers::Parameters".constantize
+      "Apill::Authorizers::Parameters::Resource".constantize
+    end
+
+    def authorizer_filtering_params_class
+      "#{authorizer_prefix}Authorizers::#{resource_class_name}::FilteringParameters".
+      constantize
+    rescue NameError
+      "Apill::Authorizers::Parameters::Filtering".constantize
     end
   end
 
@@ -59,8 +67,12 @@ module  AuthorizableResource
     self.class.authorizer_scope_class
   end
 
-  def authorizer_params_class
-    self.class.authorizer_params_class
+  def authorizer_resource_params_class
+    self.class.authorizer_resource_params_class
+  end
+
+  def authorizer_filtering_params_class
+    self.class.authorizer_filtering_params_class
   end
 
   def authorized_user
@@ -115,6 +127,15 @@ module  AuthorizableResource
         user:   authorized_user,
         params: params).
     call
+  end
+
+  def authorizer_params_class
+    @authorizer_params_class ||= \
+      if RESOURCE_COLLECTION_ACTIONS.include?(action_name)
+        authorizer_filtering_params_class
+      else
+        authorizer_resource_params_class
+      end
   end
 
   def authorization_query
