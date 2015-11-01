@@ -1,5 +1,7 @@
 require 'apill/version'
 
+require 'apill/authorizers/parameters'
+require 'apill/authorizers/parameters/filtering'
 require 'apill/configuration'
 require 'apill/matchers/accept_header'
 require 'apill/matchers/subdomain'
