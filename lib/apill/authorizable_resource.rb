@@ -3,7 +3,7 @@ require 'apill/resource/model'
 
 module  Apill
 module  AuthorizableResource
-  NON_SPECIFIC_RESOURCE_ACTIONS = %w{index}.freeze
+  RESOURCE_COLLECTION_ACTIONS = %w{index}.freeze
 
   module ClassMethods
     def authorizer_prefix
@@ -78,7 +78,7 @@ module  AuthorizableResource
   end
 
   def authorized_resource
-    return nil if NON_SPECIFIC_RESOURCE_ACTIONS.include?(action_name)
+    return nil if RESOURCE_COLLECTION_ACTIONS.include?(action_name)
 
     public_send(self.class.singular_resource_name)
   end
