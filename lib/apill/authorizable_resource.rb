@@ -12,14 +12,20 @@ module  AuthorizableResource
 
     def authorizer_class
       "#{authorizer_prefix}Authorizers::#{resource_class_name}".constantize
+    rescue NameError
+      "Apill::Authorizers::Query".constantize
     end
 
     def authorizer_scope_class
       "#{authorizer_prefix}Authorizers::#{resource_class_name}::Scope".constantize
+    rescue NameError
+      "Apill::Authorizers::Scope".constantize
     end
 
     def authorizer_params_class
       "#{authorizer_prefix}Authorizers::#{resource_class_name}::Parameters".constantize
+    rescue NameError
+      "Apill::Authorizers::Parameters".constantize
     end
   end
 
