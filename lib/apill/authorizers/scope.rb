@@ -7,7 +7,7 @@ class   Scope
                 :params,
                 :scope_root
 
-  # rubocop:disable Metics/ParameterLists
+  # rubocop:disable Metrics/ParameterLists
   def initialize(token:, user:, params:, scoped_user_id:, scope_root:, **other)
     self.token          = token
     self.user           = user
@@ -19,7 +19,7 @@ class   Scope
       public_send("#{name}=", value)
     end
   end
-  # rubocop:enable Metics/ParameterLists
+  # rubocop:enable Metrics/ParameterLists
 
   def call
     scope_root.none
