@@ -22,6 +22,7 @@ class   JsonWebToken
     JWT::InvalidSubError,
     JWT::InvalidJtiError,
     OpenSSL::PKey::RSAError,
+    OpenSSL::Cipher::CipherError,
   ].freeze
 
   attr_accessor :data,
