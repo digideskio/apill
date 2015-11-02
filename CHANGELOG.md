@@ -1,3 +1,54 @@
+Version v4.2.0 - November 1, 2015
+================================================================================
+
+Changed
+--------------------------------------------------------------------------------
+  * requested_user_id to handle if an ID was passed as empty string
+  * from passing requested_user_id to params
+  * Renamed api_resource to authorized_collection
+  * AuthorizableResource to know the difference between parameters
+  * AuthorizedResource constantization to default to apill
+  * Rename NON_SPECIFIC_RESOURCE_ACTIONS
+  * Rename Authorizer module to Authorizers
+  * JsonWebToken to extract common errors into a constant
+  * Rename raw_token parameter to encrypted_token
+  * Rename JsonWebToken.convert to .from_jwe
+  * Rename token param to data
+  * Regex to grab the controller resource to something more robust
+  * Authorizer::Scope to default to returning an empty list
+  * Authorizer::Parameters to return params passed in by default
+  * Move human_error includes before apill includes in Resource
+  * ProcessableResource to privatize methods
+
+Removed
+--------------------------------------------------------------------------------
+  * Methods from AuthorizableResource moved to Filtering param
+  * ProcessableResource and move into AuthorizableResource
+  * encrypted_token parameter
+
+Fixed
+--------------------------------------------------------------------------------
+  * AuthorizableResource#authorized_params to call the proper method
+  * Reference to constant
+  * Add missing requires
+
+Added
+--------------------------------------------------------------------------------
+  * Authorizers::Parameters::Resource
+  * parameter processing to Authorizers::Parameters::Filtering
+  * Parameters::Filtering
+  * Methods to JsonWebToken for converting into JWT formats
+  * JsonWebToken.from_jws
+  * AuthorizableResource
+  * extracted out a Resource::Naming module
+  * token, user, requested_user_id, scope_root to Authorizer::Scope
+  * Authorizer::Scope
+  * token, user and params to Authorizer::Parameter
+  * Authorizer::Parameters
+  * Default queries to Authorizer::Query
+  * token, user and resource to Authorizer::Query
+  * Authorizer::Query
+
 Version v4.1.0 - October 22, 2015
 ================================================================================
 
@@ -369,7 +420,9 @@ Version v2.0.1 - November 5, 2014
 Bugfix
 --------------------------------------------------------------------------------
   * Add missing require statements
-  * Fix references from API_APPLICATION to API_APPLICATION_NAME
+
+Version v2.0.0 - November 5, 2014
+================================================================================
 
 Feature
 --------------------------------------------------------------------------------
@@ -382,6 +435,10 @@ Feature
   * Added InvalidSubdomainError
   * Update subdomain matcher to work with Rack instead of Rails
   * Convert to CircleCI
+
+Bugfix
+--------------------------------------------------------------------------------
+  * Fix references from API_APPLICATION to API_APPLICATION_NAME
 
 Version v1.6.0 - June 28, 2014
 ================================================================================
