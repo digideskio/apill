@@ -23,11 +23,11 @@ describe  Filtering do
 
   it 'can authorize parameters if they come in as arrays', verify: false do
     params        = {
-                      filter: {
-                        name: 'Bill',
-                        ary:  %w{hello},
-                      }
-                    }
+      filter: {
+        name: 'Bill',
+        ary:  %w{hello},
+      },
+    }
     filter_params = Filtering.new(token:  '1234',
                                   user:   '1234',
                                   params: params)
@@ -61,7 +61,7 @@ describe  Filtering do
                            },
                            filter: [
                              :query,
-                             {}
+                             {},
                            ])
   end
 end

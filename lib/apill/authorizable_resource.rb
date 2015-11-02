@@ -7,33 +7,46 @@ module  AuthorizableResource
 
   module ClassMethods
     def authorizer_prefix
-      name[Resource::Naming::CONTROLLER_RESOURCE_NAME_PATTERN, 2]
+      @authorizer_prefix ||= name[Resource::Naming::CONTROLLER_RESOURCE_NAME_PATTERN, 2]
     end
 
     def authorizer_class
-      "#{authorizer_prefix}Authorizers::#{resource_class_name}".constantize
+      @authorizer_class ||= "#{authorizer_prefix}" \
+                            'Authorizers::' \
+                            "#{resource_class_name}".
+                            constantize
     rescue NameError
-      "Apill::Authorizers::Query".constantize
+      'Apill::Authorizers::Query'.constantize
     end
 
     def authorizer_scope_class
-      "#{authorizer_prefix}Authorizers::#{resource_class_name}::Scope".constantize
+      @authorizer_scope_class ||= "#{authorizer_prefix}" \
+                                  'Authorizers::' \
+                                  "#{resource_class_name}" \
+                                  '::Scope'.
+                                  constantize
     rescue NameError
-      "Apill::Authorizers::Scope".constantize
+      'Apill::Authorizers::Scope'.constantize
     end
 
     def authorizer_resource_params_class
-      "#{authorizer_prefix}Authorizers::#{resource_class_name}::ResourceParameters".
-      constantize
+      @authorizer_resource_params_class ||= "#{authorizer_prefix}" \
+                                            'Authorizers::' \
+                                            "#{resource_class_name}" \
+                                            '::ResourceParameters'.
+                                            constantize
     rescue NameError
-      "Apill::Authorizers::Parameters::Resource".constantize
+      'Apill::Authorizers::Parameters::Resource'.constantize
     end
 
     def authorizer_filtering_params_class
-      "#{authorizer_prefix}Authorizers::#{resource_class_name}::FilteringParameters".
-      constantize
+      @authorizer_filtering_params_class ||= "#{authorizer_prefix}" \
+                                             'Authorizers::' \
+                                             "#{resource_class_name}::" \
+                                             'FilteringParameters'.
+                                             constantize
     rescue NameError
-      "Apill::Authorizers::Parameters::Filtering".constantize
+      'Apill::Authorizers::Parameters::Filtering'.constantize
     end
   end
 
@@ -55,57 +68,39 @@ module  AuthorizableResource
     ) unless authorizer.public_send(authorization_query)
   end
 
-  def authorizer_class
-    self.class.authorizer_class
+  def authorizer
+    @authorizer ||= self.
+                    class.
+                    authorizer_class.
+                    new(token:    token,
+                        user:     authorized_user,
+                        resource: authorized_resource)
   end
 
-  def authorized_scope_root
-    "#{self.class.authorizer_prefix}#{self.class.resource_class_name}".constantize
+  def authorized_scope
+    @authorized_scope ||= self.
+                          class.
+                          authorizer_scope_class.
+                          new(token:          token,
+                              user:           authorized_user,
+                              scoped_user_id: scoped_user_id,
+                              params:         authorized_params,
+                              scope_root:     authorized_scope_root).
+                          call
   end
 
-  def authorizer_scope_class
-    self.class.authorizer_scope_class
-  end
-
-  def authorizer_resource_params_class
-    self.class.authorizer_resource_params_class
-  end
-
-  def authorizer_filtering_params_class
-    self.class.authorizer_filtering_params_class
-  end
-
-  def authorized_user
-    current_user
-  end
-
-  def authorized_user_underscored_class_name
-    authorized_user.
-    class.
-    name[/([^:])\z/, 1].
-    underscore.
-    downcase
-  end
-
-  def requested_user_id
-    @requested_user_id ||= if requested_user_id_from_params.blank?
-                             nil
-                           else
-                             requested_user_id_from_params
-                           end
-  end
-
-  def requested_user_id_from_params
-    @requested_user_id_from_params ||= params.
-                                       fetch(:filter, {}).
-                                       fetch(authorized_user_underscored_class_name,
-                                             authorized_user.id)
+  def authorized_params
+    @authorized_params ||= authorizer_params_class.
+                           new(token:  token,
+                               user:   authorized_user,
+                               params: params).
+                           call
   end
 
   def authorized_resource
     return nil if RESOURCE_COLLECTION_ACTIONS.include?(action_name)
 
-    public_send(self.class.singular_resource_name)
+    @authorized_resource ||= public_send(self.class.singular_resource_name)
   end
 
   def authorized_collection
@@ -116,44 +111,50 @@ module  AuthorizableResource
           parameters: authorized_params)
   end
 
-  def authorizer
-    authorizer_class.
-    new(token:    token,
-        user:     authorized_user,
-        resource: authorized_resource)
-  end
-
-  def authorized_scope
-    self.
-    class.
-    authorizer_scope_class.
-    new(token:             token,
-        user:              authorized_user,
-        requested_user_id: requested_user_id,
-        params:            authorized_params,
-        scope_root:        authorized_scope_root).
-    call
-  end
-
-  def authorized_params
-    authorizer_params_class.
-    new(token:  token,
-        user:   authorized_user,
-        params: params).
-    call
-  end
-
   def authorizer_params_class
     @authorizer_params_class ||= \
       if RESOURCE_COLLECTION_ACTIONS.include?(action_name)
-        authorizer_filtering_params_class
+        self.class.authorizer_filtering_params_class
       else
-        authorizer_resource_params_class
+        self.class.authorizer_resource_params_class
       end
   end
 
+  def authorized_scope_root
+    @authorized_scope_root ||= "#{self.class.authorizer_prefix}" \
+                               "#{self.class.resource_class_name}".
+                               constantize
+  end
+
+  def scoped_user_id
+    @scoped_user_id ||= if requested_user_id.blank?
+                          nil
+                        else
+                          requested_user_id
+                        end
+  end
+
+  def requested_user_id
+    @requested_user_id ||= params.
+                           fetch(:filter, {}).
+                           fetch(authorized_user_underscored_class_name,
+                                 authorized_user.id)
+  end
+
+  def authorized_user
+    current_user
+  end
+
+  def authorized_user_underscored_class_name
+    @authorized_user_underscored_class_name ||= authorized_user.
+                                                class.
+                                                name[/([^:]+)\z/, 1].
+                                                underscore.
+                                                downcase
+  end
+
   def authorization_query
-    "able_to_#{action_name}?"
+    @authorization_query ||= "able_to_#{action_name}?"
   end
 end
 end

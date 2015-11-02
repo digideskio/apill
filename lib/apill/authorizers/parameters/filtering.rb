@@ -22,7 +22,7 @@ class   Filtering < Authorizers::Parameters
       },
       filter: [
         :query,
-        {}
+        {},
       ],
     ]
   end

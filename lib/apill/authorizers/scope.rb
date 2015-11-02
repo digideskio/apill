@@ -3,21 +3,23 @@ module  Authorizers
 class   Scope
   attr_accessor :token,
                 :user,
-                :requested_user_id,
+                :scoped_user_id,
                 :params,
                 :scope_root
 
-  def initialize(token:, user:, requested_user_id:, params:, scope_root:, **other)
-    self.token             = token
-    self.user              = user
-    self.requested_user_id = requested_user_id
-    self.params            = params
-    self.scope_root        = scope_root
+  # rubocop:disable Metics/ParameterLists
+  def initialize(token:, user:, params:, scoped_user_id:, scope_root:, **other)
+    self.token          = token
+    self.user           = user
+    self.params         = params
+    self.scoped_user_id = scoped_user_id
+    self.scope_root     = scope_root
 
     other.each do |name, value|
       public_send("#{name}=", value)
     end
   end
+  # rubocop:enable Metics/ParameterLists
 
   def call
     scope_root.none
