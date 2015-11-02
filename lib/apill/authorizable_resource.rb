@@ -87,12 +87,19 @@ module  AuthorizableResource
     downcase
   end
 
-  def authorized_user_field_name
-    authorized_user_underscored_class_name + '_id'
+  def requested_user_id
+    @requested_user_id ||= if requested_user_id_from_params.blank?
+                             nil
+                           else
+                             requested_user_id_from_params
+                           end
   end
 
-  def requested_user_id
-    params.fetch(authorized_user_field_name, authorized_user.id)
+  def requested_user_id_from_params
+    @requested_user_id_from_params ||= params.
+                                       fetch(:filter, {}).
+                                       fetch(authorized_user_underscored_class_name,
+                                             authorized_user.id)
   end
 
   def authorized_resource
