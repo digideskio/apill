@@ -18,10 +18,10 @@ Gem::Specification.new do |spec|
   spec.files         = Dir['{app,config,db,lib}/**/*'] + %w{Rakefile README.md LICENSE}
   spec.test_files    = Dir['{test,spec,features}/**/*']
 
-  spec.add_dependency             'human_error',                ["~> 3.0"]
+  spec.add_dependency             'human_error',                ["~> 3.2"]
   spec.add_dependency             'json-jwt',                   ["~> 1.5"]
   spec.add_dependency             'jwt',                        ["~> 1.5"]
 
   spec.add_development_dependency 'rspec',                      ["~> 3.0"]
-  spec.add_development_dependency 'rspectacular',               ["~> 0.50"]
+  spec.add_development_dependency 'rspectacular',               ["~> 0.70"]
 end

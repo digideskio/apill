@@ -132,7 +132,7 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     request = {
       'HTTP_HOST'          => 'api.example.com',
       'HTTP_ACCEPT'        => 'application/vnd.matrix+zion;version=1.0.0',
-      'HTTP_AUTHORIZATION' => "Token #{valid_jwt_token}",
+      'HTTP_AUTHORIZATION' => "Token #{valid_jwe_token}",
       'QUERY_STRING'       => 'accept=application/vnd.matrix+zion;version=1.0.0',
     }
 
@@ -150,7 +150,7 @@ describe  ApiRequest, singletons: HumanError::Configuration do
     request = {
       'HTTP_HOST'          => 'api.example.com',
       'HTTP_ACCEPT'        => 'application/vnd.matrix+zion;version=1.0.0',
-      'HTTP_AUTHORIZATION' => "Token #{invalid_jwt_token}",
+      'HTTP_AUTHORIZATION' => "Token #{invalid_jwe_token}",
       'QUERY_STRING'       => 'accept=application/vnd.matrix+zion;version=1.0.0',
     }
 

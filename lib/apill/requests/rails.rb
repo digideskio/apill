@@ -10,9 +10,9 @@ class   Rails < Base
   def authorization_token_from_params
     case
     when request.params.key?(JSON_WEB_TOKEN_PARAM_NAME)
-      Tokens::JsonWebToken.convert(
-        token_private_key: token_private_key,
-        raw_token:         request.params[JSON_WEB_TOKEN_PARAM_NAME] || '')
+      Tokens::JsonWebToken.from_jwe(
+        request.params[JSON_WEB_TOKEN_PARAM_NAME] || '',
+        private_key: token_private_key)
     when request.params.key?(BASE64_TOKEN_PARAM_NAME)
       Tokens::Base64.convert(raw_token: request.params[BASE64_TOKEN_PARAM_NAME] || '')
     else

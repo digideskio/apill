@@ -92,9 +92,9 @@ class   Base
   def authorization_token_from_header
     case raw_authorization_header
     when JSON_WEB_TOKEN_HEADER_PATTERN
-      Tokens::JsonWebToken.convert(
-        token_private_key: token_private_key,
-        raw_token:         raw_authorization_header[JSON_WEB_TOKEN_HEADER_PATTERN, 1])
+      Tokens::JsonWebToken.from_jwe(
+        raw_authorization_header[JSON_WEB_TOKEN_HEADER_PATTERN, 1],
+        private_key: token_private_key)
     when BASE64_TOKEN_HEADER_PATTERN
       Tokens::Base64.convert(
         raw_token: raw_authorization_header[BASE64_TOKEN_HEADER_PATTERN, 1])

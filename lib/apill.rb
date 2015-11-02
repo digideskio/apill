@@ -1,5 +1,10 @@
 require 'apill/version'
 
+require 'apill/authorizers/parameters'
+require 'apill/authorizers/parameters/filtering'
+require 'apill/authorizers/parameters/resource'
+require 'apill/authorizers/query'
+require 'apill/authorizers/scope'
 require 'apill/configuration'
 require 'apill/matchers/accept_header'
 require 'apill/matchers/subdomain'
